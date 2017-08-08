@@ -25,6 +25,7 @@ Plugin 'kien/ctrlp.vim'
 
 " Appearances
 Plugin 'jnurmine/Zenburn'
+Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'nathanaelkane/vim-indent-guides'
 
 " Git
@@ -90,9 +91,8 @@ set hlsearch
 set number
 set encoding=utf-8
 set fileencoding=utf-8
-set listchars=tab:▸\
+set listchars=tab:▸\ ,
 "set listchars=tab:▸\ ,eol:¬
-"set listchars=tab:\|\ 
 set list
 " :vs and :sp direction option
 set splitright
@@ -110,8 +110,7 @@ match OverLength /\%81v.\+/
 
 " Colors
 if has('gui_running')
-	set background=dark
-	colorscheme evening
+	colorscheme tomorrow-night-bright
 else
 	colorscheme zenburn
 endif
