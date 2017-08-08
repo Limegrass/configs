@@ -1,0 +1,158 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$HOME/vimfiles/bundle/Vundle.vim
+call vundle#begin('$HOME/vimfiles/bundle/')
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" Required
+Plugin 'VundleVim/Vundle.vim'
+
+" Editing
+Plugin 'tpope/vim-surround'
+Plugin 'majutsushi/tagbar'
+
+" Syntax
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+
+" File navigation
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim'
+
+" Appearances
+Plugin 'jnurmine/Zenburn'
+Plugin 'nathanaelkane/vim-indent-guides'
+
+" Git
+Plugin 'tpope/vim-fugitive'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+
+
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
+endfunction
+
+" Default Location
+cd G:/Vim_Files
+
+" General Settings
+set ruler
+set incsearch
+set hlsearch
+set number
+set encoding=utf-8
+set fileencoding=utf-8
+set listchars=tab:▸\
+"set listchars=tab:▸\ ,eol:¬
+"set listchars=tab:\|\ 
+set list
+" :vs and :sp direction option
+set splitright
+set splitbelow
+" Enable code bracket folding
+set foldmethod=indent
+set foldlevel=99
+" Prevent change to Hiragana
+set iminsert=0 
+set imsearch=-1 
+
+" Character limit highlighting
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+" Colors
+if has('gui_running')
+	set background=dark
+	colorscheme evening
+else
+	colorscheme zenburn
+endif
+
+" Indent Settings
+set smartindent
+set autoindent
+set history=100
+" Tab-sizing is 4
+set tabstop=4
+" Indenting with Tab is 4 
+set shiftwidth=4
+" Turn tabs into spaces
+"set expandtab
+"set softtabstop=4
+
+" Keybindings and remaps
+let @j='oSystem.out.println()'
+let @o='a << cout << '
+nnoremap <leader>v :edit $MYVIMRC<CR>
+nnoremap <leader>V :tabnew $MYVIMRC<CR>
+" Switch between splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" Fold in normal mode with space
+nnoremap <space> za
+" YouCompleteMe, Leader+g finds variable definition
+nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <F5> :NERDTreeToggle<CR>
+" Force verticle splits
+cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('vert help'):('help'))
+cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert help'):('h'))
+
+" Plugin Settings
+" YouCompletMe settings. leader+g goes to definition
+let g:ycm_autoclose_preview_window_after_completion=1
+" NerdTree Settings
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
+let g:NERDTreeHijackNetrw=0
+let g:nerdtree_tabs_open_on_gui_startup=0
+" Indent Guides enabled by default
+let g:indent_guides_enable_on_vim_startup = 1
