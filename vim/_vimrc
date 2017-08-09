@@ -28,6 +28,7 @@ Plugin 'jnurmine/Zenburn'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'nathanaelkane/vim-indent-guides'
 
+
 " Git
 Plugin 'tpope/vim-fugitive'
 
@@ -104,13 +105,18 @@ set foldlevel=99
 set iminsert=0 
 set imsearch=-1 
 
+" Font settings
+if has('gui_running')
+	set guifont=Consolas:h12:cANSI:qDRAFT
+endif	
+
 " Character limit highlighting
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
 " Colors
 if has('gui_running')
-	colorscheme tomorrow-night-bright
+	colorscheme corporation
 else
 	colorscheme zenburn
 endif
@@ -128,8 +134,6 @@ set shiftwidth=4
 "set softtabstop=4
 
 " Keybindings and remaps
-let @j='oSystem.out.println()'
-let @o='a << cout << '
 nnoremap <leader>v :edit $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
 " Switch between splits
@@ -137,6 +141,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" Switch between tabs
+nnoremap <leader>[ :tabp<CR>
+nnoremap <leader>] :tabn<CR>
 " Fold in normal mode with space
 nnoremap <space> za
 " YouCompleteMe, Leader+g finds variable definition
