@@ -13,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Editing
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
+Plugin 'terryma/vim-multiple-cursors'
 
 " Syntax
 Plugin 'Valloric/YouCompleteMe'
@@ -116,7 +117,7 @@ match OverLength /\%81v.\+/
 
 " Colors
 if has('gui_running')
-	colorscheme corporation
+	colorscheme corporation "Obtain corporation from vivfy
 else
 	colorscheme zenburn
 endif
@@ -132,10 +133,12 @@ set shiftwidth=4
 " Turn tabs into spaces
 "set expandtab
 "set softtabstop=4
+set selection=inclusive
 
 " Keybindings and remaps
 nnoremap <leader>v :edit $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
+nnoremap <leader>h :nohl<CR>
 " Switch between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
