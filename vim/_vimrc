@@ -16,8 +16,12 @@ Plugin 'majutsushi/tagbar'
 Plugin 'terryma/vim-multiple-cursors'
 
 " Syntax
+"Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Shougo/neosnippet'
+"Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
+"Plugin 'scrooloose/syntastic'
 
 " File navigation
 Plugin 'scrooloose/nerdtree'
@@ -26,9 +30,10 @@ Plugin 'kien/ctrlp.vim'
 
 " Appearances
 Plugin 'jnurmine/Zenburn'
+Plugin 'bling/vim-airline'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'nathanaelkane/vim-indent-guides'
-
+Plugin 'vim-airline/vim-airline-themes'
 
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -83,6 +88,14 @@ function MyDiff()
   endif
 endfunction
 
+function ExpandTabToggle()
+    if &expandtab
+        set expandtab!
+    else
+        set expandtab
+    endif
+endfunction
+
 " Default Location
 cd G:/Vim_Files
 
@@ -91,6 +104,7 @@ set ruler
 set incsearch
 set hlsearch
 set number
+set guioptions=c
 set encoding=utf-8
 set fileencoding=utf-8
 set listchars=tab:▸\ ,
@@ -112,8 +126,9 @@ if has('gui_running')
 endif	
 
 " Character limit highlighting
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+call matchadd('ColorColumn', '\%81v.', 100)
 
 " Colors
 if has('gui_running')
@@ -132,13 +147,16 @@ set tabstop=4
 set shiftwidth=4
 " Turn tabs into spaces
 "set expandtab
-"set softtabstop=4
+set softtabstop=4
 set selection=inclusive
+" Initial size
+set lines=50 columns=200
 
 " Keybindings and remaps
 nnoremap <leader>v :edit $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
 nnoremap <leader>h :nohl<CR>
+nnoremap <leader>t :call ExpandTabToggle()<CR>
 " Switch between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -165,3 +183,5 @@ let g:NERDTreeHijackNetrw=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 " Indent Guides enabled by default
 let g:indent_guides_enable_on_vim_startup = 1
+" Airline theme
+let g:airline_theme='deus'
