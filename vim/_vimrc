@@ -150,13 +150,18 @@ set shiftwidth=4
 set softtabstop=4
 set selection=inclusive
 " Initial size
-set lines=50 columns=200
+set lines=50 columns=100
 
 " Keybindings and remaps
+" Edit vimrc
 nnoremap <leader>v :edit $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
+" Toggles off Highlighting
 nnoremap <leader>h :nohl<CR>
+" Toggles tab-to-space conversion
 nnoremap <leader>t :call ExpandTabToggle()<CR>
+" Change working directory to current file
+nnoremap <leader>d :cd %:p:h<CR>
 " Switch between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -170,9 +175,12 @@ nnoremap <space> za
 " YouCompleteMe, Leader+g finds variable definition
 nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F5> :NERDTreeToggle<CR>
-" Force verticle splits
+" Force verticle splits for help files
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert help'):('h'))
+" Automatically resize window to accomodate a right buffer
+cnoreabbrev <expr> rsp ((getcmdtype() is# ':'    && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
+cnoreabbrev <expr> bq ((getcmdtype() is# ':'    && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
 
 " Plugin Settings
 " YouCompletMe settings. leader+g goes to definition
