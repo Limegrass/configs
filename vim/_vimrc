@@ -1,62 +1,42 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=$HOME/vimfiles/bundle/Vundle.vim
-call vundle#begin('$HOME/vimfiles/bundle/')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" Required
-Plugin 'VundleVim/Vundle.vim'
+﻿" ============================================================================
+" VIM-PLUG BLOCK 
+" ============================================================================
+call plug#begin('~/vimfiles/plugged')
 
 " Editing
-Plugin 'tpope/vim-surround'
-Plugin 'majutsushi/tagbar'
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-multiple-cursors'
 
-" Syntax
-"Plugin 'Shougo/neocomplete.vim'
-"Plugin 'Shougo/neosnippet'
-"Plugin 'Shougo/neosnippet-snippets'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'w0rp/ale'
-"Plugin 'scrooloose/syntastic'
+" Syntax, Typically requires some setup
+"Plug 'Shougo/neosnippet'
+Plug 'scrooloose/syntastic'
+if has('nvim')
+	Plug 'roxma/nvim-completion-manager'
+else
+	Plug 'Valloric/YouCompleteMe'
+endif
 
 " File navigation
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'jistr/vim-nerdtree-tabs', {'on': 'NERDTreeToggle'}
+Plug 'kien/ctrlp.vim'
 
 " Appearances
-Plugin 'jnurmine/Zenburn'
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'jnurmine/Zenburn'
+Plug 'bling/vim-airline'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'vim-airline/vim-airline-themes'
 
 " Git
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
+call plug#end()
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-
-
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
+" ============================================================================
+" FUNCTION DEFINITIONS
+" ============================================================================
 
 set diffexpr=MyDiff()
 function MyDiff()
@@ -96,6 +76,13 @@ function ExpandTabToggle()
     endif
 endfunction
 
+" ============================================================================
+" BASIC SETTINGS
+" ============================================================================
+"System Settings
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
 " Default Location
 cd G:/Vim_Files
 
@@ -150,12 +137,25 @@ set shiftwidth=4
 set softtabstop=4
 set selection=inclusive
 " Initial size
-set lines=50 columns=100
+if has('gui_running')
+	set lines=50 columns=100
+endif
+"Other general settings
+set backspace=indent,eol,start
 
-" Keybindings and remaps
+" ============================================================================
+" KEYBINDINGS AND REMAPS
+" ============================================================================
+" NORMAL MODE
+" Remap J, K to nagivate visible lines
+nnoremap j gj
+nnoremap k gk
 " Edit vimrc
 nnoremap <leader>v :edit $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
+" Change directory to Git/Text folder
+nnoremap <leader>f :cd G:/Vim_Files<CR>
+nnoremap <leader>F :cd G:/Git<CR>
 " Toggles off Highlighting
 nnoremap <leader>h :nohl<CR>
 " Toggles tab-to-space conversion
@@ -175,6 +175,10 @@ nnoremap <space> za
 " YouCompleteMe, Leader+g finds variable definition
 nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F5> :NERDTreeToggle<CR>
+" INSERT MODE
+inoremap <C-BS> <C-W>
+inoremap <C-Del> <ESC>dwi
+" ABBREVEATIONS
 " Force verticle splits for help files
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert help'):('h'))
@@ -182,9 +186,13 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert h
 cnoreabbrev <expr> rsp ((getcmdtype() is# ':'    && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'    && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
 
-" Plugin Settings
+" ============================================================================
+" PLUGIN-RELATED SETTINGS
+" ============================================================================
 " YouCompletMe settings. leader+g goes to definition
-let g:ycm_autoclose_preview_window_after_completion=1
+if !has('nvim')
+	let g:ycm_autoclose_preview_window_after_completion=1
+endif
 " NerdTree Settings
 let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
 let g:NERDTreeHijackNetrw=0
