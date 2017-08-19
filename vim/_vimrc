@@ -1,4 +1,6 @@
-﻿" ============================================================================
+set encoding=utf-8
+set fileencoding=utf-8
+" ============================================================================
 " VIM-PLUG BLOCK 
 " ============================================================================
 call plug#begin('~/vimfiles/plugged')
@@ -9,7 +11,6 @@ Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
 
 " Syntax, Typically requires some setup
-"Plug 'Shougo/neosnippet'
 Plug 'scrooloose/syntastic'
 if has('nvim')
 	Plug 'roxma/nvim-completion-manager'
@@ -83,6 +84,7 @@ endfunction
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
+
 " Default Location
 cd G:/Vim_Files
 
@@ -91,11 +93,9 @@ set ruler
 set incsearch
 set hlsearch
 set number
+set wrap
 set guioptions=c
-set encoding=utf-8
-set fileencoding=utf-8
-set listchars=tab:▸\ ,
-"set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,trail:·
 set list
 " :vs and :sp direction option
 set splitright
@@ -104,13 +104,13 @@ set splitbelow
 set foldmethod=indent
 set foldlevel=99
 " Prevent change to Hiragana
-set iminsert=0 
-set imsearch=-1 
+set iminsert=0
+set imsearch=-1
 
 " Font settings
 if has('gui_running')
-	set guifont=Consolas:h12:cANSI:qDRAFT
-endif	
+    set guifont=Consolas:h12:cANSI:qDRAFT
+endif
 
 " Character limit highlighting
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -119,9 +119,9 @@ call matchadd('ColorColumn', '\%81v.', 100)
 
 " Colors
 if has('gui_running')
-	colorscheme corporation "Obtain corporation from vivfy
+    colorscheme corporation "Obtain corporation from vivfy
 else
-	colorscheme zenburn
+    colorscheme zenburn
 endif
 
 " Indent Settings
@@ -130,7 +130,7 @@ set autoindent
 set history=100
 " Tab-sizing is 4
 set tabstop=4
-" Indenting with Tab is 4 
+" Indenting with Tab is 4
 set shiftwidth=4
 " Turn tabs into spaces
 "set expandtab
@@ -191,7 +191,7 @@ cnoreabbrev <expr> bq ((getcmdtype() is# ':'    && getcmdline() is# 'bq')?('q<CR
 " ============================================================================
 " YouCompletMe settings. leader+g goes to definition
 if !has('nvim')
-	let g:ycm_autoclose_preview_window_after_completion=1
+    let g:ycm_autoclose_preview_window_after_completion=1
 endif
 " NerdTree Settings
 let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
