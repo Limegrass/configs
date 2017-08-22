@@ -81,22 +81,12 @@ function! MyDiff()
   endif
 endfunction
 
-function! ExpandTabToggle()
-  if &expandtab
-    set expandtab!
-  else
-    set expandtab
-  endif
-endfunction
-
 function! ChangeTabSizing(oldSize, newSize) range
   set expandtab
   let &tabstop=a:oldSize
-  let &softtabstop=a:oldSize
   set expandtab!
   retab!
   let &tabstop=a:newSize
-  let &softtabstop=a:newSize
   set expandtab
   retab
 endfunction
@@ -113,7 +103,7 @@ endif
 set ruler
 set autochdir
 set incsearch
-set hlsearch
+set nohlsearch
 set number
 set wrap
 set guioptions=c
@@ -156,7 +146,7 @@ set tabstop=4
 set shiftwidth=4
 " Turn tabs into spaces
 "set expandtab
-set softtabstop=4
+set softtabstop=-1
 set selection=inclusive
 " Initial size
 if has('gui_running')
@@ -188,9 +178,9 @@ nnoremap <leader>F :cd G:/Git<CR>
 " Change working directory to current file
 nnoremap <leader>d :cd %:p:h<CR>
 " Toggles off Highlighting
-nnoremap <leader>h :nohl<CR>
+nnoremap <leader>h :set hlsearch!<CR>
 " Toggles tab-to-space conversion
-nnoremap <leader>t :call ExpandTabToggle()<CR>
+nnoremap <leader>t :set expandtab!<CR>
 " Switch between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
