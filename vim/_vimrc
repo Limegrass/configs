@@ -3,20 +3,25 @@ set fileencoding=utf-8
 " ============================================================================
 " VIM-PLUG BLOCK 
 " ============================================================================
-call plug#begin('~/vimfiles/plugged')
-
+if has('win32')
+	call plug#begin('~/vimfiles/plugged')
+else
+	call plug#begin('~/.vim/plugged')
+endif
 " Editing
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
 
 " Syntax, Typically requires some setup
 Plug 'scrooloose/syntastic'
 if has('nvim')
-	Plug 'roxma/nvim-completion-manager'
+  Plug 'roxma/nvim-completion-manager'
 else
-	Plug 'Valloric/YouCompleteMe'
+  Plug 'Valloric/YouCompleteMe'
 endif
+Plug 'sheerun/vim-polyglot'
 
 " File navigation
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -39,8 +44,15 @@ call plug#end()
 " FUNCTION DEFINITIONS
 " ============================================================================
 
+"System Settings
+if has('win32')
+	source $VIMRUNTIME/vimrc_example.vim
+	source $VIMRUNTIME/mswin.vim
+	behave mswin
+endif
+
 set diffexpr=MyDiff()
-function MyDiff()
+function! MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
@@ -69,27 +81,37 @@ function MyDiff()
   endif
 endfunction
 
-function ExpandTabToggle()
-    if &expandtab
-        set expandtab!
-    else
-        set expandtab
-    endif
+function! ExpandTabToggle()
+  if &expandtab
+    set expandtab!
+  else
+    set expandtab
+  endif
+endfunction
+
+function! ChangeTabSizing(oldSize, newSize) range
+  set expandtab
+  let &tabstop=a:oldSize
+  let &softtabstop=a:oldSize
+  set expandtab!
+  retab!
+  let &tabstop=a:newSize
+  let &softtabstop=a:newSize
+  set expandtab
+  retab
 endfunction
 
 " ============================================================================
 " BASIC SETTINGS
 " ============================================================================
-"System Settings
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
 " Default Location
-cd G:/Vim_Files
+if has('win32')
+	cd G:/Vim_Files
+endif
 
 " General Settings
 set ruler
+set autochdir
 set incsearch
 set hlsearch
 set number
@@ -109,7 +131,7 @@ set imsearch=-1
 
 " Font settings
 if has('gui_running')
-    set guifont=Consolas:h12:cANSI:qDRAFT
+  set guifont=Consolas:h12:cANSI:qDRAFT
 endif
 
 " Character limit highlighting
@@ -119,9 +141,9 @@ call matchadd('ColorColumn', '\%81v.', 100)
 
 " Colors
 if has('gui_running')
-    colorscheme corporation "Obtain corporation from vivfy
+  colorscheme corporation "Obtain corporation from vivfy
 else
-    colorscheme zenburn
+  colorscheme zenburn
 endif
 
 " Indent Settings
@@ -138,7 +160,7 @@ set softtabstop=4
 set selection=inclusive
 " Initial size
 if has('gui_running')
-	set lines=50 columns=100
+  set lines=50 columns=100
 endif
 "Other general settings
 set backspace=indent,eol,start
@@ -147,21 +169,28 @@ set backspace=indent,eol,start
 " KEYBINDINGS AND REMAPS
 " ============================================================================
 " NORMAL MODE
-" Remap J, K to nagivate visible lines
+" Remap J, K some to nagivate visible lines
 nnoremap j gj
 nnoremap k gk
+nnoremap $ g$
+nnoremap 0 g0
+" Change tab structure in normal mode
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >
+vnoremap <S-Tab> <
 " Edit vimrc
 nnoremap <leader>v :edit $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
 " Change directory to Git/Text folder
 nnoremap <leader>f :cd G:/Vim_Files<CR>
 nnoremap <leader>F :cd G:/Git<CR>
+" Change working directory to current file
+nnoremap <leader>d :cd %:p:h<CR>
 " Toggles off Highlighting
 nnoremap <leader>h :nohl<CR>
 " Toggles tab-to-space conversion
 nnoremap <leader>t :call ExpandTabToggle()<CR>
-" Change working directory to current file
-nnoremap <leader>d :cd %:p:h<CR>
 " Switch between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -172,6 +201,8 @@ nnoremap <leader>[ :tabp<CR>
 nnoremap <leader>] :tabn<CR>
 " Fold in normal mode with space
 nnoremap <space> za
+" Vim-commentary bind
+nnoremap <C-Tab> :Commentary<CR>
 " YouCompleteMe, Leader+g finds variable definition
 nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F5> :NERDTreeToggle<CR>
@@ -183,15 +214,15 @@ inoremap <C-Del> <ESC>dwi
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert help'):('h'))
 " Automatically resize window to accomodate a right buffer
-cnoreabbrev <expr> rsp ((getcmdtype() is# ':'    && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
-cnoreabbrev <expr> bq ((getcmdtype() is# ':'    && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
+cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
+cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
 
 " ============================================================================
 " PLUGIN-RELATED SETTINGS
 " ============================================================================
 " YouCompletMe settings. leader+g goes to definition
 if !has('nvim')
-    let g:ycm_autoclose_preview_window_after_completion=1
+  let g:ycm_autoclose_preview_window_after_completion=1
 endif
 " NerdTree Settings
 let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
