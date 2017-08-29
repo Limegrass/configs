@@ -1,17 +1,16 @@
 set encoding=utf-8
-set fileencoding=utf-8
 " ============================================================================
 " VIM-PLUG BLOCK 
 " ============================================================================
 if has('win32')
-	call plug#begin('~/vimfiles/plugged')
+  call plug#begin('~/vimfiles/plugged')
 else
-	call plug#begin('~/.vim/plugged')
+  call plug#begin('~/.vim/plugged')
 endif
 " Editing
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
 
 " Syntax, Typically requires some setup
@@ -21,7 +20,7 @@ if has('nvim')
 else
   Plug 'Valloric/YouCompleteMe'
 endif
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " File navigation
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -46,9 +45,9 @@ call plug#end()
 
 "System Settings
 if has('win32')
-	source $VIMRUNTIME/vimrc_example.vim
-	source $VIMRUNTIME/mswin.vim
-	behave mswin
+  source $VIMRUNTIME/vimrc_example.vim
+  source $VIMRUNTIME/mswin.vim
+  behave mswin
 endif
 
 set diffexpr=MyDiff()
@@ -96,14 +95,15 @@ endfunction
 " ============================================================================
 " Default Location
 if has('win32')
-	cd G:/Vim_Files
+  cd G:/Vim_Files
 endif
 
 " General Settings
 set ruler
-set autochdir
 set incsearch
 set nohlsearch
+set ignorecase
+set smartcase
 set number
 set wrap
 set guioptions=c
@@ -142,10 +142,7 @@ set autoindent
 set history=100
 " Tab-sizing is 4
 set tabstop=4
-" Indenting with Tab is 4
 set shiftwidth=4
-" Turn tabs into spaces
-"set expandtab
 set softtabstop=-1
 set selection=inclusive
 " Initial size
@@ -171,7 +168,9 @@ vnoremap <Tab> >
 vnoremap <S-Tab> <
 " Edit vimrc
 nnoremap <leader>v :edit $MYVIMRC<CR>
+"nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR>
+nnoremap <leader>S :source $MYVIMRC<CR>
 " Change directory to Git/Text folder
 nnoremap <leader>f :cd G:/Vim_Files<CR>
 nnoremap <leader>F :cd G:/Git<CR>
@@ -193,16 +192,25 @@ nnoremap <leader>] :tabn<CR>
 nnoremap <space> za
 " Vim-commentary bind
 nnoremap <C-Tab> :Commentary<CR>
+vnoremap <C-Tab> :Commentary<CR>
 " YouCompleteMe, Leader+g finds variable definition
 nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F5> :NERDTreeToggle<CR>
+
+" VISUAL MODE
+vnoremap j gj
+vnoremap k gk
+vnoremap $ g$
+vnoremap 0 g0
+
 " INSERT MODE
 inoremap <C-BS> <C-W>
 inoremap <C-Del> <ESC>dwi
+
 " ABBREVEATIONS
 " Force verticle splits for help files
-cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('vert help'):('help'))
-cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert help'):('h'))
+cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('set columns=200<CR>:vert help'):('help'))
+cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('set columns=200<CR>:vert help'):('h'))
 " Automatically resize window to accomodate a right buffer
 cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
