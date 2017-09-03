@@ -176,6 +176,10 @@ nnoremap <leader>f :cd G:/Vim_Files<CR>
 nnoremap <leader>F :cd G:/Git<CR>
 " Change working directory to current file
 nnoremap <leader>d :cd %:p:h<CR>
+" Open file explorer on current file location
+if has('win32')
+  nnoremap <leader>e :!explorer.exe %:p:h<CR>
+endif
 " Toggles off Highlighting
 nnoremap <leader>h :set hlsearch!<CR>
 " Toggles tab-to-space conversion
@@ -186,6 +190,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " Switch between tabs
+nnoremap <leader>n :tabedit<CR>
 nnoremap <leader>[ :tabp<CR>
 nnoremap <leader>] :tabn<CR>
 " Fold in normal mode with space
@@ -205,7 +210,8 @@ vnoremap 0 g0
 
 " INSERT MODE
 inoremap <C-BS> <C-W>
-inoremap <C-Del> <ESC>dwi
+" Delete word forward in Insert Mode, doesn't work for single letter words.
+inoremap <C-Del> <ESC>ldei
 
 " ABBREVEATIONS
 " Force verticle splits for help files
