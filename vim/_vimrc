@@ -178,8 +178,10 @@ nnoremap <leader>F :cd G:/Git<CR>
 nnoremap <leader>d :cd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
-  nnoremap <leader>e :!explorer.exe %:p:h<CR>
+  nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
 endif
+" Copy file path to system register
+nnoremap <leader>c :let @+=expand("%:p")<CR>
 " Toggles off Highlighting
 nnoremap <leader>h :set hlsearch!<CR>
 " Toggles tab-to-space conversion
@@ -190,11 +192,17 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " Switch between tabs
-nnoremap <leader>n :tabedit<CR>
 nnoremap <leader>[ :tabp<CR>
 nnoremap <leader>] :tabn<CR>
+" Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
+nnoremap <S-C-T> <C-T>
+nnoremap <C-T> :tabedit<CR>
 " Fold in normal mode with space
 nnoremap <space> za
+" Mark TODO as DONE
+nnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
+vnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
+nnoremap <leader>T :vimgrep /\<TODO\>/ %<CR>
 " Vim-commentary bind
 nnoremap <C-Tab> :Commentary<CR>
 vnoremap <C-Tab> :Commentary<CR>
