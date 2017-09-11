@@ -10,6 +10,7 @@ endif
 " Editing
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 " Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
 
@@ -143,6 +144,7 @@ else
 endif
 
 " Indent Settings
+set expandtab
 set smartindent
 set autoindent
 set history=100
@@ -173,9 +175,15 @@ nnoremap <S-Tab> <<
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 " Edit vimrc
-nnoremap <leader>v :edit $MYVIMRC<CR>
-"nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
-nnoremap <leader>V :tabnew $MYVIMRC<CR>
+if has('win32')
+  nnoremap <leader>v :edit G:\Git\configs\vim\_vimrc<CR>
+  "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
+  nnoremap <leader>V :tabnew G:\Git\configs\vim\_vimrc<CR>
+else
+  nnoremap <leader>v :edit $MYVIMRC<CR>
+  "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
+  nnoremap <leader>V :tabnew $MYVIMRC<CR>
+endif
 nnoremap <leader>S :source $MYVIMRC<CR>
 " Change directory to Git/Text folder
 nnoremap <leader>f :cd G:/Vim_Files<CR>
@@ -256,3 +264,5 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let g:indent_guides_enable_on_vim_startup = 1
 " Airline theme
 let g:airline_theme='deus'
+" Ctrl-P
+let g:ctrlp_working_path_mode = 0
