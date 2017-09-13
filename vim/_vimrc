@@ -11,17 +11,20 @@ endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-" Plug 'majutsushi/tagbar'
+Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-obsession'
+Plug 'dhruvasagar/vim-prosession'
+" Plug 'majutsushi/tagbar'
 
 " Syntax, Typically requires some setup
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+"Plug 'scrooloose/syntastic'
 if has('nvim')
   Plug 'roxma/nvim-completion-manager'
 else
   Plug 'Valloric/YouCompleteMe'
 endif
-" Plug 'sheerun/vim-polyglot'
 
 " File navigation
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -39,6 +42,38 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 
 call plug#end()
+
+" ============================================================================
+" PLUGIN-RELATED SETTINGS
+" ============================================================================
+" YouCompletMe settings. leader+g goes to definition
+if !has('nvim')
+  let g:ycm_autoclose_preview_window_after_completion=1
+endif
+nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" NerdTree Settings
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
+let g:NERDTreeHijackNetrw=0
+let g:nerdtree_tabs_open_on_gui_startup=0
+nnoremap <F5> :NERDTreeToggle<CR>
+
+" Indent Guides enabled by default
+let g:indent_guides_enable_on_vim_startup = 1
+
+" Airline theme
+let g:airline_theme='deus'
+
+" Ctrl-P
+let g:ctrlp_working_path_mode = 0
+
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_prefer_python3 = 1
+
+" Vim-commentary bind
+nnoremap <C-Tab> :Commentary<CR>
+vnoremap <C-Tab> :Commentary<CR>
 
 " ============================================================================
 " FUNCTION DEFINITIONS
@@ -223,12 +258,6 @@ nnoremap <space> za
 nnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
 vnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
 nnoremap <leader>T :vimgrep /\<TODO\>/ %<CR>
-" Vim-commentary bind
-nnoremap <C-Tab> :Commentary<CR>
-vnoremap <C-Tab> :Commentary<CR>
-" YouCompleteMe, Leader+g finds variable definition
-nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <F5> :NERDTreeToggle<CR>
 
 " VISUAL MODE
 vnoremap j gj
@@ -249,20 +278,3 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('set co
 cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
 
-" ============================================================================
-" PLUGIN-RELATED SETTINGS
-" ============================================================================
-" YouCompletMe settings. leader+g goes to definition
-if !has('nvim')
-  let g:ycm_autoclose_preview_window_after_completion=1
-endif
-" NerdTree Settings
-let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
-let g:NERDTreeHijackNetrw=0
-let g:nerdtree_tabs_open_on_gui_startup=0
-" Indent Guides enabled by default
-let g:indent_guides_enable_on_vim_startup = 1
-" Airline theme
-let g:airline_theme='deus'
-" Ctrl-P
-let g:ctrlp_working_path_mode = 0
