@@ -1,6 +1,6 @@
 set encoding=utf-8
 " ============================================================================
-" VIM-PLUG BLOCK 
+" VIM-PLUG BLOCK
 " ============================================================================
 if has('win32')
   call plug#begin('~/vimfiles/plugged')
@@ -27,8 +27,6 @@ else
 endif
 
 " File navigation
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'jistr/vim-nerdtree-tabs', {'on': 'NERDTreeToggle'}
 Plug 'kien/ctrlp.vim'
 
 " Appearances
@@ -51,12 +49,6 @@ if !has('nvim')
   let g:ycm_autoclose_preview_window_after_completion=1
 endif
 nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" NerdTree Settings
-let NERDTreeIgnore=['\.pyc$', '\~$', '\.class$'] "ignore files in NERDTree
-let g:NERDTreeHijackNetrw=0
-let g:nerdtree_tabs_open_on_gui_startup=0
-nnoremap <F5> :NERDTreeToggle<CR>
 
 " Indent Guides enabled by default
 let g:indent_guides_enable_on_vim_startup = 1
@@ -81,7 +73,6 @@ vnoremap <C-Tab> :Commentary<CR>
 
 "System Settings
 if has('win32')
-  source $VIMRUNTIME/vimrc_example.vim
   source $VIMRUNTIME/mswin.vim
   behave mswin
 endif
@@ -204,7 +195,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap $ g$
 nnoremap 0 g0
-" Change tab structure in normal mode
+" Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 vnoremap <Tab> >
@@ -240,6 +231,7 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
+" Split nagivation from a terminal split on neovim
 if has('nvim')
   tnoremap <C-J> <C-\><C-N><C-W>j
   tnoremap <C-K> <C-W><C-K>k
