@@ -14,7 +14,6 @@ Plug 'tpope/vim-repeat'
 Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
-Plug 'dhruvasagar/vim-prosession'
 " Plug 'majutsushi/tagbar'
 
 " Syntax, Typically requires some setup
@@ -64,8 +63,11 @@ nnoremap <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 
 " Vim-commentary bind
-nnoremap <C-Tab> :Commentary<CR>
-vnoremap <C-Tab> :Commentary<CR>
+nnoremap <leader><Tab> :Commentary<CR>
+vnoremap <leader><Tab> :Commentary<CR>
+
+" Obsession
+nnoremap <leader>O :Obsession<CR>
 
 " ============================================================================
 " FUNCTION DEFINITIONS
@@ -210,6 +212,7 @@ else
   "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
   nnoremap <leader>V :tabnew $MYVIMRC<CR>
 endif
+nnoremap <leader>ss :source Session.vim<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
 " Change directory to Git/Text folder
 nnoremap <leader>f :cd G:/Vim_Files<CR>
