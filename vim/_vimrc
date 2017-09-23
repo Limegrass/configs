@@ -1,4 +1,4 @@
-set encoding=utf-8
+﻿set encoding=utf-8
 " ============================================================================
 " VIM-PLUG BLOCK
 " ============================================================================
@@ -23,6 +23,9 @@ if has('nvim')
   Plug 'roxma/nvim-completion-manager'
 else
   Plug 'Valloric/YouCompleteMe'
+  " YouCompletMe settings. leader+g goes to definition
+  let g:ycm_autoclose_preview_window_after_completion=1
+  nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 endif
 
 " File navigation
@@ -43,12 +46,6 @@ call plug#end()
 " ============================================================================
 " PLUGIN-RELATED SETTINGS
 " ============================================================================
-" YouCompletMe settings. leader+g goes to definition
-if !has('nvim')
-  let g:ycm_autoclose_preview_window_after_completion=1
-endif
-nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 " Indent Guides enabled by default
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -122,10 +119,6 @@ endfunction
 " ============================================================================
 " BASIC SETTINGS
 " ============================================================================
-" Default Location
-if has('win32')
-  cd G:/Vim_Files
-endif
 
 " General Settings
 set ruler
@@ -202,21 +195,9 @@ nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 vnoremap <Tab> >
 vnoremap <S-Tab> <
-" Edit vimrc
-if has('win32')
-  nnoremap <leader>v :edit G:\Git\configs\vim\_vimrc<CR>
-  "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
-  nnoremap <leader>V :tabnew G:\Git\configs\vim\_vimrc<CR>
-else
-  nnoremap <leader>v :edit $MYVIMRC<CR>
-  "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
-  nnoremap <leader>V :tabnew $MYVIMRC<CR>
-endif
+" Load a session or refresh vimrc
 nnoremap <leader>ss :source Session.vim<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
-" Change directory to Git/Text folder
-nnoremap <leader>f :cd G:/Vim_Files<CR>
-nnoremap <leader>F :cd G:/Git<CR>
 " Change working directory to current file
 nnoremap <leader>d :cd %:p:h<CR>
 " Open file explorer on current file location
@@ -273,3 +254,27 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('set co
 cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
 
+
+
+" ============================================================================
+" Rebind in individual machine vimrcs
+" ============================================================================
+" Default Location
+" if has('win32')
+"   cd G:/Vim_Files
+" endif
+
+" Edit vimrc
+" if has('win32')
+"   nnoremap <leader>v :edit G:\Git\configs\vim\_vimrc<CR>
+"   "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
+"   nnoremap <leader>V :tabnew G:\Git\configs\vim\_vimrc<CR>
+" else
+"   nnoremap <leader>v :edit $MYVIMRC<CR>
+"   "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
+"   nnoremap <leader>V :tabnew $MYVIMRC<CR>
+" endif
+
+" Change directory to Git/Text folder
+" nnoremap <leader>f :cd G:/Vim_Files<CR>
+" nnoremap <leader>F :cd G:/Git<CR>
