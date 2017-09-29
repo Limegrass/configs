@@ -247,8 +247,7 @@ vnoremap 0 g0
 inoremap <C-BS> <C-W>
 " Delete word forward in Insert Mode, doesn't work for single letter words.
 inoremap <C-Del> <ESC>ldei
-inoremap <LEFT> <ESC>gha
-inoremap <RIGHT> <ESC>lha
+" Visual line navigation
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
 
