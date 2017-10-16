@@ -8,6 +8,7 @@ if has('win32')
 else
   call plug#begin('~/.vim/plugged')
 endif
+
 " Editing
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -15,19 +16,18 @@ Plug 'tpope/vim-repeat'
 Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
-" Plug 'majutsushi/tagbar'
 
 " Syntax, Typically requires some setup
-Plug 'w0rp/ale'
-"Plug 'scrooloose/syntastic'
-if has('nvim')
-  Plug 'roxma/nvim-completion-manager'
-else
-  Plug 'Valloric/YouCompleteMe'
-  " YouCompletMe settings. leader+g goes to definition
-  let g:ycm_autoclose_preview_window_after_completion=1
-  nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+if !has('nvim')
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'roxma/nvim-yarp'
 endif
+Plug 'roxma/nvim-completion-manager'
+" Plug 'w0rp/ale'
+Plug 'vim-syntastic/syntastic'
+Plug 'mhartington/nvim-typescript'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " File navigation
 Plug 'kien/ctrlp.vim'
@@ -66,6 +66,28 @@ vnoremap <leader><Tab> :Commentary<CR>
 
 " Obsession
 nnoremap <leader>O :Obsession<CR>
+
+" nvim-typescript
+nnoremap <leader>g :TSDef<CR>
+
+"nvim completion manager
+let g:python3_host_prog="python3"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
+
+"Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " ============================================================================
 " FUNCTION DEFINITIONS
@@ -142,6 +164,7 @@ set foldlevel=99
 " Prevent change to Hiragana
 set iminsert=0
 set imsearch=-1
+setlocal spelllang=en_us
 
 " Font settings
 if has('gui_running')
@@ -155,7 +178,7 @@ call matchadd('ColorColumn', '\%81v.', 100)
 
 " Colors
 if has('gui_running')
-  colorscheme corporation "Obtain corporation from vivfy
+  colorscheme corporation
 else
   if $TERM == "xterm-256color"
     set t_Co=256
@@ -187,7 +210,7 @@ set backspace=indent,eol,start
 " KEYBINDINGS AND REMAPS
 " ============================================================================
 " NORMAL MODE
-" Remap J, K some to nagivate visible lines
+" Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap k gk
 nnoremap $ g$
@@ -207,17 +230,19 @@ if has('win32')
   nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
 endif
 " Copy file path to system register
-nnoremap <leader>c :let @+=expand("%:p")<CR>
+nnoremap <leader>p :let @+=expand("%:p")<CR>
 " Toggles off Highlighting
 nnoremap <leader>h :set hlsearch!<CR>
 " Toggles tab-to-space conversion
 nnoremap <leader>t :set expandtab!<CR>
+" Toggle spell check
+nnoremap <leader>sc :set spell!<CR>
 " Switch between splits
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
-" Split nagivation from a terminal split on neovim
+" Split navigation from a terminal split on neovim
 if has('nvim')
   tnoremap <C-J> <C-\><C-N><C-W>j
   tnoremap <C-K> <C-W><C-K>k
@@ -234,7 +259,6 @@ nnoremap <C-T> :tabedit<CR>
 nnoremap <space> za
 " Mark TODO as DONE
 nnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
-vnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
 nnoremap <leader>T :vimgrep /\<TODO\>/ %<CR>
 
 " VISUAL MODE
@@ -242,6 +266,10 @@ vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
+vnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
+
+"Search for visual selected
+vnoremap // y/<C-R>"<CR>
 
 " INSERT MODE
 inoremap <C-BS> <C-W>
@@ -251,11 +279,11 @@ inoremap <C-Del> <ESC>ldei
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
 
-" ABBREVEATIONS
-" Force verticle splits for help files
+" ABBREVIATIONS
+" Force vertical splits for help files
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('set columns=200<CR>:vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('set columns=200<CR>:vert help'):('h'))
-" Automatically resize window to accomodate a right buffer
+" Automatically resize window to accommodate a right buffer
 cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
 
