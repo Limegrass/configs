@@ -70,7 +70,7 @@ nnoremap <leader>O :Obsession<CR>
 " nvim-typescript
 nnoremap <leader>g :TSDef<CR>
 
-"nvim completion manager
+" nvim completion manager
 let g:python3_host_prog="python3"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -80,7 +80,7 @@ let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
 
-"Syntastic
+" Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -93,7 +93,7 @@ let g:syntastic_check_on_wq = 0
 " FUNCTION DEFINITIONS
 " ============================================================================
 
-"System Settings
+" System Settings
 if has('win32')
   source $VIMRUNTIME/mswin.vim
   behave mswin
@@ -139,11 +139,17 @@ function! ChangeTabSizing(oldSize, newSize) range
   retab
 endfunction
 
+" QuickFix window on vimgrep
+augroup myvimrc
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
 " ============================================================================
 " BASIC SETTINGS
 " ============================================================================
 
-" General Settings
+" GENERAL SETTINGS
 set ruler
 set incsearch
 set nohlsearch
@@ -166,7 +172,7 @@ set iminsert=0
 set imsearch=-1
 setlocal spelllang=en_us
 
-" Font settings
+" FONT SETTINGS
 if has('gui_running')
   set guifont=Consolas:h12:cANSI:qDRAFT
 endif
@@ -176,7 +182,7 @@ endif
 "match OverLength /\%81v.\+/
 call matchadd('ColorColumn', '\%81v.', 100)
 
-" Colors
+" COLORS
 if has('gui_running')
   colorscheme corporation
 else
@@ -189,7 +195,7 @@ else
   endif
 endif
 
-" Indent Settings
+" INDENT SETTINGS
 set expandtab
 set smartindent
 set autoindent
@@ -203,13 +209,13 @@ set selection=inclusive
 if has('gui_running')
   set lines=50 columns=100
 endif
-"Other general settings
 set backspace=indent,eol,start
 
 " ============================================================================
 " KEYBINDINGS AND REMAPS
 " ============================================================================
-" NORMAL MODE
+
+" ================================NORMAL MODE=================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap k gk
@@ -258,20 +264,19 @@ nnoremap <C-T> :tabedit<CR>
 " Fold in normal mode with space
 nnoremap <space> za
 " Mark TODO as DONE
-nnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
-nnoremap <leader>T :vimgrep /\<TODO\>/ %<CR>
+nnoremap <leader>z :s/TODO/DONE/<CR>
+nnoremap <leader>T :vimgrep /TODO/ %<CR>
 
-" VISUAL MODE
+" ================================VISUAL MODE=================================
 vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
-vnoremap <leader>z :s/\<TODO\>/\<DONE\>/<CR>
 
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
 
-" INSERT MODE
+" ================================INSERT MODE=================================
 inoremap <C-BS> <C-W>
 " Delete word forward in Insert Mode, doesn't work for single letter words.
 inoremap <C-Del> <ESC>ldei
@@ -279,7 +284,7 @@ inoremap <C-Del> <ESC>ldei
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
 
-" ABBREVIATIONS
+" ================================ABBREVIATION=================================
 " Force vertical splits for help files
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('set columns=200<CR>:vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('set columns=200<CR>:vert help'):('h'))
