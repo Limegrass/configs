@@ -139,15 +139,41 @@ function! ChangeTabSizing(oldSize, newSize) range
   retab
 endfunction
 
+
+" ============================================================================
+" Autocommands
+" ============================================================================
 " QuickFix window on vimgrep
-augroup myvimrc
+augroup todos
     autocmd!
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
 augroup END
 
 " Set spellchecking on for text buffers
-autocmd Filetype text setlocal spell
+augroup textspell
+  autocmd!
+  autocmd Filetype text setlocal spell
+  autocmd Filetype help setlocal nospell
+augroup END
+
+" Tab setting in vimscript to 2
+augroup tabbing
+  autocmd!
+  autocmd Filetype vim setlocal tabstop=2
+  autocmd Filetype vim setlocal shiftwidth=2
+  " autocmd Filetype html setlocal tabstop=2
+  " autocmd Filetype html setlocal shiftwidth=2
+augroup END
+
+" Autocompletin on F2 for HTML
+augroup htmlBinds
+  autocmd!
+  autocmd Filetype html inoremap <buffer> <F2> </<C-X><C-O>
+  autocmd Filetype xml inoremap <buffer> <F2> </<C-X><C-O>
+augroup END
+
+
 " ============================================================================
 " BASIC SETTINGS
 " ============================================================================
@@ -163,7 +189,10 @@ set wrap
 set guioptions=c
 set listchars=tab:▸\ ,trail:·
 set list
+set selection=inclusive
 set undofile
+set history=100
+setlocal spelllang=en_us
 " :vs and :sp direction option
 set splitright
 set splitbelow
@@ -173,7 +202,6 @@ set foldlevel=99
 " Prevent change to Hiragana
 set iminsert=0
 set imsearch=-1
-setlocal spelllang=en_us
 
 " FONT SETTINGS
 if has('gui_running')
@@ -202,12 +230,10 @@ endif
 set expandtab
 set smartindent
 set autoindent
-set history=100
 " Tab-sizing is 4
 set tabstop=4
 set shiftwidth=4
 set softtabstop=-1
-set selection=inclusive
 " Initial size
 if has('gui_running')
   set lines=50 columns=100
@@ -288,13 +314,17 @@ inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
 
 " ================================ABBREVIATION=================================
+" COMMANDS
+" Automatically fix typos for writing and quitting
+cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
+cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
+cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))
 " Force vertical splits for help files
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('set columns=200<CR>:vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('set columns=200<CR>:vert help'):('h'))
 " Automatically resize window to accommodate a right buffer
 cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')?('set columns=200<CR>:vs'):('rsp'))
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')?('q<CR>:set columns=100<CR>'):('bq'))
-
 
 
 " ============================================================================
