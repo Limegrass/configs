@@ -35,7 +35,6 @@ Plug 'kien/ctrlp.vim'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
-Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -74,6 +73,7 @@ nnoremap <leader>g :TSDef<CR>
 let g:python3_host_prog="python3"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Ultisnips with ncm
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
@@ -141,7 +141,7 @@ endfunction
 
 
 " ============================================================================
-" Autocommands
+" AUTOCOMMANDS
 " ============================================================================
 " QuickFix window on vimgrep
 augroup todos
@@ -169,8 +169,8 @@ augroup END
 " Autocompletin on F2 for HTML
 augroup htmlBinds
   autocmd!
-  autocmd Filetype html inoremap <buffer> <F2> </<C-X><C-O>
-  autocmd Filetype xml inoremap <buffer> <F2> </<C-X><C-O>
+  autocmd Filetype html inoremap <buffer> </ </<C-X><C-O>
+  autocmd Filetype xml inoremap <buffer> </ </<C-X><C-O>
 augroup END
 
 
@@ -186,6 +186,7 @@ set ignorecase
 set smartcase
 set number
 set wrap
+set wildmenu
 set guioptions=c
 set listchars=tab:▸\ ,trail:·
 set list
