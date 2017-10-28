@@ -23,8 +23,9 @@ if !has('nvim')
   Plug 'roxma/nvim-yarp'
 endif
 Plug 'roxma/nvim-completion-manager'
-" Plug 'w0rp/ale'
-Plug 'vim-syntastic/syntastic'
+" Currently installed 'linters'
+" on main machine: vint, proselint, clang, autopep8, javac
+Plug 'w0rp/ale'
 Plug 'mhartington/nvim-typescript'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -80,14 +81,8 @@ let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" ALE
+let g:airline#extensions#ale#enabled = 1
 
 " ============================================================================
 " FUNCTION DEFINITIONS
@@ -132,9 +127,11 @@ endfunction
 function! ChangeTabSizing(oldSize, newSize) range
   set expandtab
   let &tabstop=a:oldSize
+  let &shiftwidth=a:oldSize
   set expandtab!
   retab!
   let &tabstop=a:newSize
+  let &shiftwidth=a:newSize
   set expandtab
   retab
 endfunction
@@ -251,6 +248,8 @@ nnoremap j gj
 nnoremap k gk
 nnoremap $ g$
 nnoremap 0 g0
+" Yank to end of line, yy for line yank
+nnoremap Y y$
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
