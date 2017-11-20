@@ -1,0 +1,92 @@
+set encoding=utf-8
+scriptencoding utf-8
+
+" ============================================================================
+" BASIC SETTINGS
+" ============================================================================
+set surround
+set ruler
+set incsearch
+set nohlsearch
+set ignorecase
+set smartcase
+set number
+set wrap
+set wildmenu
+set guioptions=c
+set listchars=tab:▸\ ,trail:·
+set list
+set selection=inclusive
+set undofile
+set history=100
+setlocal spelllang=en_us
+" :vs and :sp direction option
+set splitright
+set splitbelow
+" Enable code bracket folding
+set foldmethod=indent
+set foldlevel=99
+" Prevent change to Hiragana
+set iminsert=0
+set imsearch=-1
+
+" ============================================================================
+" KEYBINDINGS AND REMAPS
+" ============================================================================
+" Remap J, K some to navigate visible lines
+nnoremap j gj
+nnoremap k gk
+nnoremap $ g$
+nnoremap 0 g0
+" Yank to end of line, yy for line yank
+nnoremap Y y$
+" Change tab structure in normal/visual mode
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+" Toggles off Highlighting
+nnoremap <leader>h :set hlsearch!<CR>
+" Toggles tab-to-space conversion
+nnoremap <leader>t :set expandtab!<CR>
+" Toggle spell check
+nnoremap <leader>sc :set spell!<CR>
+" Switch between splits
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
+" Split navigation from a terminal split on neovim
+" Switch between tabs
+nnoremap <leader>[ :tabp<CR>
+nnoremap <leader>] :tabn<CR>
+" Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
+nnoremap <S-C-T> <C-T>
+" Mark TODO as DONE
+nnoremap <leader>z :s/TODO/DONE/<CR>
+nnoremap <leader>T :vimgrep /TODO/ %<CR>
+
+" ================================VISUAL MODE=================================
+vnoremap j gj
+vnoremap k gk
+vnoremap $ g$
+vnoremap 0 g0
+
+"Search for visual selected
+vnoremap // y/<C-R>"<CR>
+vnoremap <leader>z :s/TODO/DONE/<CR>
+
+" ================================INSERT MODE=================================
+inoremap <C-BS> <C-W>
+" Delete word forward in Insert Mode, doesn't work for single letter words.
+inoremap <C-Del> <ESC>ldei
+" Visual line navigation
+inoremap <UP> <ESC>gka
+inoremap <DOWN> <ESC>gja
+
+" ================================ABBREVIATION=================================
+" COMMANDS
+" Automatically fix typos for writing and quitting
+cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
+cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
+cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))

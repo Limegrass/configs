@@ -192,7 +192,7 @@ augroup END
 " GENERAL SETTINGS
 set ruler
 set incsearch
-set nohlsearch
+" set nohlsearch
 set ignorecase
 set smartcase
 set number
@@ -267,8 +267,6 @@ nnoremap Y y$
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
-vnoremap <Tab> >
-vnoremap <S-Tab> <
 " Load a session or refresh vimrc
 nnoremap <leader>ss :source Session.vim<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
@@ -311,10 +309,14 @@ nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
 
 " ================================VISUAL MODE=================================
+" Equivalent behavior for visual mode as some normal mode bindings
 vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+vnoremap <leader>z :s/TODO/DONE/<CR>
 
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
