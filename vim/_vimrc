@@ -312,8 +312,8 @@ nnoremap <F2> <C-U>
 nnoremap <F5> <C-O>
 nnoremap <F6> <C-I>
 " ALE Navigation
-nnoremap <silent> <F3> <Plug>(ale_next_wrap)
-nnoremap <silent> <F4> <Plug>(ale_previous_wrap)
+nmap <silent> <F3> <Plug>(ale_next_wrap)
+nmap <silent> <F4> <Plug>(ale_previous_wrap)
 
 
 " ================================VISUAL MODE=================================
