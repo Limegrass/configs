@@ -171,7 +171,7 @@ augroup tabbing
   " autocmd Filetype html setlocal shiftwidth=2
 augroup END
 
-" Autocompletin on F2 for HTML
+" Autocompletion on F2 for HTML
 augroup htmlBinds
   autocmd!
   autocmd Filetype html inoremap <buffer> </ </<C-X><C-O>
@@ -305,6 +305,16 @@ nnoremap <space> za
 " Mark TODO as DONE
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
+" Page Nav
+nnoremap <F1> <C-D>
+nnoremap <F2> <C-U>
+" Cursor returns
+nnoremap <F5> <C-O>
+nnoremap <F6> <C-I>
+" ALE Navigation
+nnoremap <silent> <F3> <Plug>(ale_next_wrap)
+nnoremap <silent> <F4> <Plug>(ale_previous_wrap)
+
 
 " ================================VISUAL MODE=================================
 " Equivalent behavior for visual mode as some normal mode bindings
