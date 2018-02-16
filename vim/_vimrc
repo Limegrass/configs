@@ -2,9 +2,9 @@
 scriptencoding utf-8
 let GVIM_WIDTH = 100
 let GVIM_HEIGHT = 50
-" ============================================================================
+" ==============================================================================
 " VIM-PLUG BLOCK
-" ============================================================================
+" ==============================================================================
 if has('win32')
   call plug#begin('~/vimfiles/plugged')
 else
@@ -49,9 +49,9 @@ Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
-" ============================================================================
+" ==============================================================================
 " PLUGIN-RELATED SETTINGS
-" ============================================================================
+" ==============================================================================
 " Indent Guides enabled by default
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -128,9 +128,9 @@ autocmd FileType c,cpp nnoremap <buffer> <leader>g
     \:vs<CR>
     \:call WrapClangGoTo()<CR>
 
-" ============================================================================
+" ==============================================================================
 " FUNCTION DEFINITIONS
-" ============================================================================
+" ==============================================================================
 
 set diffexpr=MyDiff()
 function! MyDiff()
@@ -187,9 +187,9 @@ function! WrapClangGoTo()
   exec 'cd ' . cwd
 endfunction
 
-" ============================================================================
+" ==============================================================================
 " AUTOCOMMANDS
-" ============================================================================
+" ==============================================================================
 " QuickFix window on vimgrep
 augroup todos
     autocmd!
@@ -221,9 +221,9 @@ augroup htmlBinds
 augroup END
 
 
-" ============================================================================
+" ==============================================================================
 " BASIC SETTINGS
-" ============================================================================
+" ==============================================================================
 
 " GENERAL SETTINGS
 set ruler
@@ -293,11 +293,11 @@ if has('gui_running')
 endif
 set backspace=indent,eol,start
 
-" ============================================================================
+" ==============================================================================
 " KEYBINDINGS AND REMAPS
-" ============================================================================
+" ==============================================================================
 
-" ================================NORMAL MODE=================================
+" ================================NORMAL MODE===================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap k gk
@@ -356,7 +356,7 @@ nnoremap <F5> <C-O>
 nnoremap <F6> <C-I>
 
 
-" ================================VISUAL MODE=================================
+" ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
 vnoremap j gj
 vnoremap k gk
@@ -369,7 +369,7 @@ vnoremap <leader>z :s/TODO/DONE/<CR>
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
 
-" ================================INSERT MODE=================================
+" ================================INSERT MODE===================================
 " Common Ctrl-BS functionality in other editors, delete whole word with
 " Ctrl-DEL
 inoremap <C-BS> <C-W>
@@ -383,31 +383,34 @@ inoremap <C-Z> <ESC>ua
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
 
-" ================================ABBREVIATION=================================
-" COMMANDS
-" Automatically fix typos for writing and quitting
-cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')
-            \?(':w<CR>'):('W'))
-cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')
-            \?(':q<CR>'):('Q'))
-cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')
-            \?(':x<CR>'):('X'))
-" Force vertical splits for help files
+" ================================COMMANDS======================================
+" Commands to resize gui window
+if has('gui_running')
+  command! -nargs=1 -complete=file Vs let &columns=GVIM_WIDTH*2 | vs <args>
+  command! Bq q | let &columns=GVIM_WIDTH
+  command! -bang Bq q! | let &columns=GVIM_WIDTH
+endif
+
+" Dealing with my typos
+command! W w
+command! -bang W w
+command! Q q
+command! -bang Q q
+
+" Sudo write in UNIX
+if !has('win32')
+  command! -nargs=0 Sw w !sudo tee % > /dev/null
+endif
+" ================================ABBREVIATIONS=================================
+" Force vertical splits for help files and expand gui window
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')
             \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
             \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('h'))
-" Automatically resize window to accommodate a right buffer
-cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')
-            \?('let &columns=GVIM_WIDTH*2<CR>:vs'):('rsp'))
-cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')
-            \?('q<CR>:let &columns=GVIM_WIDTH<CR>'):('bq'))
 
-command! -nargs=0 Sw w !sudo tee % > /dev/null
-
-" ============================================================================
+" ==============================================================================
 " Rebind in individual machine vimrcs
-" ============================================================================
+" ==============================================================================
 " Default Location
 " if has('win32')
 "   cd G:/Vim_Files
@@ -429,7 +432,7 @@ command! -nargs=0 Sw w !sudo tee % > /dev/null
 " nnoremap <leader>F :cd G:/Git<CR>
 
 
-" ============================================================================
+" ==============================================================================
 " Worthless usage notes to myself
-" ============================================================================
+" ==============================================================================
 " :e **/{filename} to access a file in any subfolder
