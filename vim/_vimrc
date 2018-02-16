@@ -395,6 +395,7 @@ cnoreabbrev <expr> rsp ((getcmdtype() is# ':'  && getcmdline() is# 'rsp')
 cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')
             \?('q<CR>:let &columns=GVIM_WIDTH<CR>'):('bq'))
 
+command! -nargs=0 Sw w !sudo tee % > /dev/null
 
 " ============================================================================
 " Rebind in individual machine vimrcs
