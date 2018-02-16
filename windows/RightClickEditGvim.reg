@@ -1,0 +1,64 @@
+Windows Registry Editor Version 5.00
+
+; Changing Edit option for text files to use gvim
+; Vim installer should add gvim to C:/Windows as bat files
+; If it doesn't work, change to @="\"PATH_TO_gvim\"\"%1\""
+; The first command names the context menu option, the second is the command itself
+
+; Text
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\text\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\text\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.txt\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.txt\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; Registry Files
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.reg\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.reg\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; Batch Files
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.bat\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.bat\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; Python
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.py\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.py\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; HTML
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.html\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.html\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; Java
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.java\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.java\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; C#
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.cs\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.cs\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; C# HTML
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.cshtml\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.cshtml\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""
+
+; JavaScript
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.js\shell\gvimEdit]
+@="Edit with gvim"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.js\shell\gvimEdit\command]
+@="\"gvim\"\"%1\""

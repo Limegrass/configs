@@ -386,7 +386,7 @@ inoremap <DOWN> <ESC>gja
 " ================================COMMANDS======================================
 " Commands to resize gui window
 if has('gui_running')
-  command! -nargs=1 -complete=file Vs let &columns=GVIM_WIDTH*2 | vs <args>
+  command! -nargs=* -complete=file Vs let &columns=GVIM_WIDTH*2 | vs <args>
   command! Bq q | let &columns=GVIM_WIDTH
   command! -bang Bq q! | let &columns=GVIM_WIDTH
 endif
@@ -411,7 +411,7 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
 " ==============================================================================
 " Rebind in individual machine vimrcs
 " ==============================================================================
-" Default Location
+" Default Location if desired (Otherwise opens in home directory)
 " if has('win32')
 "   cd G:/Vim_Files
 " endif
@@ -435,4 +435,14 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
 " ==============================================================================
 " Worthless usage notes to myself
 " ==============================================================================
-" :e **/{filename} to access a file in any subfolder
+" :e **/{FILENAME} to access a file in any subfolder
+"
+" REGISTERS
+" <Ctrl-R> {REGISTER} to access a register in insert
+" "{REGISTER} in normal mode
+" . register is the last inserted text
+" % is current file path
+" : is last command
+" + is the clipboard
+" Number registers are the last few deleted texts
+" @{REGISTER} can be used to execute commands in those registers
