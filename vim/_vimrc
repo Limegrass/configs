@@ -105,7 +105,9 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Jedi-vim
-let g:jedi#completion_enabled = 0
+let g:jedi#auto_initialization = 0
+let g:jedi#completions_enabled = 0
+let g:jedi#smart_auto_mappings = 0
 " jedi-vim Bindings
 let g:jedi#goto_command = "<leader>d"
 let g:jedi#goto_assignments_command = "<leader>g"
@@ -368,9 +370,15 @@ vnoremap <leader>z :s/TODO/DONE/<CR>
 vnoremap // y/<C-R>"<CR>
 
 " ================================INSERT MODE=================================
+" Common Ctrl-BS functionality in other editors, delete whole word with
+" Ctrl-DEL
 inoremap <C-BS> <C-W>
-" Delete word forward in Insert Mode, doesn't work for single letter words.
-inoremap <C-Del> <ESC>ldei
+inoremap <C-Del> <ESC>ciw
+" Copy, cut, paste, undo
+inoremap <C-C> <ESC>yiwa
+inoremap <C-X> <ESC>ciw
+inoremap <C-V> <ESC>pa
+inoremap <C-Z> <ESC>ua
 " Visual line navigation
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
@@ -418,3 +426,9 @@ cnoreabbrev <expr> bq ((getcmdtype() is# ':'  && getcmdline() is# 'bq')
 " Change directory to Git/Text folder
 " nnoremap <leader>f :cd G:/Vim_Files<CR>
 " nnoremap <leader>F :cd G:/Git<CR>
+
+
+" ============================================================================
+" Worthless usage notes to myself
+" ============================================================================
+" :e **/{filename} to access a file in any subfolder
