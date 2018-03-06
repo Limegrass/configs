@@ -1,0 +1,6 @@
+ALL: 1 DPI setting, 800 DPI
+Current 32.7273 inches/360
+
+osu: 1.0
+Source: .625
+Reflex: 2.4

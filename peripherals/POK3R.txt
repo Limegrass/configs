@@ -1,0 +1,14 @@
+LCtrl: Fn
+Caps: Ctrl
+VIM Arrow Keys
+Fn+i: Home
+Fn+o: End
+Fn+[: Pg Up
+Fn+]: Pg Down
+Fn+Tab: 4 Spaces
+Fn+W: Alt+F4
+Fn+Z,X,C,V: Foobar Pause/Play, Previous, Next, Random
+Fn+\: Insert
+Fn+Backspace: Delete
+Right Alt: Hiragana/ (Ctrl+CapsLock)
+Fn Right Alt: Katakana/ (Alt CapsLock)
