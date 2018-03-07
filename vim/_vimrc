@@ -33,10 +33,11 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'davidhalter/jedi-vim'
 Plug 'roxma/ncm-clang'
-Plug 'Rip-Rip/clang_complete'
+Plug 'OrangeT/vim-csharp'
 
-" File navigation
-Plug 'kien/ctrlp.vim'
+" File navigatio
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'majutsushi/tagbar'
 
 " Appearances
 Plug 'flazz/vim-colorschemes'
@@ -105,7 +106,8 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Jedi-vim
-let g:jedi#auto_initialization = 0
+let g:jedi#auto_initialization = 1
+let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#completions_enabled = 0
 let g:jedi#smart_auto_mappings = 0
 " jedi-vim Bindings
@@ -118,15 +120,8 @@ let g:jedi#completions_command = ""
 let g:jedi#rename_command = "<leader>r"
 
 " ncm-clang
-" default key mapping is annoying
 let g:clang_make_default_keymappings = 0
-" ncm-clang is auto detecting compile_commands.json and .clang_complete file
 let g:clang_auto_user_options = ''
-" map to gd key
-autocmd FileType c,cpp nnoremap <buffer> <leader>g
-    \:let &columns=GVIM_WIDTH*2<CR>
-    \:vs<CR>
-    \:call WrapClangGoTo()<CR>
 
 " ==============================================================================
 " FUNCTION DEFINITIONS
@@ -174,19 +169,6 @@ function! ChangeTabSizing(oldSize, newSize) range
   retab
 endfunction
 
-function! WrapClangGoTo()
-  let cwd = getcwd()
-  let info = ncm_clang#compilation_info()
-  exec 'cd ' . info['directory']
-  try
-    let b:clang_user_options = join(info['args'], ' ')
-    call g:ClangGotoDeclaration()
-  catch
-  endtry
-  " restore
-  exec 'cd ' . cwd
-endfunction
-
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
@@ -204,20 +186,18 @@ augroup textspell
   autocmd Filetype help setlocal nospell
 augroup END
 
-" Tab setting in vimscript to 2
+" Tab setting in vimscript and html to 2
+" C/C++? According to Google Style. Removed for now
 augroup tabbing
   autocmd!
-  autocmd Filetype vim setlocal tabstop=2
-  autocmd Filetype vim setlocal shiftwidth=2
-  " autocmd Filetype html setlocal tabstop=2
-  " autocmd Filetype html setlocal shiftwidth=2
+  autocmd Filetype vim,html setlocal tabstop=2
+  autocmd Filetype vim,html setlocal shiftwidth=2
 augroup END
 
-" Autocompletion on F2 for HTML
+" Autocompletion for HTML tags
 augroup htmlBinds
   autocmd!
-  autocmd Filetype html inoremap <buffer> </ </<C-X><C-O>
-  autocmd Filetype xml inoremap <buffer> </ </<C-X><C-O>
+  autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
 augroup END
 
 
@@ -348,13 +328,10 @@ nnoremap <space> za
 " Mark TODO as DONE
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
-" Page Nav
-nnoremap <F1> <C-D>
-nnoremap <F2> <C-U>
-" Cursor returns
-nnoremap <F5> <C-O>
-nnoremap <F6> <C-I>
-
+" Cursor returns that I never use
+nnoremap <F1> <C-O>
+" tagbar
+nnoremap <F2> :TagbarToggle<CR>
 
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
@@ -366,8 +343,11 @@ vnoremap <Tab> >
 vnoremap <S-Tab> <
 vnoremap <leader>z :s/TODO/DONE/<CR>
 
-"Search for visual selected
+" Search for visual selected
 vnoremap // y/<C-R>"<CR>
+
+" This is probably taking it too far
+vnoremap <leader>G "Gy:Google <C-R>G<CR>
 
 " ================================INSERT MODE===================================
 " Common Ctrl-BS functionality in other editors, delete whole word with
@@ -391,6 +371,16 @@ if has('gui_running')
   command! -bang Bq q! | let &columns=GVIM_WIDTH
 endif
 
+" Commands for functions
+command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
+
+" I'm crazy enough to want this function, maybe
+if has('win32')
+  command! -nargs=1 Google !start https://google.com/search?q=<args>
+else
+  command! -nargs=1 Google !xdg-open https://google.com/search?q=<args>
+endif
+
 " Dealing with my typos
 command! W w
 command! -bang W w
@@ -399,10 +389,10 @@ command! -bang Q q
 
 " Sudo write in UNIX
 if !has('win32')
-  command! -nargs=0 Sw w !sudo tee % > /dev/null
+  command! -nargs=0 Sw w silent !sudo tee % > /dev/null
 endif
 " ================================ABBREVIATIONS=================================
-" Force vertical splits for help files and expand gui window
+" Force vertical splits for help files and expand gui window for help
 cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')
             \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
@@ -446,3 +436,5 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
 " + is the clipboard
 " Number registers are the last few deleted texts
 " @{REGISTER} can be used to execute commands in those registers
+"
+" ALE uses location list for errors list, :lopen
