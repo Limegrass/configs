@@ -222,6 +222,7 @@ set undofile
 set history=100
 set lazyredraw
 set cursorline
+set hidden
 setlocal spelllang=en_us
 " :vs and :sp direction option
 set splitright
@@ -347,7 +348,7 @@ vnoremap <leader>z :s/TODO/DONE/<CR>
 vnoremap // y/<C-R>"<CR>
 
 " This is probably taking it too far
-vnoremap <leader>G "Gy:Google <C-R>G<CR>
+vnoremap <leader>G "gy:Google <C-R>g<CR>
 
 " ================================INSERT MODE===================================
 " Common Ctrl-BS functionality in other editors, delete whole word with
@@ -362,6 +363,8 @@ inoremap <C-Z> <ESC>ua
 " Visual line navigation
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
+" Reduce indent
+inoremap <S-Tab> <ESC><<A
 
 " ================================COMMANDS======================================
 " Commands to resize gui window
