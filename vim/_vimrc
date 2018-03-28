@@ -37,7 +37,7 @@ Plug 'OrangeT/vim-csharp'
 
 " File navigatio
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " Appearances
 Plug 'flazz/vim-colorschemes'
@@ -286,6 +286,8 @@ nnoremap $ g$
 nnoremap 0 g0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+" Helps me search double enter to insert after word
+nnoremap <RETURN> ea
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
