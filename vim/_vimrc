@@ -35,8 +35,13 @@ Plug 'davidhalter/jedi-vim'
 Plug 'roxma/ncm-clang'
 Plug 'OrangeT/vim-csharp'
 
-" File navigatio
-Plug 'ctrlpvim/ctrlp.vim'
+" File navigation
+if has('win32')
+  Plug 'ctrlpvim/ctrlp.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+endif
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " Appearances
@@ -173,10 +178,12 @@ endfunction
 " AUTOCOMMANDS
 " ==============================================================================
 " QuickFix window on vimgrep
-augroup todos
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
+augroup quickfix
+  autocmd!
+  " autocmd QuickFixCmdPost [^l]* cwindow
+  " autocmd QuickFixCmdPost l*    lwindow
+  autocmd CmdwinEnter * nnoremap <CR> <CR>
+  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 augroup END
 
 " Set spellchecking on for text buffers
@@ -287,7 +294,7 @@ nnoremap 0 g0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 " Helps me search double enter to insert after word
-nnoremap <RETURN> ea
+nnoremap <CR> ea
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<

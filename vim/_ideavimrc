@@ -18,6 +18,7 @@ set listchars=tab:▸\ ,trail:·
 set list
 set selection=inclusive
 set undofile
+set hidden
 set history=100
 setlocal spelllang=en_us
 " :vs and :sp direction option
@@ -29,6 +30,8 @@ set foldlevel=99
 " Prevent change to Hiragana
 set iminsert=0
 set imsearch=-1
+" Set default clipboard to be the system register
+set clipboard=unnamed
 
 " ============================================================================
 " KEYBINDINGS AND REMAPS
@@ -40,6 +43,8 @@ nnoremap $ g$
 nnoremap 0 g0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+" Helps me search double enter to insert after word
+nnoremap <RETURN> ea
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
