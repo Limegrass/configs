@@ -19,6 +19,7 @@ Plug 'sjl/gundo.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
+Plug 'wellle/targets.vim'
 
 " Syntax, Typically requires some setup
 if !has('nvim')
@@ -165,47 +166,63 @@ endfunction
 function! ChangeTabSizing(oldSize, newSize) range
   set expandtab
   let &tabstop=a:oldSize
+  let &softtabstop=a:oldSize
   let &shiftwidth=a:oldSize
   set expandtab!
   retab!
   let &tabstop=a:newSize
+  let &softtabstop=a:newSize
   let &shiftwidth=a:newSize
   set expandtab
   retab
+endfunction
+
+function! Preserve(command)
+  " save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
 endfunction
 
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
 " QuickFix window on vimgrep
-augroup quickfix
-  autocmd!
-  " autocmd QuickFixCmdPost [^l]* cwindow
-  " autocmd QuickFixCmdPost l*    lwindow
-  autocmd CmdwinEnter * nnoremap <CR> <CR>
-  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-augroup END
+if has('autocmd')
+  augroup quickfix
+    autocmd!
+    " autocmd QuickFixCmdPost [^l]* cwindow
+    " autocmd QuickFixCmdPost l*    lwindow
+    autocmd CmdwinEnter * nnoremap <CR> <CR>
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+  augroup END
 
-" Set spellchecking on for text buffers
-augroup textspell
-  autocmd!
-  autocmd Filetype text setlocal spell
-  autocmd Filetype help setlocal nospell
-augroup END
+  " Set spellchecking on for text buffers
+  augroup textspell
+    autocmd!
+    autocmd Filetype text setlocal spell
+    autocmd Filetype help setlocal nospell
+  augroup END
 
-" Tab setting in vimscript and html to 2
-" C/C++? According to Google Style. Removed for now
-augroup tabbing
-  autocmd!
-  autocmd Filetype vim,html setlocal tabstop=2
-  autocmd Filetype vim,html setlocal shiftwidth=2
-augroup END
+  " Tab setting in vimscript and html to 2
+  " C/C++? According to Google Style. Removed for now
+  augroup tabbing
+    autocmd!
+    autocmd Filetype vim,html setlocal tabstop=2
+    autocmd Filetype vim,html setlocal shiftwidth=2
+  augroup END
 
-" Autocompletion for HTML tags
-augroup htmlBinds
-  autocmd!
-  autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
-augroup END
+  " Autocompletion for HTML tags
+  augroup htmlBinds
+    autocmd!
+    autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
+  augroup END
+endif
 
 
 " ==============================================================================
@@ -349,8 +366,8 @@ vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 vnoremap <leader>z :s/TODO/DONE/<CR>
 
 " Search for visual selected
@@ -385,6 +402,8 @@ endif
 
 " Commands for functions
 command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
+command! -nargs=0 StripWhiteSpace call Preserve('%s/\s\+$//e')
+command! -nargs=0 Reindent call Preserve('normal gg=G')
 
 " I'm crazy enough to want this function, maybe
 if has('win32')
@@ -437,6 +456,9 @@ cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
 " ==============================================================================
 " Worthless usage notes to myself
 " ==============================================================================
+" Single quotes '' denotes literal strings
+" Double quotes "" can use escape characters
+" (ex s/%Vx/d/g) would replace x's with d's only in the " visual selection
 " :e **/{FILENAME} to access a file in any subfolder
 "
 " REGISTERS
