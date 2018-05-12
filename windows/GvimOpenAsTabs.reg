@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+[Computer\HKEY_CLASSES_ROOT\Applications\gvim.exe\shell\open\command]
+@="gvim --remote-tab-silent \"%1\""
+; (PATH_TO_GVIM) --remote-silent "%1" to open as buffers
+; replace gvim with path if the command is undefined (using a portable install etc)
