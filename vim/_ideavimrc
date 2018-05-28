@@ -5,9 +5,10 @@ scriptencoding utf-8
 " BASIC SETTINGS
 " ============================================================================
 set surround
+set showmode
 set ruler
 set incsearch
-set nohlsearch
+set hlsearch
 set ignorecase
 set smartcase
 set number
@@ -43,6 +44,7 @@ nnoremap $ g$
 nnoremap 0 g0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <RETURN> ea
 " Change tab structure in normal/visual mode
