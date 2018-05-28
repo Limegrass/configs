@@ -35,6 +35,7 @@ Plug 'honza/vim-snippets'
 Plug 'davidhalter/jedi-vim'
 Plug 'roxma/ncm-clang'
 Plug 'OrangeT/vim-csharp'
+Plug 'lervag/vimtex'
 
 " File navigation
 if has('win32')
@@ -319,7 +320,7 @@ nnoremap <S-Tab> <<
 nnoremap <leader>ss :source Session.vim<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
 " Change working directory to current file
-nnoremap <leader>D :cd %:p:h<CR>
+nnoremap <leader>cd :cd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
   nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
@@ -407,9 +408,11 @@ command! -nargs=0 Reindent call Preserve('normal gg=G')
 
 " I'm crazy enough to want this function, maybe
 if has('win32')
-  command! -nargs=1 Google !start https://google.com/search?q=<args>
+  command! -nargs=1 Google silent !start https://google.com/search?q=<args>
+  command! -nargs=1 Jisho silent !start https://jisho.org/search/?q=<args>
 else
-  command! -nargs=1 Google !xdg-open https://google.com/search?q=<args>
+  command! -nargs=1 Google silent !xdg-open https://google.com/search?q=<args>
+  command! -nargs=1 Jisho silent !xdg-open https://jisho.org/search/?q=<args>
 endif
 
 " Dealing with my typos
