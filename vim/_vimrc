@@ -321,6 +321,8 @@ nnoremap <CR> ea
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
+" Search for word currently under cursor
+nnoremap // yiw/<C-R>"
 " Load a session or refresh vimrc
 nnoremap <leader>ss :source Session.vim<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
@@ -406,10 +408,10 @@ command! -nargs=0 Reindent call Preserve('normal gg=G')
 " I'm crazy enough to want this function, maybe
 if has('win32')
   command! -nargs=1 Google silent !start https://google.com/search?q=<args>
-  command! -nargs=1 Jisho silent !start https://jisho.org/search/?q=<args>
+  command! -nargs=1 Jisho silent !start https://jisho.org/search/<args>
 else
   command! -nargs=1 Google silent !xdg-open https://google.com/search?q=<args>
-  command! -nargs=1 Jisho silent !xdg-open https://jisho.org/search/?q=<args>
+  command! -nargs=1 Jisho silent !xdg-open https://jisho.org/search/<args>
 endif
 
 " Dealing with my typos
