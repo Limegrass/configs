@@ -22,6 +22,7 @@ set undofile
 set hidden
 set history=100
 setlocal spelllang=en_us
+set backspace=indent,eol,start
 " :vs and :sp direction option
 set splitright
 set splitbelow
@@ -48,10 +49,10 @@ nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <RETURN> ea
 " Change tab structure in normal/visual mode
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+" nnoremap <Tab> >>
+" nnoremap <S-Tab> <<
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 " Toggles off Highlighting
 nnoremap <leader>h :set hlsearch!<CR>
 " Toggles tab-to-space conversion

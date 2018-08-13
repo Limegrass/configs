@@ -1,0 +1,49 @@
+set number
+set splitright
+set splitbelow
+set showmode
+set incsearch
+set ignorecase
+set smartcase
+set backspace=indent,eol,start
+
+set clipboard=unnamed
+" ============================================================================
+" KEYBINDINGS AND REMAPS
+" ============================================================================
+" Remap J, K some to navigate visible lines
+nnoremap j gj
+nnoremap k gk
+nnoremap $ g$
+nnoremap 0 g0
+" Yank to end of line, yy for line yank
+nnoremap Y y$
+nnoremap Q @q
+" Helps me search double enter to insert after word
+nnoremap <RETURN> ea
+nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
+nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
+
+
+" Change tab structure in normal/visual mode
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+
+
+" ================================VISUAL MODE=================================
+vnoremap j gj
+vnoremap k gk
+vnoremap $ g$
+vnoremap 0 g0
+
+"Search for visual selected
+vnoremap // y/<C-R>"<CR>
+
+" ================================ABBREVIATION=================================
+" COMMANDS
+" Automatically fix typos for writing and quitting
+cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
+cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
+cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))

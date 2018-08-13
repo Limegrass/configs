@@ -36,6 +36,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'roxma/ncm-clang'
 Plug 'OrangeT/vim-csharp'
 Plug 'lervag/vimtex'
+Plug 'cakebaker/scss-syntax.vim'
 
 " File navigation
 if has('win32')
@@ -319,8 +320,8 @@ nnoremap <leader>O O<ESC>
 " Helps me search double enter to insert after word
 nnoremap <CR> ea
 " Change tab structure in normal/visual mode
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
+" nnoremap <Tab> >>
+" nnoremap <S-Tab> <<
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
 " Load a session or refresh vimrc
