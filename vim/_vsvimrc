@@ -24,6 +24,9 @@ nnoremap <RETURN> ea
 nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
 nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
 
+nnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>
+nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
+
 
 " Change tab structure in normal/visual mode
 nnoremap <Tab> >>

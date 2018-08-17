@@ -314,14 +314,8 @@ nnoremap 0 g0
 nnoremap Y y$
 " Q to replay qq macro
 nnoremap Q @q
-" Add blank lines
-nnoremap <leader>o o<ESC>
-nnoremap <leader>O O<ESC>
 " Helps me search double enter to insert after word
 nnoremap <CR> ea
-" Change tab structure in normal/visual mode
-" nnoremap <Tab> >>
-" nnoremap <S-Tab> <<
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
 " Load a session or refresh vimrc
@@ -345,14 +339,9 @@ nnoremap <leader>sc :set spell!<CR>
 if has('nvim')
   tnoremap <C-J> <C-\><C-N>
 endif
-" Switch between tabs
-nnoremap <leader>[ :tabp<CR>
-nnoremap <leader>] :tabn<CR>
 " Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
 nnoremap <S-C-T> <C-T>
 nnoremap <C-T> :tabedit<CR>
-" Fold in normal mode with space
-nnoremap <space> za
 " Mark TODO as DONE
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
@@ -360,6 +349,9 @@ nnoremap <leader>T :vimgrep /TODO/ %<CR>
 nnoremap <F1> <C-O>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
+
+" Handicaps while learning
+nnoremap <leader>sp z=
 
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
@@ -381,17 +373,11 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 " Common Ctrl-BS functionality in other editors, delete whole word with
 " Ctrl-DEL
 inoremap <C-BS> <C-W>
-inoremap <C-Del> <ESC>ciw
 " Copy, cut, paste, undo
-inoremap <C-C> <ESC>yiwa
-inoremap <C-X> <ESC>ciw
-inoremap <C-V> <ESC>pa
 inoremap <C-Z> <ESC>ua
 " Visual line navigation
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
-" Reduce indent
-inoremap <S-Tab> <ESC><<A
 
 " ================================COMMANDS======================================
 " Commands to resize gui window
