@@ -2,6 +2,9 @@
 scriptencoding utf-8
 let GVIM_WIDTH = 100
 let GVIM_HEIGHT = 50
+if filereadable('machine.vim')
+  source machine.vim
+endif
 " ==============================================================================
 " VIM-PLUG BLOCK
 " ==============================================================================
@@ -22,29 +25,37 @@ Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
 
 " Syntax, Typically requires some setup
-if !has('nvim')
+if !has('nvim') && has('gui_running')
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'roxma/nvim-yarp'
+  Plug 'ncm2/ncm2'
+  Plug 'ncm2/ncm2-bufword'
+  Plug 'ncm2/ncm2-tmux'
+  Plug 'ncm2/ncm2-path'
+  Plug 'ncm2/ncm2-jedi'
+  Plug 'ncm2/ncm2-pyclang'
+  Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
+  Plug 'ncm2/ncm2-tern'
+  Plug 'ncm2/ncm2-cssomni'
+  Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
+  Plug 'ncm2/ncm2-snipmate' | Plug 'tomtom/tlib_vim'
+    \ | Plug 'marcweber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
 endif
-Plug 'roxma/nvim-completion-manager'
+
+Plug 'mhartington/nvim-typescript'
 " Currently installed 'linters'
 " on main machine: vint, proselint, clang, autopep8, javac, jedi
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'davidhalter/jedi-vim'
-Plug 'roxma/ncm-clang'
 Plug 'OrangeT/vim-csharp'
 Plug 'lervag/vimtex'
 Plug 'cakebaker/scss-syntax.vim'
 
-" File navigation
-if has('win32')
-  Plug 'ctrlpvim/ctrlp.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " Appearances
@@ -67,8 +78,8 @@ let g:indent_guides_enable_on_vim_startup = 1
 " Airline theme
 let g:airline_theme='deus'
 
-" Ctrl-P
-let g:ctrlp_working_path_mode = 0
+" FZF
+nnoremap <C-SPACE> :FZF<CR>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -81,10 +92,14 @@ vnoremap <leader><Tab> :Commentary<CR>
 " Obsession
 nnoremap <leader>O :Obsession<CR>
 
-" nvim completion manager
-let g:python3_host_prog="python3"
+" ncm: nvim completion manager
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+" let g:python3_host_prog="C:\Python\x86\3.5\python.exe"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
@@ -350,17 +365,18 @@ nnoremap <F1> <C-O>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
 
-" Handicaps while learning
-nnoremap <leader>sp z=
-
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
 vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+
+" Retain selection when indenting in visual mode
+vmap > >gv
+vmap < <gv
+vnoremap <Tab> >
+vnoremap <S-Tab> <
 vnoremap <leader>z :s/TODO/DONE/<CR>
 
 " Search for visual selected
@@ -417,47 +433,3 @@ cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')
             \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('help'))
 cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
             \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('h'))
-
-" ==============================================================================
-" Rebind in individual machine vimrcs
-" ==============================================================================
-" Default Location if desired (Otherwise opens in home directory)
-" if has('win32')
-"   cd G:/Vim_Files
-" endif
-
-" Edit vimrc
-" if has('win32')
-"   nnoremap <leader>v :edit G:\Git\configs\vim\_vimrc<CR>
-"   "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
-"   nnoremap <leader>V :tabnew G:\Git\configs\vim\_vimrc<CR>
-" else
-"   nnoremap <leader>v :edit $MYVIMRC<CR>
-"   "nnoremap <leader>V :set columns=200<CR>:vs $MYVIMRC<CR>
-"   nnoremap <leader>V :tabnew $MYVIMRC<CR>
-" endif
-
-" Change directory to Git/Text folder
-" nnoremap <leader>f :cd G:/Vim_Files<CR>
-" nnoremap <leader>F :cd G:/Git<CR>
-
-
-" ==============================================================================
-" Worthless usage notes to myself
-" ==============================================================================
-" Single quotes '' denotes literal strings
-" Double quotes "" can use escape characters
-" (ex s/%Vx/d/g) would replace x's with d's only in the " visual selection
-" :e **/{FILENAME} to access a file in any subfolder
-"
-" REGISTERS
-" <Ctrl-R> {REGISTER} to access a register in insert
-" "{REGISTER} in normal mode
-" . register is the last inserted text
-" % is current file path
-" : is last command
-" + is the clipboard
-" Number registers are the last few deleted texts
-" @{REGISTER} can be used to execute commands in those registers
-"
-" ALE uses location list for errors list, :lopen

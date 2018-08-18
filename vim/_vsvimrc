@@ -8,9 +8,8 @@ set smartcase
 set backspace=indent,eol,start
 
 set clipboard=unnamed
-" ============================================================================
-" KEYBINDINGS AND REMAPS
-" ============================================================================
+
+" ================================ KEYBINDINGS =================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap k gk
@@ -21,18 +20,35 @@ nnoremap Y y$
 nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <RETURN> ea
+
+" Movement of splits
 nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
 nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
 
+" Originally Edit.CompleteWord
+nnoremap <C-SPACE> :vsc Edit.GoToAll<CR>
+nnoremap <C-X> :vsc Edit.CompleteWord<CR>
+
+" Tooltips
+nnoremap <K> :vsc Edit.QuickInfo<CR>
+nnoremap <C-Q> :vsc Edit.ParameterInfo<CR>
+
+" Commenting
 nnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>
 nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
+" Opening Window panes
+nnoremap <leader>se :vsc View.SolutionExplorer<CR>
+nnoremap <leader>tv :vsc View.TfsTeamExplorer<CR>
+nnoremap <leader>au :vsc Debug.Autos<CR>
+nnoremap <leader>lo :vsc Debug.Locals<CR>
+nnoremap <leader>br :vsc Debug.Breakpoints<CR>
 
-" Change tab structure in normal/visual mode
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+" Debug
+nnoremap <leader>dj :vsc Debug.StepInto<CR>
+nnoremap <leader>dk :vsc Debug.StepOut<CR>
+nnoremap <leader>dl :vsc Debug.StepOver<CR>
+
 
 
 " ================================VISUAL MODE=================================
@@ -40,6 +56,10 @@ vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
+
+" Change tab structure in visual mode
+vnoremap <Tab> >
+vnoremap <S-Tab> <
 
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -50,3 +70,5 @@ vnoremap // y/<C-R>"<CR>
 cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
 cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
 cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))
+
+
