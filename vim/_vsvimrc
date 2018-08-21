@@ -35,6 +35,7 @@ nnoremap <C-L> :vsc View.NavigateForward<CR>
 " Tooltips
 nnoremap <K> :vsc Edit.QuickInfo<CR>
 nnoremap <C-Q> :vsc Edit.ParameterInfo<CR>
+nnoremap <leader>m :vsc Edit.ListMembers<CR>
 
 " Commenting
 nnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>

@@ -369,17 +369,18 @@ nnoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
 
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
-vnoremap j gj
-vnoremap k gk
-vnoremap $ g$
-vnoremap 0 g0
+xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
+xnoremap <expr> gj mode() ==# "v" ? "j"  : "gj"
+xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
+xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
+xnoremap $ g$
+xnoremap 0 g0
 
 " Retain selection when indenting in visual mode
 vnoremap > >gv
 vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-vnoremap <leader>z :s/TODO/DONE/<CR>
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -403,6 +404,8 @@ inoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
 " Commands to resize gui window
 if has('gui_running')
   command! -nargs=* -complete=file Vs let &columns=GVIM_WIDTH*2 | vs <args>
+  command! -nargs=0 DoubleWidth let &columns=GVIM_WIDTH * 2| let GVIM_WIDTH = &columns
+  command! -nargs=0 HalfWidth let &columns=GVIM_WIDTH / 2| let GVIM_WIDTH = &columns
   command! Bq q | let &columns=GVIM_WIDTH
   command! -bang Bq q! | let &columns=GVIM_WIDTH
 endif
