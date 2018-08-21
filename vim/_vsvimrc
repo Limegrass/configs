@@ -29,6 +29,9 @@ nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
 nnoremap <C-SPACE> :vsc Edit.GoToAll<CR>
 nnoremap <C-X> :vsc Edit.CompleteWord<CR>
 
+nnoremap <C-H> :vsc View.NavigateBackward<CR>
+nnoremap <C-L> :vsc View.NavigateForward<CR>
+
 " Tooltips
 nnoremap <K> :vsc Edit.QuickInfo<CR>
 nnoremap <C-Q> :vsc Edit.ParameterInfo<CR>
@@ -39,7 +42,7 @@ nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
 " Opening Window panes
 nnoremap <leader>se :vsc View.SolutionExplorer<CR>
-nnoremap <leader>tv :vsc View.TfsTeamExplorer<CR>
+nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
 nnoremap <leader>au :vsc Debug.Autos<CR>
 nnoremap <leader>lo :vsc Debug.Locals<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>

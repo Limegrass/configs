@@ -32,7 +32,7 @@ endif
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
+" Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
@@ -365,6 +365,7 @@ nnoremap <leader>T :vimgrep /TODO/ %<CR>
 nnoremap <F1> <C-O>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
+nnoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
 
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
@@ -374,10 +375,10 @@ vnoremap $ g$
 vnoremap 0 g0
 
 " Retain selection when indenting in visual mode
-vmap > >gv
-vmap < <gv
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 vnoremap <leader>z :s/TODO/DONE/<CR>
 
 " Search for visual selected
@@ -395,6 +396,8 @@ inoremap <C-Z> <ESC>ua
 " Visual line navigation
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
+" Clean file on ESC
+inoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
 
 " ================================COMMANDS======================================
 " Commands to resize gui window
@@ -406,7 +409,7 @@ endif
 
 " Commands for functions
 command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
-command! -nargs=0 StripWhiteSpace call Preserve('%s/\s\+$//e')
+command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 
 " I'm crazy enough to want this function, maybe
