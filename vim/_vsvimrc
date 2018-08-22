@@ -12,9 +12,13 @@ set clipboard=unnamed
 " ================================ KEYBINDINGS =================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
+nnoremap gj j
 nnoremap k gk
+nnoremap gk k
 nnoremap $ g$
+nnoremap g$ $
 nnoremap 0 g0
+nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 nnoremap Q @q
@@ -47,6 +51,7 @@ nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
 nnoremap <leader>au :vsc Debug.Autos<CR>
 nnoremap <leader>lo :vsc Debug.Locals<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>
+nnoremap <leader>vh :vsc File.TfsHistory<CR>
 
 " Debug
 nnoremap <leader>dj :vsc Debug.StepInto<CR>
@@ -56,10 +61,14 @@ nnoremap <leader>dl :vsc Debug.StepOver<CR>
 
 
 " ================================VISUAL MODE=================================
-vnoremap j gj
-vnoremap k gk
-vnoremap $ g$
-vnoremap 0 g0
+xnoremap j  gj
+xnoremap gj j
+xnoremap k  gk
+xnoremap gk k
+xnoremap $ g$
+xnoremap g$ $
+xnoremap 0 g0
+xnoremap g0 0
 
 " Change tab structure in visual mode
 vnoremap <Tab> >

@@ -207,6 +207,14 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
+function! ToggleSize()
+    if &columns is g:GVIM_WIDTH
+        let &columns = g:GVIM_WIDTH * 2
+    else
+        let &columns = g:GVIM_WIDTH
+    endif
+endfunction
+
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
@@ -240,6 +248,10 @@ if has('autocmd')
     autocmd!
     autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
   augroup END
+
+  augroup quitHelp
+      autocmd! Filetype Help cnoreabbrev <buffer> q Bq
+  augroup END
 endif
 
 
@@ -265,7 +277,7 @@ set history=100
 set lazyredraw
 set cursorline
 set hidden
-setlocal spelllang=en_us
+setlocal spelllang=en_US
 " :vs and :sp direction option
 set splitright
 set splitbelow
@@ -323,9 +335,13 @@ set backspace=indent,eol,start
 " ================================NORMAL MODE===================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
+nnoremap gj j
 nnoremap k gk
+nnoremap gk k
 nnoremap $ g$
+nnoremap g$ $
 nnoremap 0 g0
+nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 " Q to replay qq macro
@@ -374,7 +390,9 @@ xnoremap <expr> gj mode() ==# "v" ? "j"  : "gj"
 xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
 xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
 xnoremap $ g$
+xnoremap g$ $
 xnoremap 0 g0
+xnoremap g0 0
 
 " Retain selection when indenting in visual mode
 vnoremap > >gv
@@ -403,10 +421,9 @@ inoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
 " ================================COMMANDS======================================
 " Commands to resize gui window
 if has('gui_running')
-  command! -nargs=* -complete=file Vs let &columns=GVIM_WIDTH*2 | vs <args>
-  command! -nargs=0 DoubleWidth let &columns=GVIM_WIDTH * 2| let GVIM_WIDTH = &columns
-  command! -nargs=0 HalfWidth let &columns=GVIM_WIDTH / 2| let GVIM_WIDTH = &columns
-  command! Bq q | let &columns=GVIM_WIDTH
+  command! ToggleSize call ToggleSize()
+  command! -nargs=* -complete=file Vs ToggleSize | vs <args>
+  command! Bq ToggleSize | q
   command! -bang Bq q! | let &columns=GVIM_WIDTH
 endif
 
@@ -436,7 +453,16 @@ if !has('win32')
 endif
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
-cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')
-            \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('help'))
-cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')
-            \?('let &columns=GVIM_WIDTH*2<CR>:vert help'):('h'))
+cnoreabbrev <expr> help (getcmdtype() is# ':'
+      \ && getcmdline() is# 'help'
+      \ && &columns is GVIM_WIDTH)
+      \?('ToggleSize<CR>:vert help')
+      \:('help')
+cnoreabbrev <expr> h (getcmdtype() is# ':'
+      \ && getcmdline() is# 'h'
+      \ && &columns is GVIM_WIDTH)
+      \?('ToggleSize<CR>:vert help')
+      \:('h')
+
+" Fix the abbrevs and made a local binding on buf enter for Help files to close it with :q
+" Make the abbrevs use the custom commands
