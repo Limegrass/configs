@@ -1,7 +1,5 @@
 Windows Registry Editor Version 5.00
 
-; Access denied for xbgm, so registry editing needed.
-; Rest can be GUI editted in services if desired
-
+; dword:1 to disable, 0 to enable
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableLockWorkstation"=dword:1

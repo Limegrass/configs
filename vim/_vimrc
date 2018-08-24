@@ -277,6 +277,7 @@ set history=100
 set lazyredraw
 set cursorline
 set hidden
+set diffopt+=vertical
 setlocal spelllang=en_US
 " :vs and :sp direction option
 set splitright
@@ -421,9 +422,9 @@ inoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
 " ================================COMMANDS======================================
 " Commands to resize gui window
 if has('gui_running')
-  command! ToggleSize call ToggleSize()
-  command! -nargs=* -complete=file Vs ToggleSize | vs <args>
-  command! Bq ToggleSize | q
+  command! ToggleSize call ToggleSize() | normal <C-W>=
+  command! -nargs=* -complete=file Vs call ToggleSize() | vs <args>
+  command! Bq call ToggleSize() | q
   command! -bang Bq q! | let &columns=GVIM_WIDTH
 endif
 
@@ -451,6 +452,7 @@ command! -bang Q q
 if !has('win32')
   command! -nargs=0 Sw w silent !sudo tee % > /dev/null
 endif
+
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
 cnoreabbrev <expr> help (getcmdtype() is# ':'
@@ -463,6 +465,3 @@ cnoreabbrev <expr> h (getcmdtype() is# ':'
       \ && &columns is GVIM_WIDTH)
       \?('ToggleSize<CR>:vert help')
       \:('h')
-
-" Fix the abbrevs and made a local binding on buf enter for Help files to close it with :q
-" Make the abbrevs use the custom commands

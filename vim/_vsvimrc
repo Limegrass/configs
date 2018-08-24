@@ -77,11 +77,14 @@ vnoremap <S-Tab> <
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
 
+
+
+" ================================INSERT MODE=================================
+inoremap <C-X> :vsc Edit.CompleteWord<CR>
+
 " ================================ABBREVIATION=================================
 " COMMANDS
 " Automatically fix typos for writing and quitting
 cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
 cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
 cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))
-
-

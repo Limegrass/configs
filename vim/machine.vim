@@ -4,7 +4,7 @@
 " ==============================================================================
 " Default Location if desired (Otherwise opens in home directory)
 if has('win32')
-  cd C:/Users/james.ni/Documents/Vim
+  cd C:\Vim\misc<CR>
 endif
 
 " Edit vimrc. Symlink it to the configs folder
@@ -12,7 +12,7 @@ nnoremap <leader>v :edit $MYVIMRC<CR> :lc %:h<CR>
 nnoremap <leader>V :tabnew $MYVIMRC<CR> :lc %:h<CR>
 
 " Change directory to Git/Text folder
-nnoremap <leader>f :cd C:/Users/james.ni/Documents/Vim<CR>
+nnoremap <leader>f :cd C:/Vim/misc<CR>
 nnoremap <leader>F :cd C:/Git<CR>
 nnoremap <leader>ya :call Preserve('normal gg"+yG')<CR>
 
