@@ -54,10 +54,12 @@ nnoremap <leader>br :vsc Debug.Breakpoints<CR>
 nnoremap <leader>vh :vsc File.TfsHistory<CR>
 
 " Debug
-nnoremap <leader>dj :vsc Debug.StepInto<CR>
-nnoremap <leader>dk :vsc Debug.StepOut<CR>
-nnoremap <leader>dl :vsc Debug.StepOver<CR>
+nnoremap <leader>] :vsc Debug.StepInto<CR>
+nnoremap <leader><BS> :vsc Debug.StepOut<CR>
+nnoremap <leader>[ :vsc Debug.StepOver<CR>
 
+
+nnoremap <leader>p :vsc View.PropertiesWindow<CR>
 
 
 " ================================VISUAL MODE=================================

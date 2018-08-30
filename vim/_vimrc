@@ -278,7 +278,8 @@ set lazyredraw
 set cursorline
 set hidden
 set diffopt+=vertical
-setlocal spelllang=en_US
+packadd! matchit
+set spelllang=en_US
 " :vs and :sp direction option
 set splitright
 set splitbelow
@@ -456,12 +457,10 @@ endif
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
 cnoreabbrev <expr> help (getcmdtype() is# ':'
-      \ && getcmdline() is# 'help'
-      \ && &columns is GVIM_WIDTH)
+      \ && getcmdline() is# 'help')
       \?('ToggleSize<CR>:vert help')
       \:('help')
 cnoreabbrev <expr> h (getcmdtype() is# ':'
-      \ && getcmdline() is# 'h'
-      \ && &columns is GVIM_WIDTH)
+      \ && getcmdline() is# 'h')
       \?('ToggleSize<CR>:vert help')
       \:('h')
