@@ -383,7 +383,7 @@ nnoremap <leader>T :vimgrep /TODO/ %<CR>
 nnoremap <F1> <C-O>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
-nnoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
+nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
 
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
@@ -418,7 +418,7 @@ inoremap <C-Z> <ESC>ua
 inoremap <UP> <ESC>gka
 inoremap <DOWN> <ESC>gja
 " Clean file on ESC
-inoremap <ESC> <ESC>:StripTrailingWhiteSpace<CR>
+inoremap <ESC> <ESC>
 
 " ================================COMMANDS======================================
 " Commands to resize gui window
