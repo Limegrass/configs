@@ -1,14 +1,33 @@
+FN+:
+    Q:  Previous
+    W:  Paues/Play
+    E:  Next
+    S:  Vol-
+    D:  Vol+
+    F:  VolMute
+    Z:  APP
+
 LCtrl: Fn
-Caps: Ctrl
-VIM Arrow Keys
-Fn+i: Home
-Fn+o: End
-Fn+[: Pg Up
-Fn+]: Pg Down
-Fn+Tab: 4 Spaces
-Fn+W: Alt+F4
-Fn+Z,X,C,V: Foobar Pause/Play, Previous, Next, Random
-Fn+\: Insert
-Fn+Backspace: Delete
+Caps: LCtrl
+FN+I: Home
+FN+O: End
+FN+[: Pg Up
+FN+]: Pg Down
+FN+Q: CTRL+SHIFT+ESC (Task Manager)
+FN+W: Alt+F4
+FN+X,C,V: Pause, Next, Random (Foobar)
+FN+\: Insert
+FN+Backspace: Delete
 Right Alt: Hiragana/ (Ctrl+CapsLock)
-Fn Right Alt: Katakana/ (Alt CapsLock)
+FN Right Alt: Katakana/ (Alt CapsLock)
+RWIN (FN Original): LCTRL
+FN+B: Workspace right
+FN+G: Workspace left
+FN+N: Workspace right
+
+VIM Arrow Keys (hjkl)
+
+
+Free keys:
+    FN (RWIN)
+    FN+E A T G

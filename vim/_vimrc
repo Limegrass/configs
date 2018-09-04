@@ -40,8 +40,8 @@ Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-tern'
 Plug 'ncm2/ncm2-cssomni'
 Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
-Plug 'ncm2/ncm2-snipmate' | Plug 'tomtom/tlib_vim'
-  \ | Plug 'marcweber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
+" Plug 'ncm2/ncm2-snipmate' | Plug 'tomtom/tlib_vim'
+"   \ | Plug 'marcweber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
 
 " Currently installed 'linters'
 " on main machine: vint, proselint, clang, autopep8, javac, jedi
@@ -98,15 +98,36 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 " let g:python3_host_prog="C:\Python\x86\3.5\python.exe"
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<DOWN>"
+inoremap <expr> <UP> pumvisible() ? "\<C-P>" : "\<UP>"
+let g:ncm2#matcher = 'abbrfuzzy'
+let g:ncm2#sorter = 'abbrfuzzy'
 
 " Ultisnips with ncm
-let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
-inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
+inoremap <silent> <expr> <TAB> pumvisible() ? ncm2_ultisnips#expand_or("\<c-y>", 'n') : "\<TAB>"
+
+function! UltiSnipsKeyMap()
+  inoremap i test
+  snoremap <TAB> call UltiSnips#JumpForwards()<CR>
+  snoremap <S-TAB> call UltiSnips#JumpForwards()<CR>
+endfunction
+
+function! UltiSnipsKeyUnmap()
+  snoremap <TAB> <TAB>
+  snoremap <S-TAB> <S-TAB>
+endfunction
+
+augroup UltiSnips
+  autocmd! User UltiSnipsEnterFirstSnippet
+  autocmd User UltiSnipsEnterFirstSnippet call UltiSnipsKeyMap()
+  autocmd! User UltiSnipsExitLastSnippet call UltiSnipsKeyUnmap()
+augroup END
+
+" inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
 
 " ALE
 let g:airline#extensions#ale#enabled = 1
@@ -208,11 +229,11 @@ function! Preserve(command)
 endfunction
 
 function! ToggleSize()
-    if &columns is g:GVIM_WIDTH
-        let &columns = g:GVIM_WIDTH * 2
-    else
-        let &columns = g:GVIM_WIDTH
-    endif
+  if &columns is g:GVIM_WIDTH
+    let &columns = g:GVIM_WIDTH * 2
+  else
+    let &columns = g:GVIM_WIDTH
+  endif
 endfunction
 
 " ==============================================================================
@@ -250,7 +271,7 @@ if has('autocmd')
   augroup END
 
   augroup quitHelp
-      autocmd! Filetype Help cnoreabbrev <buffer> q Bq
+    autocmd! Filetype Help cnoreabbrev <buffer> q Bq
   augroup END
 endif
 
@@ -269,7 +290,8 @@ set number
 set wrap
 set wildmenu
 set guioptions=c
-set listchars=tab:▸\ ,trail:·
+set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
+set scrolljump=3
 set list
 set selection=inclusive
 set undofile
@@ -278,6 +300,7 @@ set lazyredraw
 set cursorline
 set hidden
 set diffopt+=vertical
+set fileformat=unix
 packadd! matchit
 set spelllang=en_US
 " :vs and :sp direction option
@@ -335,6 +358,8 @@ set backspace=indent,eol,start
 " ==============================================================================
 
 " ================================NORMAL MODE===================================
+" HELP
+nnoremap K K<C-W>L
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j
@@ -379,8 +404,6 @@ nnoremap <C-T> :tabedit<CR>
 " Mark TODO as DONE
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
-" Cursor returns that I never use
-nnoremap <F1> <C-O>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
 nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
@@ -399,8 +422,8 @@ xnoremap g0 0
 " Retain selection when indenting in visual mode
 vnoremap > >gv
 vnoremap < <gv
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+" vnoremap <Tab> >gv
+" vnoremap <S-Tab> <gv
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -412,13 +435,9 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 " Common Ctrl-BS functionality in other editors, delete whole word with
 " Ctrl-DEL
 inoremap <C-BS> <C-W>
-" Copy, cut, paste, undo
-inoremap <C-Z> <ESC>ua
 " Visual line navigation
-inoremap <UP> <ESC>gka
-inoremap <DOWN> <ESC>gja
-" Clean file on ESC
-inoremap <ESC> <ESC>
+" inoremap <UP> <ESC>gka
+" inoremap <DOWN> <ESC>gja
 
 " ================================COMMANDS======================================
 " Commands to resize gui window
