@@ -28,6 +28,9 @@ nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <RETURN> ea
 
+
+nnoremap <leader>r :vsc Refactor.Rename<CR>
+
 " Movement of splits
 nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
 nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
@@ -51,7 +54,7 @@ nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
 " Opening Window panes
 nnoremap <leader>se :vsc View.SolutionExplorer<CR>
-nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
+nnoremap <leader>tv :vsc View.TfsTeamExplorer<CR>
 nnoremap <leader>au :vsc Debug.Autos<CR>
 nnoremap <leader>lo :vsc Debug.Locals<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>
@@ -64,6 +67,7 @@ nnoremap <leader>er :vsc View.ErrorList<CR>
 nnoremap <leader>op :vsc View.Output<CR>
 nnoremap <leader>td :vsc View.TaskList<CR>
 nnoremap <leader>fs :vsc View.FullScreen<CR>
+nnoremap <leader>te :vsc TestExplorer.ShowTestExplorer<CR>
 
 " Debug
 nnoremap <leader>] :vsc Debug.StepInto<CR>

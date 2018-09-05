@@ -105,28 +105,10 @@ let g:ncm2#sorter = 'abbrfuzzy'
 
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
-inoremap <silent> <expr> <TAB> pumvisible() ? ncm2_ultisnips#expand_or("\<c-y>", 'n') : "\<TAB>"
-
-function! UltiSnipsKeyMap()
-  inoremap i test
-  snoremap <TAB> call UltiSnips#JumpForwards()<CR>
-  snoremap <S-TAB> call UltiSnips#JumpForwards()<CR>
-endfunction
-
-function! UltiSnipsKeyUnmap()
-  snoremap <TAB> <TAB>
-  snoremap <S-TAB> <S-TAB>
-endfunction
-
-augroup UltiSnips
-  autocmd! User UltiSnipsEnterFirstSnippet
-  autocmd User UltiSnipsEnterFirstSnippet call UltiSnipsKeyMap()
-  autocmd! User UltiSnipsExitLastSnippet call UltiSnipsKeyUnmap()
-augroup END
-
+let g:UltiSnipsJumpForwardTrigger       = "<TAB>"
+let g:UltiSnipsJumpBackwardTrigger      = "<S-TAB>"
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+inoremap <silent> <expr> <TAB> pumvisible() ? ncm2_ultisnips#expand_or("\<TAB>", 'n') : "\<TAB>"
 " inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
 
 " ALE
