@@ -19,9 +19,11 @@ endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
 Plug 'sjl/gundo.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
 
