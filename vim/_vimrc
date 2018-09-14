@@ -100,17 +100,17 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 " let g:python3_host_prog="C:\Python\x86\3.5\python.exe"
-inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<DOWN>"
-inoremap <expr> <UP> pumvisible() ? "\<C-P>" : "\<UP>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-N>" : "\<TAB>"
+inoremap <expr> <S-TAB> pumvisible() ? "\<C-P>" : "\<S-TAB>"
 let g:ncm2#matcher = 'abbrfuzzy'
 let g:ncm2#sorter = 'abbrfuzzy'
 
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger       = "<TAB>"
-let g:UltiSnipsJumpBackwardTrigger      = "<S-TAB>"
+let g:UltiSnipsJumpForwardTrigger       = "<C-J>"
+let g:UltiSnipsJumpBackwardTrigger      = "<C-K>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
-inoremap <silent> <expr> <TAB> pumvisible() ? ncm2_ultisnips#expand_or("\<TAB>", 'n') : "\<TAB>"
+inoremap <silent> <expr> <C-SPACE> pumvisible() ? ncm2_ultisnips#expand_or("\<C-SPACE>", 'n') : "\<C-SPACE>"
 " inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
 
 " ALE
@@ -244,8 +244,8 @@ if has('autocmd')
   " C/C++? According to Google Style. Removed for now
   augroup tabbing
     autocmd!
-    autocmd Filetype vim,html setlocal tabstop=2
-    autocmd Filetype vim,html setlocal shiftwidth=2
+    autocmd Filetype vim,html,xml setlocal tabstop=2
+    autocmd Filetype vim,html,xml setlocal shiftwidth=2
   augroup END
 
   " Autocompletion for HTML tags

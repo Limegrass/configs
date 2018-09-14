@@ -1,6 +1,7 @@
 " Binds Outside of VSVIM for global use
 " (VSVim doesn't affect some document windows)
 " <A-O> Tools.Options
+" <F4> Window.CloseDocumentWindow
 set number
 set splitright
 set splitbelow
@@ -37,7 +38,7 @@ nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
 
 " Originally Edit.CompleteWord
 nnoremap <C-SPACE> :vsc Edit.GoToAll<CR>
-nnoremap <A-SPACE> :vsc Edit.FindinFiles
+nnoremap <A-SPACE> :vsc Edit.FindinFiles 
 nnoremap <C-X> :vsc Edit.CompleteWord<CR>
 
 nnoremap <C-H> :vsc View.NavigateBackward<CR>
@@ -54,7 +55,7 @@ nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
 " Opening Window panes
 nnoremap <leader>se :vsc View.SolutionExplorer<CR>
-nnoremap <leader>tv :vsc View.TfsTeamExplorer<CR>
+nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
 nnoremap <leader>au :vsc Debug.Autos<CR>
 nnoremap <leader>lo :vsc Debug.Locals<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>
@@ -67,12 +68,17 @@ nnoremap <leader>er :vsc View.ErrorList<CR>
 nnoremap <leader>op :vsc View.Output<CR>
 nnoremap <leader>td :vsc View.TaskList<CR>
 nnoremap <leader>fs :vsc View.FullScreen<CR>
-nnoremap <leader>te :vsc TestExplorer.ShowTestExplorer<CR>
+nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
+nnoremap <leader>bl :vsc File.TfsAnnotate<CR>
+nnoremap <leader>an :vsc File.TfsAnnotate<CR>
+nnoremap <leader>cf :vsc File.TfsCompare<CR>
 
 " Debug
 nnoremap <leader>] :vsc Debug.StepInto<CR>
 nnoremap <leader><BS> :vsc Debug.StepOut<CR>
 nnoremap <leader>[ :vsc Debug.StepOver<CR>
+nnoremap <leader>pp :vsc Debug.BreakAll<CR>
+nnoremap <leader><CR> :vsc Debug.Start<CR>
 
 
 " ================================VISUAL MODE=================================
