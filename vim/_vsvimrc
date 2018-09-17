@@ -29,6 +29,9 @@ nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <RETURN> ea
 
+" Use peak by default
+nnoremap gD :vsc Edit.GoToDefinition<CR>
+nnoremap gd :vsc Edit.PeekDefinition<CR>
 
 nnoremap <leader>r :vsc Refactor.Rename<CR>
 
@@ -72,6 +75,10 @@ nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 nnoremap <leader>bl :vsc File.TfsAnnotate<CR>
 nnoremap <leader>an :vsc File.TfsAnnotate<CR>
 nnoremap <leader>cf :vsc File.TfsCompare<CR>
+nnoremap <leader>pd :vsc Edit.PeekDefinition<CR>
+nnoremap <leader>pf :vsc Edit.PeekForward<CR>
+nnoremap <leader>pb :vsc Edit.PeekBackward<CR>
+nnoremap <leader>w  :vsc Window.KeepTabOPen<CR>
 
 " Debug
 nnoremap <leader>] :vsc Debug.StepInto<CR>
@@ -105,7 +112,8 @@ vnoremap // y/<C-R>"<CR>
 
 
 " ================================INSERT MODE=================================
-inoremap <C-X> :vsc Edit.CompleteWord<CR>
+inoremap <A-SPACE> :vsc Edit.CompleteWord<CR>
+inoremap <C-SPACE> :vsc Edit.ListMembers<CR>
 
 " ================================ABBREVIATION=================================
 " COMMANDS
