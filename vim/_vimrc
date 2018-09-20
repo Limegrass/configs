@@ -9,6 +9,7 @@ endif
 " ==============================================================================
 " VIM-PLUG BLOCK
 " ==============================================================================
+
 if has('win32')
   call plug#begin('~/vimfiles/plugged')
 else
@@ -26,8 +27,10 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
 
 " Syntax, Typically requires some setup
+Plug 'PProvost/vim-ps1'
 if !has('nvim')
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -82,7 +85,8 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:airline_theme='deus'
 
 " FZF
-nnoremap <C-SPACE> :FZF<CR>
+nnoremap <C-S-SPACE> :FZF<CR>
+nnoremap <C-SPACE> :Buffers<CR>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -111,6 +115,8 @@ let g:UltiSnipsJumpForwardTrigger       = "<C-J>"
 let g:UltiSnipsJumpBackwardTrigger      = "<C-K>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent> <expr> <C-SPACE> pumvisible() ? ncm2_ultisnips#expand_or("\<C-SPACE>", 'n') : "\<C-SPACE>"
+" Figure out something for this
+" inoremap <silent> <expr> <l> pumvisible() ? "<RIGHT>" : "l"
 " inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
 
 " ALE
@@ -257,6 +263,11 @@ if has('autocmd')
   augroup quitHelp
     autocmd! Filetype Help cnoreabbrev <buffer> q Bq
   augroup END
+
+  " Set autostrip on ESC on non-whitespace sensitive languages and non-config
+  " files
+  " augroup whitespace
+  " augroup END
 endif
 
 
@@ -286,7 +297,7 @@ set hidden
 set diffopt+=vertical
 set fileformat=unix
 packadd! matchit
-set spelllang=en_US
+set spelllang=en
 " :vs and :sp direction option
 set splitright
 set splitbelow
@@ -301,7 +312,7 @@ set imsearch=-1
 
 " FONT SETTINGS
 if has('gui_running')
-  set guifont=Consolas:h12:cANSI:qDRAFT
+  set guifont=Consolas:h9:cANSI:qDRAFT
 endif
 
 " Character limit highlighting
@@ -342,8 +353,9 @@ set backspace=indent,eol,start
 " ==============================================================================
 
 " ================================NORMAL MODE===================================
-" HELP
+" HELP Right split
 nnoremap K K<C-W>L
+nnoremap <C-A> :call Preserve('normal ggyG')<CR>
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j
@@ -424,6 +436,7 @@ inoremap <C-BS> <C-W>
 " inoremap <DOWN> <ESC>gja
 
 " ================================COMMANDS======================================
+cnoremap <C-BS> <C-W>
 " Commands to resize gui window
 if has('gui_running')
   command! ToggleSize call ToggleSize() | normal <C-W>=
@@ -441,6 +454,8 @@ command! -nargs=0 Reindent call Preserve('normal gg=G')
 if has('win32')
   command! -nargs=1 Google silent !start https://google.com/search?q=<args>
   command! -nargs=1 Jisho silent !start https://jisho.org/search/<args>
+  " Fix this function
+  " cnoreabbrev admincmd !runas /user:hostname\administrator cmd
 else
   command! -nargs=1 Google silent !xdg-open https://google.com/search?q=<args>
   command! -nargs=1 Jisho silent !xdg-open https://jisho.org/search/<args>
@@ -459,6 +474,8 @@ endif
 
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
+cnoreabbrev H helpgrep
+cnoreabbrev vsb vert sb
 cnoreabbrev <expr> help (getcmdtype() is# ':'
       \ && getcmdline() is# 'help')
       \?('ToggleSize<CR>:vert help')
