@@ -30,8 +30,7 @@ nnoremap Q @q
 nnoremap <RETURN> ea
 
 " Use peak by default
-nnoremap gD :vsc Edit.GoToDefinition<CR>
-nnoremap gd :vsc Edit.PeekDefinition<CR>
+nnoremap gD :vsc Edit.PeekDefinition<CR>
 
 nnoremap <leader>r :vsc Refactor.Rename<CR>
 
@@ -61,6 +60,10 @@ nnoremap <leader>se :vsc View.SolutionExplorer<CR>
 nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
 nnoremap <leader>au :vsc Debug.Autos<CR>
 nnoremap <leader>lo :vsc Debug.Locals<CR>
+nnoremap <leader>w1 :vsc Debug.Watch1<CR>
+nnoremap <leader>w2 :vsc Debug.Watch2<CR>
+nnoremap <leader>w3 :vsc Debug.Watch3<CR>
+nnoremap <leader>w4 :vsc Debug.Watch4<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>
 nnoremap <leader>vh :vsc File.TfsHistory<CR>
 nnoremap <leader>ss :vsc File.TfsUnShelvePendingChanges<CR>
@@ -78,7 +81,7 @@ nnoremap <leader>cf :vsc File.TfsCompare<CR>
 nnoremap <leader>pd :vsc Edit.PeekDefinition<CR>
 nnoremap <leader>pf :vsc Edit.PeekForward<CR>
 nnoremap <leader>pb :vsc Edit.PeekBackward<CR>
-nnoremap <leader>w  :vsc Window.KeepTabOPen<CR>
+nnoremap <leader>kw  :vsc Window.KeepTabOpen<CR>
 
 " Debug
 nnoremap <leader>] :vsc Debug.StepInto<CR>
