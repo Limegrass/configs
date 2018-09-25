@@ -355,7 +355,7 @@ set backspace=indent,eol,start
 " ================================NORMAL MODE===================================
 " HELP Right split
 nnoremap K K<C-W>L
-nnoremap <C-A> :call Preserve('normal ggyG')<CR>
+nnoremap <C-A> :call Preserve('normal gg"+yG')<CR>
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j
@@ -367,6 +367,7 @@ nnoremap 0 g0
 nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+nnoremap <leader>= "+
 " Q to replay qq macro
 nnoremap Q @q
 " Helps me search double enter to insert after word
@@ -392,7 +393,7 @@ nnoremap <leader>t :set expandtab!<CR>
 nnoremap <leader>sc :set spell!<CR>
 " Navigate out of terminal mode
 if has('nvim')
-  tnoremap <C-J> <C-\><C-N>
+  tnoremap <ESC> <C-\><C-N>
 endif
 " Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
 nnoremap <S-C-T> <C-T>
@@ -420,6 +421,7 @@ vnoremap > >gv
 vnoremap < <gv
 " vnoremap <Tab> >gv
 " vnoremap <S-Tab> <gv
+vnoremap <leader>= "+
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -476,6 +478,8 @@ endif
 " Force vertical splits for help files and expand gui window for help
 cnoreabbrev H helpgrep
 cnoreabbrev vsb vert sb
+cnoreabbrev dt diffthis
+cnoreabbrev doff diffoff
 cnoreabbrev <expr> help (getcmdtype() is# ':'
       \ && getcmdline() is# 'help')
       \?('ToggleSize<CR>:vert help')
