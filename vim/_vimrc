@@ -374,6 +374,10 @@ nnoremap Q @q
 nnoremap <CR> ea
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
+
+nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
+nnoremap <leader>gt :<C-U>exec 'normal '.repeat("gt", v:count1)<CR>
+
 " Load a session or refresh vimrc
 nnoremap <leader>ss :source Session.vim<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
@@ -403,7 +407,6 @@ nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
-nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
 
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
@@ -480,11 +483,11 @@ cnoreabbrev H helpgrep
 cnoreabbrev vsb vert sb
 cnoreabbrev dt diffthis
 cnoreabbrev doff diffoff
-cnoreabbrev <expr> help (getcmdtype() is# ':'
+cnoreabbrev <expr> vhelp (getcmdtype() is# ':'
       \ && getcmdline() is# 'help')
       \?('ToggleSize<CR>:vert help')
       \:('help')
-cnoreabbrev <expr> h (getcmdtype() is# ':'
+cnoreabbrev <expr> vh (getcmdtype() is# ':'
       \ && getcmdline() is# 'h')
       \?('ToggleSize<CR>:vert help')
       \:('h')

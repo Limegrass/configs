@@ -2,6 +2,7 @@
 " (VSVim doesn't affect some document windows)
 " <A-O> Tools.Options
 " <F4> Window.CloseDocumentWindow
+" <C-S-SPACE> Window.NextPane
 set number
 set splitright
 set splitbelow
@@ -29,35 +30,48 @@ nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <RETURN> ea
 
-" Use peak by default
+
+
+" Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
-
-nnoremap <leader>r :vsc Refactor.Rename<CR>
-
-" Movement of splits
-nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
-nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
-
 " Originally Edit.CompleteWord
 nnoremap <C-SPACE> :vsc Edit.GoToAll<CR>
 nnoremap <A-SPACE> :vsc Edit.FindinFiles 
 nnoremap <C-X> :vsc Edit.CompleteWord<CR>
-
-nnoremap <C-H> :vsc View.NavigateBackward<CR>
-nnoremap <C-L> :vsc View.NavigateForward<CR>
-
 " Tooltips
 nnoremap <K> :vsc Edit.QuickInfo<CR>
 nnoremap <C-Q> :vsc Edit.ParameterInfo<CR>
 nnoremap <leader>m :vsc Edit.ListMembers<CR>
-
 " Commenting
 nnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>
 nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
+nnoremap <leader>pd :vsc Edit.PeekDefinition<CR>
+nnoremap <leader>pf :vsc Edit.PeekForward<CR>
+nnoremap <leader>pb :vsc Edit.PeekBackward<CR>
+nnoremap <leader>rf :vsc Edit.FindAllReferences<CR>
+nnoremap <leader>ch :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<CR>
 
-" Opening Window panes
+" Window
+" Movement of splits
+nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
+nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
+nnoremap <leader>kw :vsc Window.KeepTabOpen<CR>
+
+" View
+nnoremap <C-H> :vsc View.NavigateBackward<CR>
+nnoremap <C-L> :vsc View.NavigateForward<CR>
 nnoremap <leader>se :vsc View.SolutionExplorer<CR>
 nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
+nnoremap <leader>f1 :vsc View.FindResults1<CR>
+nnoremap <leader>f2 :vsc View.FindResults2<CR>
+nnoremap <leader>sc :vsc View.TfsSourceControlExplorer<CR>
+nnoremap <leader>er :vsc View.ErrorList<CR>
+nnoremap <leader>op :vsc View.Output<CR>
+nnoremap <leader>td :vsc View.TaskList<CR>
+nnoremap <leader>fs :vsc View.FullScreen<CR>
+nnoremap <leader>hi :vsc View.CallHierarchy<CR>
+
+" Debug
 nnoremap <leader>au :vsc Debug.Autos<CR>
 nnoremap <leader>lo :vsc Debug.Locals<CR>
 nnoremap <leader>w1 :vsc Debug.Watch1<CR>
@@ -65,30 +79,24 @@ nnoremap <leader>w2 :vsc Debug.Watch2<CR>
 nnoremap <leader>w3 :vsc Debug.Watch3<CR>
 nnoremap <leader>w4 :vsc Debug.Watch4<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>
+nnoremap <leader>[ :vsc Debug.StepInto<CR>
+nnoremap <leader><BS> :vsc Debug.StepOut<CR>
+nnoremap <leader>] :vsc Debug.StepOver<CR>
+nnoremap <leader>pp :vsc Debug.BreakAll<CR>
+nnoremap <leader><CR> :vsc Debug.Start<CR>
+
+" File
 nnoremap <leader>vh :vsc File.TfsHistory<CR>
 nnoremap <leader>ss :vsc File.TfsUnShelvePendingChanges<CR>
 nnoremap <leader>pc :vsc File.TfsShelvePendingChanges<CR>
-nnoremap <leader>wi :vsc TeamFoundationContextMenus.Commands.GoToWorkItems<CR>
-nnoremap <leader>sc :vsc View.TfsSourceControlExplorer<CR>
-nnoremap <leader>er :vsc View.ErrorList<CR>
-nnoremap <leader>op :vsc View.Output<CR>
-nnoremap <leader>td :vsc View.TaskList<CR>
-nnoremap <leader>fs :vsc View.FullScreen<CR>
-nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 nnoremap <leader>bl :vsc File.TfsAnnotate<CR>
 nnoremap <leader>an :vsc File.TfsAnnotate<CR>
 nnoremap <leader>cf :vsc File.TfsCompare<CR>
-nnoremap <leader>pd :vsc Edit.PeekDefinition<CR>
-nnoremap <leader>pf :vsc Edit.PeekForward<CR>
-nnoremap <leader>pb :vsc Edit.PeekBackward<CR>
-nnoremap <leader>kw  :vsc Window.KeepTabOpen<CR>
 
-" Debug
-nnoremap <leader>] :vsc Debug.StepInto<CR>
-nnoremap <leader><BS> :vsc Debug.StepOut<CR>
-nnoremap <leader>[ :vsc Debug.StepOver<CR>
-nnoremap <leader>pp :vsc Debug.BreakAll<CR>
-nnoremap <leader><CR> :vsc Debug.Start<CR>
+" Misc
+nnoremap <leader>rn :vsc Refactor.Rename<CR>
+nnoremap <leader>wi :vsc TeamFoundationContextMenus.Commands.GoToWorkItems<CR>
+nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 
 
 " ================================VISUAL MODE=================================
