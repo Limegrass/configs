@@ -84,11 +84,12 @@ nnoremap <leader><BS> :vsc Debug.StepOut<CR>
 nnoremap <leader>] :vsc Debug.StepOver<CR>
 nnoremap <leader>pp :vsc Debug.BreakAll<CR>
 nnoremap <leader><CR> :vsc Debug.Start<CR>
+nnoremap <leader>Q :vsc Debug.StopDebugging<CR>
 
 " File
 nnoremap <leader>vh :vsc File.TfsHistory<CR>
 nnoremap <leader>ss :vsc File.TfsUnShelvePendingChanges<CR>
-nnoremap <leader>pc :vsc File.TfsShelvePendingChanges<CR>
+nnoremap <leader>pc :vsc TeamFoundationContextMenus.Commands.GoToPendingChanges<CR>
 nnoremap <leader>bl :vsc File.TfsAnnotate<CR>
 nnoremap <leader>an :vsc File.TfsAnnotate<CR>
 nnoremap <leader>cf :vsc File.TfsCompare<CR>
@@ -121,14 +122,6 @@ vnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 vnoremap // y/<C-R>"<CR>
 
 
-
 " ================================INSERT MODE=================================
 inoremap <A-SPACE> :vsc Edit.CompleteWord<CR>
 inoremap <C-SPACE> :vsc Edit.ListMembers<CR>
-
-" ================================ABBREVIATION=================================
-" COMMANDS
-" Automatically fix typos for writing and quitting
-cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
-cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
-cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))

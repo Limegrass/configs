@@ -192,6 +192,13 @@ function! MyDiff()
   endif
 endfunction
 
+function! CommandAbbreviations(abbrebiation, command)
+    cnoreabbrev <expr> a:abbrebiation (getcmdtype() is# ':'
+          \ && getcmdline() is# a:abbrebiation)
+          \?(a:command)
+          \:(a:abbrebiation)
+endfunction
+
 function! ChangeTabSizing(oldSize, newSize) range
   set expandtab
   let &tabstop=a:oldSize
@@ -481,13 +488,15 @@ endif
 " Force vertical splits for help files and expand gui window for help
 cnoreabbrev H helpgrep
 cnoreabbrev vsb vert sb
+cnoreabbrev bs buffers
 cnoreabbrev dt diffthis
 cnoreabbrev doff diffoff
 cnoreabbrev <expr> vhelp (getcmdtype() is# ':'
-      \ && getcmdline() is# 'help')
+      \ && getcmdline() is# 'vhelp')
       \?('ToggleSize<CR>:vert help')
-      \:('help')
+      \:('vhelp')
+call CommandAbbreviations(vh, 'ToggleSize<CR>:vert help')
 cnoreabbrev <expr> vh (getcmdtype() is# ':'
-      \ && getcmdline() is# 'h')
+      \ && getcmdline() is# 'vh')
       \?('ToggleSize<CR>:vert help')
-      \:('h')
+      \:('vh')
