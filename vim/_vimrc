@@ -72,6 +72,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-scriptease'
 
 call plug#end()
 
@@ -192,11 +193,11 @@ function! MyDiff()
   endif
 endfunction
 
+" Function for mapping abbreviations in command mode only, not affected bang!
 function! CommandAbbreviations(abbrebiation, command)
-    cnoreabbrev <expr> a:abbrebiation (getcmdtype() is# ':'
-          \ && getcmdline() is# a:abbrebiation)
-          \?(a:command)
-          \:(a:abbrebiation)
+  let l:abbrev = '''' . a:abbrebiation . ''''
+  let l:command = '''' . a:command . ''''
+  exec ' cnoreabbrev <expr> ' . a:abbrebiation . ' (getcmdtype() is# '':''' . ' && getcmdline() is# ' . l:abbrev . ')' . '?(' . l:command . ')' . ':(' . l:abbrev . ')'
 endfunction
 
 function! ChangeTabSizing(oldSize, newSize) range
@@ -486,17 +487,10 @@ endif
 
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
-cnoreabbrev H helpgrep
-cnoreabbrev vsb vert sb
-cnoreabbrev bs buffers
-cnoreabbrev dt diffthis
-cnoreabbrev doff diffoff
-cnoreabbrev <expr> vhelp (getcmdtype() is# ':'
-      \ && getcmdline() is# 'vhelp')
-      \?('ToggleSize<CR>:vert help')
-      \:('vhelp')
-call CommandAbbreviations(vh, 'ToggleSize<CR>:vert help')
-cnoreabbrev <expr> vh (getcmdtype() is# ':'
-      \ && getcmdline() is# 'vh')
-      \?('ToggleSize<CR>:vert help')
-      \:('vh')
+call CommandAbbreviations('vh', 'ToggleSize<CR>:vert help')
+call CommandAbbreviations('vhelp', 'ToggleSize<CR>:vert help')
+call CommandAbbreviations('doff', 'diffoff')
+call CommandAbbreviations('dt', 'diffthis')
+call CommandAbbreviations('bs', 'buffers')
+call CommandAbbreviations('vsb', 'vert sb')
+call CommandAbbreviations('H', 'helpgrep')
