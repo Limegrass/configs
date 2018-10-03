@@ -258,6 +258,8 @@ if has('autocmd')
   " C/C++? According to Google Style. Removed for now
   augroup tabbing
     autocmd!
+    autocmd BufReadPost * setlocal tabstop=4
+    autocmd BufReadPost * setlocal shiftwidth=4
     autocmd Filetype vim,html,xml setlocal tabstop=2
     autocmd Filetype vim,html,xml setlocal shiftwidth=2
   augroup END
@@ -363,7 +365,7 @@ set backspace=indent,eol,start
 " ================================NORMAL MODE===================================
 " HELP Right split
 nnoremap K K<C-W>L
-nnoremap <C-A> :call Preserve('normal gg"+yG')<CR>
+nnoremap <leader>== :call Preserve('normal gg"+yG')<CR>
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j

@@ -34,9 +34,10 @@ nnoremap <RETURN> ea
 
 " Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
+nnoremap gd :vsc Edit.GoToDefinition<CR>:vsc Window.KeepTabOpen<CR>
 " Originally Edit.CompleteWord
 nnoremap <C-SPACE> :vsc Edit.GoToAll<CR>
-nnoremap <A-SPACE> :vsc Edit.FindinFiles 
+nnoremap <A-SPACE> :vsc Edit.FindinFiles<CR>
 nnoremap <C-X> :vsc Edit.CompleteWord<CR>
 " Tooltips
 nnoremap <K> :vsc Edit.QuickInfo<CR>
@@ -55,7 +56,7 @@ nnoremap <leader>ch :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<CR>
 " Movement of splits
 nnoremap <C-W>H :vsc Window.MovetoPreviousTabGroup<CR>
 nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
-nnoremap <leader>kw :vsc Window.KeepTabOpen<CR>
+nnoremap <leader>k :vsc Window.KeepTabOpen<CR>
 
 " View
 nnoremap <C-H> :vsc View.NavigateBackward<CR>
@@ -83,6 +84,7 @@ nnoremap <leader>[ :vsc Debug.StepInto<CR>
 nnoremap <leader><BS> :vsc Debug.StepOut<CR>
 nnoremap <leader>] :vsc Debug.StepOver<CR>
 nnoremap <leader>pp :vsc Debug.BreakAll<CR>
+nnoremap <leader>bb :vsc Debug.ToggleBreakpoint<CR>
 nnoremap <leader><CR> :vsc Debug.Start<CR>
 nnoremap <leader>Q :vsc Debug.StopDebugging<CR>
 
@@ -97,6 +99,7 @@ nnoremap <leader>cf :vsc File.TfsCompare<CR>
 " Misc
 nnoremap <leader>rn :vsc Refactor.Rename<CR>
 nnoremap <leader>wi :vsc TeamFoundationContextMenus.Commands.GoToWorkItems<CR>
+nnoremap <leader>mw :vsc TeamFoundationContextMenus.Commands.GoToMyWork<CR>
 nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 
 
