@@ -1,7 +1,7 @@
 ﻿set encoding=utf-8
 scriptencoding utf-8
-let GVIM_WIDTH = 100
-let GVIM_HEIGHT = 50
+let GVIM_WIDTH = 999
+let GVIM_HEIGHT = 999
 cd ~
 if filereadable('machine.vim')
   source machine.vim
@@ -23,7 +23,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'sjl/gundo.vim'
 Plug 'haya14busa/incsearch.vim'
-" Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
@@ -37,7 +36,6 @@ endif
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
@@ -45,8 +43,6 @@ Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-tern'
 Plug 'ncm2/ncm2-cssomni'
 Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
-" Plug 'ncm2/ncm2-snipmate' | Plug 'tomtom/tlib_vim'
-"   \ | Plug 'marcweber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
 
 " Currently installed 'linters'
 " on main machine: vint, proselint, clang, autopep8, javac, jedi
@@ -58,10 +54,8 @@ Plug 'OrangeT/vim-csharp'
 Plug 'lervag/vimtex'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'mhartington/nvim-typescript'
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " Appearances
@@ -73,6 +67,11 @@ Plug 'vim-airline/vim-airline-themes'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-scriptease'
+
+" Things to check back on
+" Plug 'Floobits/floobits-vim'
+" Plug 'FredKSchott/CoVim'
+" Plug 'ncm2/ncm2-tmux'
 
 call plug#end()
 
@@ -105,20 +104,17 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 " let g:python3_host_prog="C:\Python\x86\3.5\python.exe"
-inoremap <expr> <TAB> pumvisible() ? "\<C-N>" : "\<TAB>"
-inoremap <expr> <S-TAB> pumvisible() ? "\<C-P>" : "\<S-TAB>"
+inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
+inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 let g:ncm2#matcher = 'abbrfuzzy'
 let g:ncm2#sorter = 'abbrfuzzy'
 
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger       = "<C-J>"
-let g:UltiSnipsJumpBackwardTrigger      = "<C-K>"
+let g:UltiSnipsJumpForwardTrigger       = "<nop>"
+let g:UltiSnipsJumpBackwardTrigger      = "<nop>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
-inoremap <silent> <expr> <C-SPACE> pumvisible() ? ncm2_ultisnips#expand_or("\<C-SPACE>", 'n') : "\<C-SPACE>"
-" Figure out something for this
-" inoremap <silent> <expr> <l> pumvisible() ? "<RIGHT>" : "l"
-" inoremap <silent> <C-Space> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
+inoremap <silent> <expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
 
 " ALE
 let g:airline#extensions#ale#enabled = 1
@@ -234,6 +230,30 @@ function! ToggleSize()
   endif
 endfunction
 
+function! ForwardJumpOrTab()
+  if pumvisible()
+    return "\<C-N>"
+  else
+    call UltiSnips#JumpForwards()
+    if !g:ulti_jump_forwards_res
+      return "\<TAB>"
+    endif
+    return ""
+  endif
+endfunction
+
+function! BackwardJumpOrSTab()
+  if pumvisible()
+    return "\<C-P>"
+  else
+    call UltiSnips#JumpBackwards()
+    if !g:ulti_jump_backwards_res
+      return "\<C-O><<"
+    endif
+    return ""
+  endif
+endfunction
+
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
@@ -258,8 +278,6 @@ if has('autocmd')
   " C/C++? According to Google Style. Removed for now
   augroup tabbing
     autocmd!
-    autocmd BufReadPost * setlocal tabstop=4
-    autocmd BufReadPost * setlocal shiftwidth=4
     autocmd Filetype vim,html,xml setlocal tabstop=2
     autocmd Filetype vim,html,xml setlocal shiftwidth=2
   augroup END
@@ -365,7 +383,6 @@ set backspace=indent,eol,start
 " ================================NORMAL MODE===================================
 " HELP Right split
 nnoremap K K<C-W>L
-nnoremap <leader>== :call Preserve('normal gg"+yG')<CR>
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j
@@ -378,6 +395,7 @@ nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 nnoremap <leader>= "+
+nnoremap <leader>== :call Preserve('normal gg"+yG')<CR>
 " Q to replay qq macro
 nnoremap Q @q
 " Helps me search double enter to insert after word
@@ -489,8 +507,8 @@ endif
 
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
-call CommandAbbreviations('vh', 'ToggleSize<CR>:vert help')
-call CommandAbbreviations('vhelp', 'ToggleSize<CR>:vert help')
+call CommandAbbreviations('vh', 'vert help')
+call CommandAbbreviations('vhelp', 'vert help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('bs', 'buffers')
