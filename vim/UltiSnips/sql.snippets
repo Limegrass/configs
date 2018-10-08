@@ -1,5 +1,5 @@
 #######################################################################
-#                      C# Snippets for UltiSnips                      #
+#                     SQL Snippets for UltiSnips                      #
 #######################################################################
 
 priority -50
@@ -8,3 +8,185 @@ priority -50
 #  classes and structs  #
 #########################
 
+snippet SSF "SELECT * FROM"
+SELECT *
+FROM ${1:Table}
+${2}
+endsnippet
+
+snippet STT "SELECT TOP TEN"
+SELECT TOP 10 *
+FROM ${1:Table}
+${2}
+endsnippet
+
+snippet STTT "SELECT TOP TEN THOUSAND"
+SELECT TOP 10000 *
+FROM ${1:Table}
+${2}
+endsnippet
+
+snippet UN "READ UNCOMMITED"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITED;
+
+endsnippet
+
+snippet SL "SELECT"
+SELECT ${1:Columns}
+endsnippet
+
+snippet FR "FROM"
+FROM ${1:Table}
+endsnippet
+
+snippet WH "WHERE"
+WHERE ${1:}
+endsnippet
+
+
+snippet WL "WHERE LIKE"
+WHERE ${1:Column} LIKE '%${2:Pattern}%'
+endsnippet
+
+snippet WE "WHERE EQUALS"
+WHERE ${1:Column} = ${2:Value}
+endsnippet
+
+snippet USE "USE"
+USE ${1: Database}
+GO;
+${2:}
+endsnippet
+
+snippet COLS "Columns LIKE"
+endsnippet
+
+snippet COLTYPES "Column Types"
+endsnippet
+
+snippet JOIN "JOIN SAME COLUMN"
+JOIN ${1:Table} ${2:Abbv}
+    ON ${3:Column} = ${4:Table}
+endsnippet
+
+snippet JOINDIFF "JOIN DIFF COLUMN"
+JOIN ${1:Table} ${2:Abbv}
+    ON ${3:Column} = ${4:Column}
+endsnippet
+
+snippet BG "BEGIN END"
+BEGIN
+    ${1:}
+END
+endsnippet
+
+snippet BT "BEGIN TRAN"
+BEGIN TRAN
+    ${1:}
+ROLLBACK TRAN
+endsnippet
+
+snippet CA "CROSS APPLY"
+CROSS APPLY
+endsnippet
+
+snippet CJ "CROSS JOIN"
+CROSS JOIN
+endsnippet
+
+snippet CR "CREATE"
+CREATE ${1:Table}
+endsnippet
+
+snippet CRT "CREATE TABLE"
+CREATE TABLE ${1:Table}
+(
+    ${2:Values}
+)
+endsnippet
+
+snippet DEB "DECLARE BIT"
+DECLARE @${1:Name} BIT
+endsnippet
+
+snippet DL "DELETE"
+DELETE
+endsnippet
+
+snippet DEI "DECLARE INT"
+DECLARE @${1:Name} INT
+endsnippet
+
+snippet DENV "DECLARE NVARCHAR"
+DECLARE @${1:Name} NVARCHAR(${2:Size})
+endsnippet
+
+snippet DEV "DECLARE VARCHAR"
+DECLARE @${1:Name} VARCHAR(${2:Size})
+endsnippet
+
+snippet DET "DECLARE TABLE"
+DECLARE @${1:Name} TABLE
+VALUES
+(
+    ${2:Values}
+)
+endsnippet
+
+snippet DEU "DECLARE UNIQUEIDENTIFIER"
+DECLARE @${1:Name} UNIQUEIDENTIFIER
+endsnippet
+
+snippet GB "GROUP BY"
+GROUP BY ${1:Column}
+endsnippet
+
+snippet GD "GET DATE"
+GETDATE();
+endsnippet
+
+snippet NID "NEW ID"
+NEWID();
+endsnippet
+
+snippet IN "INSERT"
+INSERT INTO ${1:Table}
+(
+    ${2:Columns}
+)
+VALUES
+(
+    ${3:Values}
+)
+endsnippet
+
+snippet LK "LIKE"
+LIKE '%${1:Pattern}%'
+endsnippet
+
+snippet OB "ORDER BY"
+ORDER BY ${1:Columns}
+endsnippet
+
+snippet RN "ROW_NUMBER"
+ROW_NUMBER()
+endsnippet
+
+snippet RNO "ROW_NUMBER OVER"
+ROW_NUMBER() OVER(PARTITION BY ${1:Column} ORDER BY ${2:Column})
+endsnippet
+
+snippet SC "SELECT COUNT"
+SELECT COUNT(1)
+FROM ${1:Table}
+endsnippet
+
+snippet UID "UNIQUEIDENTIFIER"
+UNIQUEIDENTIFIER
+endsnippet
+
+snippet UP "UPDATE"
+UPDATE ${1:Table}
+SET ${2:Column} = ${3:Value}
+WHERE ${4:Column} = ${5:Value}
+endsnippet

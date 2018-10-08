@@ -22,7 +22,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'sjl/gundo.vim'
-Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim' | Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
@@ -115,6 +115,9 @@ let g:UltiSnipsJumpForwardTrigger       = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger      = "<nop>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent> <expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
+" inoremap <silent> <S-TAB> <C-R>=TryExpand()<CR>
+
+
 
 " ALE
 let g:airline#extensions#ale#enabled = 1
@@ -136,6 +139,9 @@ map g# <Plug>(incsearch-nohl-g#)
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+map <leader>/ <Plug>(incsearch-fuzzyspell-/)
+map <leader>? <Plug>(incsearch-fuzzyspell-?)
+map <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 " Jedi-vim
 let g:jedi#auto_initialization = 1
@@ -253,6 +259,14 @@ function! BackwardJumpOrSTab()
     return ""
   endif
 endfunction
+
+" function! TryExpand()
+"   call UltiSnips#ExpandSnippet()
+"   if !g:ulti_expand_res
+"     return "\<CR>"
+"   endif
+"   return ""
+" endfunction
 
 " ==============================================================================
 " AUTOCOMMANDS
@@ -442,8 +456,8 @@ xnoremap g0 0
 " Retain selection when indenting in visual mode
 vnoremap > >gv
 vnoremap < <gv
-" vnoremap <Tab> >gv
-" vnoremap <S-Tab> <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 vnoremap <leader>= "+
 
 " Search for visual selected
