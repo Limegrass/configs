@@ -18,6 +18,10 @@ nnoremap <leader>ya :call Preserve('normal gg"+yG')<CR>
 
 let $VSVIMRC = 'C:/Users/james.ni/_vsvimrc'
 
+let g:dbext_default_type = 'SQLSRV'
+let g:dbext_default_integratedlogin = 1
+let g:dbext_default_history_file = 'C:\Vim\dbext_history.txt'
+
 " ==============================================================================
 " Worthless usage notes to myself
 " ==============================================================================

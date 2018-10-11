@@ -5,7 +5,7 @@
 priority -50
 
 #########################
-#  classes and structs  #
+#        SELECTS        #
 #########################
 
 snippet SSF "SELECT * FROM"
@@ -26,23 +26,21 @@ FROM ${1:Table}
 ${2}
 endsnippet
 
-snippet UN "READ UNCOMMITED"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITED;
-
-endsnippet
-
 snippet SL "SELECT"
 SELECT ${1:Columns}
 endsnippet
 
-snippet FR "FROM"
+snippet SC "SELECT COUNT"
+SELECT COUNT(1)
 FROM ${1:Table}
 endsnippet
 
+#########################
+#         WHERE         #
+#########################
 snippet WH "WHERE"
 WHERE ${1:}
 endsnippet
-
 
 snippet WL "WHERE LIKE"
 WHERE ${1:Column} LIKE '%${2:Pattern}%'
@@ -52,16 +50,94 @@ snippet WE "WHERE EQUALS"
 WHERE ${1:Column} = ${2:Value}
 endsnippet
 
-snippet USE "USE"
-USE ${1: Database}
-GO;
-${2:}
+snippet WI "WHERE IN"
+WHERE ${1:Column} IN ${2:Table}
 endsnippet
 
-snippet COLS "Columns LIKE"
+#########################
+#      OTHER CRUD       #
+#########################
+
+snippet UP "UPDATE"
+UPDATE ${1:Table}
+SET ${2:Column} = ${3:Value}
+WHERE ${4:Column} = ${5:Value}
 endsnippet
 
-snippet COLTYPES "Column Types"
+snippet CR "CREATE"
+CREATE ${1:Table}
+endsnippet
+
+snippet CRT "CREATE TABLE"
+CREATE TABLE ${1:Table}
+(
+    ${2:Values}
+)
+endsnippet
+
+snippet IN "INSERT"
+INSERT INTO ${1:Table}
+(
+    ${2:Columns}
+)
+VALUES
+(
+    ${3:Values}
+)
+endsnippet
+
+
+#########################
+#        DECLARE        #
+#########################
+
+snippet DEB "DECLARE BIT"
+DECLARE @${1:Name} BIT
+endsnippet
+
+snippet DL "DELETE"
+DELETE
+endsnippet
+
+snippet DEI "DECLARE INT"
+DECLARE @${1:Name} INT
+endsnippet
+
+snippet DENV "DECLARE NVARCHAR"
+DECLARE @${1:Name} NVARCHAR(${2:Size})
+endsnippet
+
+snippet DEV "DECLARE VARCHAR"
+DECLARE @${1:Name} VARCHAR(${2:Size})
+endsnippet
+
+snippet DET "DECLARE TABLE"
+DECLARE @${1:Name} TABLE ${2:Types}
+VALUES
+(
+    ${3:Values}
+)
+endsnippet
+
+snippet DEU "DECLARE UNIQUEIDENTIFIER"
+DECLARE @${1:Name} UNIQUEIDENTIFIER
+endsnippet
+
+
+#########################
+#        GENERIC        #
+#########################
+
+snippet LK "LIKE"
+LIKE '%${1:Pattern}%'
+endsnippet
+
+snippet OB "ORDER BY"
+ORDER BY ${1:Columns}
+endsnippet
+
+snippet FR "FROM"
+FROM ${1:Table}
 endsnippet
 
 snippet JOIN "JOIN SAME COLUMN"
@@ -94,49 +170,6 @@ snippet CJ "CROSS JOIN"
 CROSS JOIN
 endsnippet
 
-snippet CR "CREATE"
-CREATE ${1:Table}
-endsnippet
-
-snippet CRT "CREATE TABLE"
-CREATE TABLE ${1:Table}
-(
-    ${2:Values}
-)
-endsnippet
-
-snippet DEB "DECLARE BIT"
-DECLARE @${1:Name} BIT
-endsnippet
-
-snippet DL "DELETE"
-DELETE
-endsnippet
-
-snippet DEI "DECLARE INT"
-DECLARE @${1:Name} INT
-endsnippet
-
-snippet DENV "DECLARE NVARCHAR"
-DECLARE @${1:Name} NVARCHAR(${2:Size})
-endsnippet
-
-snippet DEV "DECLARE VARCHAR"
-DECLARE @${1:Name} VARCHAR(${2:Size})
-endsnippet
-
-snippet DET "DECLARE TABLE"
-DECLARE @${1:Name} TABLE
-VALUES
-(
-    ${2:Values}
-)
-endsnippet
-
-snippet DEU "DECLARE UNIQUEIDENTIFIER"
-DECLARE @${1:Name} UNIQUEIDENTIFIER
-endsnippet
-
 snippet GB "GROUP BY"
 GROUP BY ${1:Column}
 endsnippet
@@ -149,23 +182,93 @@ snippet NID "NEW ID"
 NEWID();
 endsnippet
 
-snippet IN "INSERT"
-INSERT INTO ${1:Table}
+snippet UID "UNIQUEIDENTIFIER"
+UNIQUEIDENTIFIER
+endsnippet
+
+snippet CASE "CASE"
+CASE
+    WHEN ${1:Condition} THEN ${2:Result}
+END
+endsnippet
+
+snippet CW "WHEN for CASE"
+WHEN ${1:Condition} THEN ${2:Result}
+endsnippet
+
+snippet WT "WHEN THEN (CASE WHEN)"
+WHEN ${1:Condition} THEN ${2:Result}
+endsnippet
+
+snippet REPLACE "REPLACE"
+REPLACE
 (
-    ${2:Columns}
-)
-VALUES
-(
-    ${3:Values}
+    ${1:String},
+    ${2:Pattern},
+    ${3:Replacement}
 )
 endsnippet
 
-snippet LK "LIKE"
-LIKE '%${1:Pattern}%'
+#########################
+#         TSQL          #
+#########################
+
+snippet UN "READ UNCOMMITED"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
 endsnippet
 
-snippet OB "ORDER BY"
-ORDER BY ${1:Columns}
+snippet USE "USE"
+USE ${1: Database}
+GO
+${2:}
+endsnippet
+
+snippet CHECKTYPES "EXAMINE TABLE COLUMN TYPES"
+SELECT
+    TABLE_NAME
+    , ORDINAL_POSITION
+    , IS_NULLABLE
+    , COLUMN_NAME
+    , DATA_TYPE
+    , CHARACTER_MAXIMUM_LENGTH
+    , NUMERIC_PRECISION
+    , NUMERIC_PRECISION_RADIX
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = '${1:TableName}'
+ORDER BY ORDINAL_POSITION ASC
+endsnippet
+
+snippet FINDCOLS "FIND COLS LIKE"
+SELECT DISTINCT
+    c.name  AS 'ColumnName',
+    s.name AS 'schema',
+    t.name AS 'TableName',
+    ty.name AS 'DateType'
+FROM sys.tables  t
+JOIN sys.schemas s ON s.schema_id = t.schema_id
+JOIN sys.columns c ON c.object_id = t.object_id
+JOIN sys.types ty ON c.system_type_id = ty.system_type_id
+WHERE c.name LIKE '%${1:ColumnName}%'
+ORDER BY TableName, ColumnName
+endsnippet
+
+snippet FINDSP "FIND STORED PROCEDURE LIKE"
+SELECT
+    OBJECT_NAME(object_id),
+    OBJECT_DEFINITION(object_id)
+FROM sys.procedures
+WHERE OBJECT_DEFINITION(object_id) LIKE '%${1:SPName}%'
+endsnippet
+
+snippet STUFF "TSQL STUFF"
+STUFF
+(
+    ${1:String},
+    ${2:StartIndex},
+    ${3:EndIndex},
+    ${4:Insertion}
+)
 endsnippet
 
 snippet RN "ROW_NUMBER"
@@ -176,17 +279,15 @@ snippet RNO "ROW_NUMBER OVER"
 ROW_NUMBER() OVER(PARTITION BY ${1:Column} ORDER BY ${2:Column})
 endsnippet
 
-snippet SC "SELECT COUNT"
-SELECT COUNT(1)
-FROM ${1:Table}
+snippet PKEY "TSQL/Oracle/Access PRIMARY KEY"
+${1:ColumnName} ${2:DataType} NOT NULL PRIMARY KEY
 endsnippet
 
-snippet UID "UNIQUEIDENTIFIER"
-UNIQUEIDENTIFIER
+snippet FKEY "TSQL/Oracle/Access FOREIGN KEY"
+${1:FKColumn} ${2:DataType} FOREIGN KEY REFERENCES ${3:TableName}(${4:ForeignKeyColumn})
 endsnippet
 
-snippet UP "UPDATE"
-UPDATE ${1:Table}
-SET ${2:Column} = ${3:Value}
-WHERE ${4:Column} = ${5:Value}
+snippet STOPS "TSQL SELECT TOP STAR"
+SELECT TOP ${1:COUNT} *
+FROM ${2:Table}
 endsnippet

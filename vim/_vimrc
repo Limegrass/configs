@@ -3,12 +3,10 @@ scriptencoding utf-8
 let GVIM_WIDTH = 999
 let GVIM_HEIGHT = 999
 cd ~
-if filereadable('machine.vim')
-  source machine.vim
-endif
 " ==============================================================================
 " VIM-PLUG BLOCK
 " ==============================================================================
+" DBEXT on vim.org
 
 if has('win32')
   call plug#begin('~/vimfiles/plugged')
@@ -43,6 +41,7 @@ Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-tern'
 Plug 'ncm2/ncm2-cssomni'
 Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
+Plug 'yuki-ycino/ncm2-dictionary'
 
 " Currently installed 'linters'
 " on main machine: vint, proselint, clang, autopep8, javac, jedi
@@ -72,63 +71,37 @@ Plug 'tpope/vim-scriptease'
 " Plug 'Floobits/floobits-vim'
 " Plug 'FredKSchott/CoVim'
 " Plug 'ncm2/ncm2-tmux'
+" Plug 'filipekiss/ncm2-look.vim'
 
 call plug#end()
 
 " ==============================================================================
 " PLUGIN-RELATED SETTINGS
 " ==============================================================================
+
 " Indent Guides enabled by default
 let g:indent_guides_enable_on_vim_startup = 1
 
 " Airline theme
 let g:airline_theme='deus'
 
-" FZF
-nnoremap <C-S-SPACE> :FZF<CR>
-nnoremap <C-SPACE> :Buffers<CR>
-
 " Gundo
-nnoremap <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
-
-" Vim-commentary bind
-nnoremap <leader><Tab> :Commentary<CR>
-vnoremap <leader><Tab> :Commentary<CR>
-
-" Obsession
-nnoremap <leader>O :Obsession<CR>
 
 " ncm: nvim completion manager
 autocmd BufEnter * call ncm2#enable_for_buffer()
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 " let g:python3_host_prog="C:\Python\x86\3.5\python.exe"
-inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
-inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 let g:ncm2#matcher = 'abbrfuzzy'
 let g:ncm2#sorter = 'abbrfuzzy'
-
-" Ultisnips with ncm
-let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger       = "<nop>"
-let g:UltiSnipsJumpBackwardTrigger      = "<nop>"
-" let g:UltiSnipsRemoveSelectModeMappings = 0
-inoremap <silent> <expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
-" inoremap <silent> <S-TAB> <C-R>=TryExpand()<CR>
-
-
 
 " ALE
 let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
-" ALE Navigation
-nmap <silent> <F3> <Plug>(ale_next_wrap)
-nmap <silent> <F4> <Plug>(ale_previous_wrap)
 
 " incsearch rebindings
-set hlsearch
 let g:incsearch#auto_nohlsearch = 1
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
@@ -148,6 +121,17 @@ let g:jedi#auto_initialization = 1
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#completions_enabled = 0
 let g:jedi#smart_auto_mappings = 0
+
+" ncm-clang
+let g:clang_make_default_keymappings = 0
+let g:clang_auto_user_options = ''
+
+" DBEXT
+let g:sqlserver_integrated = 'type=SQLSRV:integratedlogin=1'
+
+" ==============================================================================
+" PLUGIN KEYBINDS
+" ==============================================================================
 " jedi-vim Bindings
 let g:jedi#goto_command = "<leader>d"
 let g:jedi#goto_assignments_command = "<leader>g"
@@ -157,9 +141,32 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = ""
 let g:jedi#rename_command = "<leader>r"
 
-" ncm-clang
-let g:clang_make_default_keymappings = 0
-let g:clang_auto_user_options = ''
+" ALE Navigation
+nmap <silent> <F3> <Plug>(ale_next_wrap)
+nmap <silent> <F4> <Plug>(ale_previous_wrap)
+inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
+inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
+
+" Vim-commentary bind
+nnoremap <leader><Tab> :Commentary<CR>
+vnoremap <leader><Tab> :Commentary<CR>
+
+" Obsession
+nnoremap <leader>O :Obsession<CR>
+
+" Ultisnips with ncm
+let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger       = "<nop>"
+let g:UltiSnipsJumpBackwardTrigger      = "<nop>"
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+inoremap <silent> <expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
+" inoremap <silent> <S-TAB> <C-R>=TryExpand()<CR>
+" FZF
+nnoremap <C-S-SPACE> :FZF<CR>
+nnoremap <C-SPACE> :Buffers<CR>
+
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
 
 " ==============================================================================
 " FUNCTION DEFINITIONS
@@ -202,6 +209,7 @@ function! CommandAbbreviations(abbrebiation, command)
   exec ' cnoreabbrev <expr> ' . a:abbrebiation . ' (getcmdtype() is# '':''' . ' && getcmdline() is# ' . l:abbrev . ')' . '?(' . l:command . ')' . ':(' . l:abbrev . ')'
 endfunction
 
+" Normalizes a document with both tabs and spaces
 function! ChangeTabSizing(oldSize, newSize) range
   set expandtab
   let &tabstop=a:oldSize
@@ -221,7 +229,6 @@ function! Preserve(command)
   let _s=@/
   let l = line(".")
   let c = col(".")
-  " Do the business:
   execute a:command
   " Clean up: restore previous search history, and cursor position
   let @/=_s
@@ -260,14 +267,6 @@ function! BackwardJumpOrSTab()
   endif
 endfunction
 
-" function! TryExpand()
-"   call UltiSnips#ExpandSnippet()
-"   if !g:ulti_expand_res
-"     return "\<CR>"
-"   endif
-"   return ""
-" endfunction
-
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
@@ -303,7 +302,6 @@ if has('autocmd')
   augroup END
 endif
 
-
 " ==============================================================================
 " BASIC SETTINGS
 " ==============================================================================
@@ -327,7 +325,7 @@ set history=100
 set lazyredraw
 set cursorline
 set hidden
-set diffopt+=vertical
+set diffopt+=vertical,iwhite
 set fileformat=unix
 packadd! matchit
 set spelllang=en
@@ -472,8 +470,9 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
 " Visual line navigation
-inoremap <expr> <UP> pumvisible() ? "\<C-P>" : "\<C-O>gk"
+inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
+inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 
 " ================================COMMANDS======================================
 cnoremap <C-BS> <C-W>
@@ -489,6 +488,7 @@ endif
 command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
+command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 
 " I'm crazy enough to want this function, maybe
 if has('win32')
@@ -521,10 +521,12 @@ call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('bs', 'buffers')
 call CommandAbbreviations('vsb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
+call CommandAbbreviations('bdall', '%bd\|e#')
 
 
 " TODO
-" Add SQL snippets and snippets folder
-" Get ncm2 to popup the completion menu for one letter competions, or bind it
-"    for UltiSnips so that Enter would complete it
-"
+" inoremap <C-SPACE> to force open ncm2 pum
+
+if filereadable('machine.vim')
+  source machine.vim
+endif

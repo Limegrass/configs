@@ -1,0 +1,20 @@
+#######################################################################
+#                   Snippet Snippets for UltiSnips                    #
+#######################################################################
+
+priority -50
+
+#########################
+#        SELECTS        #
+#########################
+
+snippet snippet "snippet"
+snippet ${1:Trigger} "${2:Description}" ${3:Options}
+${4:SNIPSNIP}
+`echo endsnippet`
+endsnippet
+
+
+snippet ts "snippet"
+`echo ${`${1:Index}`echo :`${2:Description}`echo }`
+endsnippet

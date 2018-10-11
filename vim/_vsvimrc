@@ -34,7 +34,7 @@ nnoremap <RETURN> ea
 
 " Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
-nnoremap gd :vsc Edit.GoToDefinition<CR>:vsc Window.KeepTabOpen<CR>
+" nnoremap gd :vsc Edit.GoToDefinition<CR>:vsc Window.KeepTabOpen<CR>
 " Originally Edit.CompleteWord
 nnoremap <C-SPACE> :vsc Edit.GoToAll<CR>
 nnoremap <A-SPACE> :vsc Edit.FindinFiles<CR>
@@ -49,7 +49,9 @@ nnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 nnoremap <leader>pd :vsc Edit.PeekDefinition<CR>
 nnoremap <leader>pf :vsc Edit.PeekForward<CR>
 nnoremap <leader>pb :vsc Edit.PeekBackward<CR>
-nnoremap <leader>rf :vsc Edit.FindAllReferences<CR>
+nnoremap <leader>fr :vsc Edit.FindAllReferences<CR>
+nnoremap <leader>rf :vsc Edit.GoToNextLocation<CR>
+nnoremap <leader>rb :vsc Edit.GoToPrevLocation<CR>
 nnoremap <leader>ch :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<CR>
 
 " Window
