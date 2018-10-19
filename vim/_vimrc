@@ -329,6 +329,7 @@ set diffopt+=vertical,iwhite
 set fileformat=unix
 packadd! matchit
 set spelllang=en
+set mouse=nicr
 " :vs and :sp direction option
 set splitright
 set splitbelow
@@ -446,10 +447,6 @@ xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
 xnoremap <expr> gj mode() ==# "v" ? "j"  : "gj"
 xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
 xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
-xnoremap $ g$
-xnoremap g$ $
-xnoremap 0 g0
-xnoremap g0 0
 
 " Retain selection when indenting in visual mode
 vnoremap > >gv
@@ -469,6 +466,12 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 " Ctrl-DEL
 inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
+" inoremap <C-R> <C-O>:set nopaste
+" function! NoAutoIndentPaste(command)
+"   set nopaste
+"   <C-R>command
+"   set paste
+" endfunction
 " Visual line navigation
 inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"

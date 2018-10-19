@@ -20,10 +20,6 @@ nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
-nnoremap $ g$
-nnoremap g$ $
-nnoremap 0 g0
-nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 nnoremap Q @q
@@ -104,6 +100,11 @@ nnoremap <leader>wi :vsc TeamFoundationContextMenus.Commands.GoToWorkItems<CR>
 nnoremap <leader>mw :vsc TeamFoundationContextMenus.Commands.GoToMyWork<CR>
 nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 
+" Pair of commands to split up a long commas list
+" CoMmas
+nnoremap cm 0f(a<CR><ESC>V:s/,\s*/,\r/g<CR><ESC>
+" Change INdent
+nnoremap cin 0yiwjI<C-R>+<ESC>
 
 " ================================VISUAL MODE=================================
 xnoremap j  gj
@@ -116,8 +117,10 @@ xnoremap 0 g0
 xnoremap g0 0
 
 " Change tab structure in visual mode
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+vnoremap > >gv
+vnoremap < <gv
 
 " Commenting
 vnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>
