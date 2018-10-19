@@ -1,33 +1,34 @@
-FN+:
-    Q:  Previous
-    W:  Paues/Play
-    E:  Next
-    S:  Vol-
-    D:  Vol+
-    F:  VolMute
-    Z:  APP
-
-LCtrl: Fn
-Caps: LCtrl
-FN+I: Home
-FN+O: End
-FN+[: Pg Up
-FN+]: Pg Down
+LCTRL: FN 
+CAPS: RCTRL (For workspace switching)
+FN+I: Home  (FN+h)
+FN+O: End   (FN+n)
+FN+[: Pg Up (FN+u)
+FN+]: Pg Down   (FN+o)
 FN+Q: CTRL+SHIFT+ESC (Task Manager)
-FN+W: Alt+F4
-FN+X,C,V: Pause, Next, Random (Foobar)
-FN+\: Insert
-FN+Backspace: Delete
-Right Alt: Hiragana/ (Ctrl+CapsLock)
-FN Right Alt: Katakana/ (Alt CapsLock)
-RWIN (FN Original): LCTRL
-FN+B: Workspace right
-FN+G: Workspace left
-FN+N: Workspace right
-
+FN+W: Alt+F4    (Alt+Fn+4)
+FN+\: Insert    (Fn+;)
+RAlt: Alt+` (Alt+Fn+Esc) (Language switch)
+FN+RALT: Caps
 VIM Arrow Keys (hjkl)
-
+Dip switch 4:
+    Switch on
+    Press FN, then caps
+    Press PN, then PN
+FN+X: Shift+Alt+I (Foobar Pause)
+FN+C: Shift+Alt+L (Foobar Next)
+FN+V: Shift+Alt+K (Foobar Random)
 
 Free keys:
     FN (RWIN)
-    FN+E A T G
+    FN+E A T G U P
+
+Notes:
+    Media key defaults
+        FN+:
+            Q:  Previous
+            W:  Pause/Play
+            E:  Next
+            S:  Vol-
+            D:  Vol+
+            F:  VolMute
+            Z:  APP
