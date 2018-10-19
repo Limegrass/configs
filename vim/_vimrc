@@ -397,6 +397,9 @@ nnoremap 0 g0
 nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+nnoremap <A-y> "+y
+nnoremap <A-p> "+p
+nnoremap <S-A-p> "+P
 nnoremap <leader>= "+
 nnoremap <leader>== :call Preserve('normal gg"+yG')<CR>
 " Q to replay qq macro
@@ -494,12 +497,15 @@ command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 if has('win32')
   command! -nargs=1 Google silent !start https://google.com/search?q=<args>
   command! -nargs=1 Jisho silent !start https://jisho.org/search/<args>
+  command! -range JishoRange silent !start https://jisho.org/search/<args>
   " Fix this function
   " cnoreabbrev admincmd !runas /user:hostname\administrator cmd
 else
   command! -nargs=1 Google silent !xdg-open https://google.com/search?q=<args>
   command! -nargs=1 Jisho silent !xdg-open https://jisho.org/search/<args>
+  command! -range JishoRange silent !xdg-open https://jisho.org/search/<args>
 endif
+
 
 " Dealing with my typos
 command! W w
