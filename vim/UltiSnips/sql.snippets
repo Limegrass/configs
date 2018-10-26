@@ -112,10 +112,9 @@ DECLARE @${1:Name} VARCHAR(${2:Size})
 endsnippet
 
 snippet DET "DECLARE TABLE"
-DECLARE @${1:Name} TABLE ${2:Types}
-VALUES
+DECLARE @${1:Name} TABLE 
 (
-    ${3:Values}
+    ${2:Name Type}
 )
 endsnippet
 

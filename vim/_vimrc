@@ -341,6 +341,8 @@ set iminsert=0
 set imsearch=-1
 " Set default clipboard to be the system register
 " set clipboard=unnamed
+let mapleader="\<SPACE>"
+
 
 " FONT SETTINGS
 if has('gui_running')
@@ -409,6 +411,11 @@ nnoremap Q @q
 nnoremap <CR> ea
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
+nnoremap c, :silent call SplitCommas()<CR>
+function! SplitCommas()
+    s/, /,\r\t/g
+    retab
+endfunction
 
 nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
 " Reciprocal of #gT
@@ -457,6 +464,9 @@ vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 vnoremap <leader>= "+
+vnoremap <A-y> "+y
+vnoremap <A-p> "+p
+vnoremap <S-A-p> "+P
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -527,7 +537,6 @@ call CommandAbbreviations('vh', 'vert help')
 call CommandAbbreviations('vhelp', 'vert help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')
-call CommandAbbreviations('bs', 'buffers')
 call CommandAbbreviations('vsb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
