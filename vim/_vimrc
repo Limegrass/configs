@@ -53,8 +53,7 @@ Plug 'OrangeT/vim-csharp'
 Plug 'lervag/vimtex'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'mhartington/nvim-typescript'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " Appearances
@@ -66,12 +65,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-scriptease'
-
-" Things to check back on
-" Plug 'Floobits/floobits-vim'
-" Plug 'FredKSchott/CoVim'
-" Plug 'ncm2/ncm2-tmux'
-" Plug 'filipekiss/ncm2-look.vim'
 
 call plug#end()
 
@@ -159,8 +152,9 @@ let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger       = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger      = "<nop>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
-inoremap <silent> <expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
-" inoremap <silent> <S-TAB> <C-R>=TryExpand()<CR>
+inoremap <silent> <expr> <CR> pumvisible() ?
+      \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
+
 " FZF
 nnoremap <C-S-SPACE> :FZF<CR>
 nnoremap <C-SPACE> :Buffers<CR>
@@ -233,14 +227,6 @@ function! Preserve(command)
   " Clean up: restore previous search history, and cursor position
   let @/=_s
   call cursor(l, c)
-endfunction
-
-function! ToggleSize()
-  if &columns is g:GVIM_WIDTH
-    let &columns = g:GVIM_WIDTH * 2
-  else
-    let &columns = g:GVIM_WIDTH
-  endif
 endfunction
 
 function! ForwardJumpOrTab()
@@ -353,15 +339,12 @@ set imsearch=-1
 " set clipboard=unnamed
 let mapleader="\<SPACE>"
 
-
 " FONT SETTINGS
 if has('gui_running')
   set guifont=Consolas:h9:cANSI:qDRAFT
 endif
 
 " Character limit highlighting
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-"match OverLength /\%81v.\+/
 call matchadd('ColorColumn', '\%81v.', 100)
 
 " COLORS
@@ -397,6 +380,8 @@ set backspace=indent,eol,start
 " ==============================================================================
 
 " ================================NORMAL MODE===================================
+" To use it as a leader without having timeout movement
+nnoremap <SPACE> <NOP>
 " HELP Right split
 nnoremap K K<C-W>L
 " Remap J, K some to navigate visible lines
@@ -440,8 +425,6 @@ if has('win32')
 endif
 " Copy file path to system register
 nnoremap <leader>p :let @+=expand("%:p")<CR>
-" Toggles off Highlighting
-nnoremap <leader>h :set hlsearch!<CR>
 " Toggles tab-to-space conversion
 nnoremap <leader>t :set expandtab!<CR>
 " Toggle spell check
@@ -472,14 +455,14 @@ vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 vnoremap <leader>= "+
-vnoremap <A-y> "+y
-vnoremap <A-p> "+p
-vnoremap <S-A-p> "+P
+vnoremap <leader>y "+y
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
 
-" This is probably taking it too far
+vnoremap <leader>G "gy:Google <C-R>g<CR>
 vnoremap <leader>G "gy:Google <C-R>g<CR>
 
 " ================================INSERT MODE===================================
@@ -487,12 +470,6 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 " Ctrl-DEL
 inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
-" inoremap <C-R> <C-O>:set nopaste
-" function! NoAutoIndentPaste(command)
-"   set nopaste
-"   <C-R>command
-"   set paste
-" endfunction
 " Visual line navigation
 inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
@@ -500,13 +477,6 @@ inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 
 " ================================COMMANDS======================================
 cnoremap <C-BS> <C-W>
-" Commands to resize gui window
-if has('gui_running')
-  command! ToggleSize call ToggleSize() | normal <C-W>=
-  command! -nargs=* -complete=file Vs call ToggleSize() | vs <args>
-  command! Bq call ToggleSize() | q
-  command! -bang Bq q! | let &columns=GVIM_WIDTH
-endif
 
 " Commands for functions
 command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
@@ -514,7 +484,6 @@ command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 CopyToClipboard call Preserve('normal gg"+yG')
 
-" I'm crazy enough to want this function, maybe
 command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
 command! -nargs=1 Jisho call StartBrowser('https://jisho.org/search/'.<q-args>)
 command! -range JishoRange call StartBrowser('https://jisho.org/search/'.<q-args>)
@@ -557,13 +526,25 @@ call CommandAbbreviations('vsb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
 
+if filereadable('machine.vim')
+  source machine.vim
+endif
 
 " TODO
 " inoremap <C-SPACE> to force open ncm2 pum
 " Fix whatever is happening with the popup eating a space while typing sql
 " Fix this function
 " cnoreabbrev admincmd !runas /user:hostname\administrator cmd
+" inoremap <C-R> <C-O>:set nopaste
+" function! NoAutoIndentPaste(command)
+"   set nopaste
+"   <C-R>command
+"   set paste
+" endfunction
+"
+" Things to check back on
+" Plug 'Floobits/floobits-vim'
+" Plug 'FredKSchott/CoVim'
+" Plug 'ncm2/ncm2-tmux'
+" Plug 'filipekiss/ncm2-look.vim'
 
-if filereadable('machine.vim')
-  source machine.vim
-endif
