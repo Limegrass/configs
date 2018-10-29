@@ -267,6 +267,15 @@ function! BackwardJumpOrSTab()
   endif
 endfunction
 
+function! ShowRegisterAndReturn()
+  register
+  call inputsave()
+  let l:register = input('Register: ')
+  call inputrestore()
+  return getreg(l:register)
+endfunction
+
+
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
@@ -327,6 +336,7 @@ set cursorline
 set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
+set virtualedit=block
 packadd! matchit
 set spelllang=en
 set mouse=nicr
@@ -400,21 +410,19 @@ nnoremap 0 g0
 nnoremap g0 0
 " Yank to end of line, yy for line yank
 nnoremap Y y$
-nnoremap <A-y> "+y
-nnoremap <A-p> "+p
-nnoremap <S-A-p> "+P
-nnoremap <leader>= "+
-nnoremap <leader>== :call Preserve('normal gg"+yG')<CR>
+nnoremap <leader>y "+
+nnoremap yc "+
+nnoremap yr :CopyToClipboard<CR>
 " Q to replay qq macro
 nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <CR> ea
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
-nnoremap c, :silent call SplitCommas()<CR>
+nnoremap cm :silent call SplitCommas()<CR>
 function! SplitCommas()
-    s/, /,\r\t/g
-    retab
+  s/,\s*/,\r/g
+  retab
 endfunction
 
 nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
@@ -504,20 +512,28 @@ endif
 command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
-command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
+command! -nargs=0 CopyToClipboard call Preserve('normal gg"+yG')
 
 " I'm crazy enough to want this function, maybe
-if has('win32')
-  command! -nargs=1 Google silent !start https://google.com/search?q=<args>
-  command! -nargs=1 Jisho silent !start https://jisho.org/search/<args>
-  command! -range JishoRange silent !start https://jisho.org/search/<args>
-  " Fix this function
-  " cnoreabbrev admincmd !runas /user:hostname\administrator cmd
-else
-  command! -nargs=1 Google silent !xdg-open https://google.com/search?q=<args>
-  command! -nargs=1 Jisho silent !xdg-open https://jisho.org/search/<args>
-  command! -range JishoRange silent !xdg-open https://jisho.org/search/<args>
-endif
+command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
+command! -nargs=1 Jisho call StartBrowser('https://jisho.org/search/'.<q-args>)
+command! -range JishoRange call StartBrowser('https://jisho.org/search/'.<q-args>)
+
+function! StartBrowser(link)
+  if has('win32')
+    silent exec '!start '.a:link
+  else
+    silent exec '!xdg-open'.a:link
+  endif
+endfunction
+
+command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
+function! ClearRegister(chars)
+    let l:regs = split(a:chars, '\zs')
+    for r in l:regs
+        call setreg(r, [])
+    endfor
+endfunction
 
 
 " Dealing with my typos
@@ -544,6 +560,9 @@ call CommandAbbreviations('bdall', '%bd\|e#')
 
 " TODO
 " inoremap <C-SPACE> to force open ncm2 pum
+" Fix whatever is happening with the popup eating a space while typing sql
+" Fix this function
+" cnoreabbrev admincmd !runas /user:hostname\administrator cmd
 
 if filereadable('machine.vim')
   source machine.vim

@@ -104,7 +104,7 @@ nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 " Pair of commands to split up a long commas list
 " CoMmas
 nnoremap cm 0f(a<CR><ESC>V:s/,\s*/,\r/g<CR><ESC>
-" Change INdent
+" Change (inside) INdent
 nnoremap cin 0yiwjI<C-R>+<ESC>
 
 " ================================VISUAL MODE=================================
