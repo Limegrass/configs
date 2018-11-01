@@ -16,6 +16,7 @@ set clipboard=unnamed
 
 " ================================ KEYBINDINGS =================================
 let mapleader="\<SPACE>"
+nnoremap <SPACE> <NOP>
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j

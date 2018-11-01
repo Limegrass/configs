@@ -3,6 +3,8 @@ scriptencoding utf-8
 let GVIM_WIDTH = 999
 let GVIM_HEIGHT = 999
 cd ~
+let mapleader="\<SPACE>"
+nnoremap <SPACE> <NOP>
 " ==============================================================================
 " VIM-PLUG BLOCK
 " ==============================================================================
@@ -61,6 +63,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'gcmt/taboo.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -69,7 +72,7 @@ Plug 'tpope/vim-scriptease'
 call plug#end()
 
 " ==============================================================================
-" PLUGIN-RELATED SETTINGS
+" PLUGIN SETTINGS
 " ==============================================================================
 
 " Indent Guides enabled by default
@@ -119,6 +122,9 @@ let g:jedi#smart_auto_mappings = 0
 let g:clang_make_default_keymappings = 0
 let g:clang_auto_user_options = ''
 
+" Taboo
+let g:taboo_tab_format=' %N [%f%m] '
+
 " DBEXT
 let g:sqlserver_integrated = 'type=SQLSRV:integratedlogin=1'
 
@@ -135,17 +141,14 @@ let g:jedi#completions_command = ""
 let g:jedi#rename_command = "<leader>r"
 
 " ALE Navigation
-nmap <silent> <F3> <Plug>(ale_next_wrap)
-nmap <silent> <F4> <Plug>(ale_previous_wrap)
+nnoremap <silent> <F3> <Plug>(ale_next_wrap)
+nnoremap <silent> <F4> <Plug>(ale_previous_wrap)
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 
 " Vim-commentary bind
 nnoremap <leader><Tab> :Commentary<CR>
 vnoremap <leader><Tab> :Commentary<CR>
-
-" Obsession
-nnoremap <leader>O :Obsession<CR>
 
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
@@ -337,7 +340,7 @@ set iminsert=0
 set imsearch=-1
 " Set default clipboard to be the system register
 " set clipboard=unnamed
-let mapleader="\<SPACE>"
+set sessionoptions+=tabpages,globals
 
 " FONT SETTINGS
 if has('gui_running')
@@ -380,8 +383,6 @@ set backspace=indent,eol,start
 " ==============================================================================
 
 " ================================NORMAL MODE===================================
-" To use it as a leader without having timeout movement
-nnoremap <SPACE> <NOP>
 " HELP Right split
 nnoremap K K<C-W>L
 " Remap J, K some to navigate visible lines
@@ -518,8 +519,10 @@ endif
 
 " ================================ABBREVIATIONS=================================
 " Force vertical splits for help files and expand gui window for help
-call CommandAbbreviations('vh', 'vert help')
-call CommandAbbreviations('vhelp', 'vert help')
+call CommandAbbreviations('h', 'vert help')
+call CommandAbbreviations('help', 'vert help')
+call CommandAbbreviations('hh', 'help')
+call CommandAbbreviations('hhelp', 'help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('vsb', 'vert sb')
@@ -547,4 +550,5 @@ endif
 " Plug 'FredKSchott/CoVim'
 " Plug 'ncm2/ncm2-tmux'
 " Plug 'filipekiss/ncm2-look.vim'
-
+"
+" Look at Taboo.vim and take what I need from it?
