@@ -411,6 +411,9 @@ function! SplitCommas()
   retab
 endfunction
 
+nnoremap <C-W>V :vnew<CR>
+nnoremap <C-W>S :new<CR>
+
 nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
 " Reciprocal of #gT
 nnoremap <leader>gt :<C-U>exec 'normal '.repeat("gt", v:count1)<CR>
@@ -444,8 +447,8 @@ nnoremap <leader>T :vimgrep /TODO/ %<CR>
 nnoremap <F2> :TagbarToggle<CR>
 
 " Shift lines
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
+nnoremap <A-j> :move .+1<CR>==
+nnoremap <A-k> :move .-2<CR>==
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
 xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
@@ -458,10 +461,7 @@ vnoremap > >gv
 vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-vnoremap <leader>= "+
-vnoremap <leader>y "+y
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+vnoremap <leader>y "+
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -470,8 +470,8 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 vnoremap <leader>G "gy:Google <C-R>g<CR>
 
 " Shift lines
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+vnoremap <A-j> :move '>+1<CR>gv=gv
+vnoremap <A-k> :move '<-2<CR>gv=gv
 
 " ================================INSERT MODE===================================
 " Common Ctrl-BS functionality in other editors, delete whole word with
@@ -484,8 +484,8 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 
 " Shift lines
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
+inoremap <A-j> <Esc>:move .+1<CR>==gi
+inoremap <A-k> <Esc>:move .-2<CR>==gi
 
 " ================================COMMANDS======================================
 cnoremap <C-BS> <C-W>
