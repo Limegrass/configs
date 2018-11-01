@@ -443,6 +443,9 @@ nnoremap <leader>T :vimgrep /TODO/ %<CR>
 " tagbar
 nnoremap <F2> :TagbarToggle<CR>
 
+" Shift lines
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
 " ================================VISUAL MODE===================================
 " Equivalent behavior for visual mode as some normal mode bindings
 xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
@@ -466,6 +469,10 @@ vnoremap // y/<C-R>"<CR>
 vnoremap <leader>G "gy:Google <C-R>g<CR>
 vnoremap <leader>G "gy:Google <C-R>g<CR>
 
+" Shift lines
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
 " ================================INSERT MODE===================================
 " Common Ctrl-BS functionality in other editors, delete whole word with
 " Ctrl-DEL
@@ -475,6 +482,10 @@ inoremap <C-DEL> <C-O>dw
 inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
+
+" Shift lines
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
 
 " ================================COMMANDS======================================
 cnoremap <C-BS> <C-W>
