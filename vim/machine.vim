@@ -7,20 +7,13 @@ if has('win32')
   cd C:\Vim\misc<CR>
 endif
 
-" Edit vimrc. Symlink it to the configs folder
-nnoremap <leader>v :edit $MYVIMRC<CR> :lc %:h<CR>
-nnoremap <leader>V :tabnew $MYVIMRC<CR> :lc %:h<CR>
-
 " Change directory to Git/Text folder
 nnoremap <leader>f :cd C:/Vim/misc<CR>
 nnoremap <leader>F :cd C:/Git<CR>
-nnoremap <leader>ya :call Preserve('normal gg"+yG')<CR>
 
-let $VSVIMRC = 'C:/Users/james.ni/_vsvimrc'
-
-let g:dbext_default_type = 'SQLSRV'
-let g:dbext_default_integratedlogin = 1
-let g:dbext_default_history_file = 'C:\Vim\dbext_history.txt'
+" let g:dbext_default_type = 'SQLSRV'
+" let g:dbext_default_integratedlogin = 1
+" let g:dbext_default_history_file = 'C:\Vim\dbext_history.txt'
 
 " ==============================================================================
 " Worthless usage notes to myself

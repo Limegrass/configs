@@ -2,6 +2,9 @@
 scriptencoding utf-8
 let GVIM_WIDTH = 999
 let GVIM_HEIGHT = 999
+let $VSVIMRC = $HOME.'\_vsvimrc'
+let $IDEAVIMRC = $HOME.'\_ideavimrc'
+let $MACHINE = $HOME.'\machine.vim'
 cd ~
 let mapleader="\<SPACE>"
 nnoremap <SPACE> <NOP>
@@ -10,10 +13,13 @@ nnoremap <SPACE> <NOP>
 " ==============================================================================
 " DBEXT on vim.org
 
+
 if has('win32')
-  call plug#begin('~/vimfiles/plugged')
+  let $VIMDIR=$HOME.'\vimfiles'
+  call plug#begin($VIMDIR.'\plugged')
 else
-  call plug#begin('~/.vim/plugged')
+  let $VIMDIR=$HOME.'\.vim'
+  call plug#begin($VIMDIR.'\plugged')
 endif
 
 " Editing
@@ -264,6 +270,11 @@ function! ShowRegisterAndReturn()
   return getreg(l:register)
 endfunction
 
+function! DBProfile(profile)
+    exec 'DBSetOption profile=' . a:profile
+    setf sql
+    DBCompleteTables
+endfunction
 
 " ==============================================================================
 " AUTOCOMMANDS
@@ -307,7 +318,6 @@ endif
 " GENERAL SETTINGS
 set ruler
 set incsearch
-" set nohlsearch
 set ignorecase
 set smartcase
 set number
@@ -341,6 +351,18 @@ set imsearch=-1
 " Set default clipboard to be the system register
 " set clipboard=unnamed
 set sessionoptions+=tabpages,globals
+
+let $UNDODIR=$VIMDIR.'\undo'
+let $BACKUPDIR=$VIMDIR.'\backup'
+let $SWAPDIR=$VIMDIR.'\swap'
+if !isdirectory($UNDODIR)
+  silent call mkdir($UNDODIR)
+  silent call mkdir($BACKUPDIR)
+  silent call mkdir($SWAPDIR)
+endif
+set undodir=$UNDODIR
+set backupdir=$BACKUPDIR
+set directory=$SWAPDIR
 
 " FONT SETTINGS
 if has('gui_running')
@@ -399,7 +421,7 @@ nnoremap Y y$
 nnoremap <leader>y "+
 nnoremap yc "+
 nnoremap yr :CopyToClipboard<CR>
-" Q to replay qq macro
+nnoremap y" :CPR +<CR>
 nnoremap Q @q
 " Helps me search double enter to insert after word
 nnoremap <CR> ea
@@ -413,6 +435,9 @@ endfunction
 
 nnoremap <C-W>V :vnew<CR>
 nnoremap <C-W>S :new<CR>
+
+nnoremap <leader>v :edit $MYVIMRC<CR>
+nnoremap <leader>V :tabnew $MYVIMRC<CR>
 
 nnoremap <S-ESC> <ESC>:StripTrailingWhiteSpace<CR>
 " Reciprocal of #gT
@@ -461,7 +486,9 @@ vnoremap > >gv
 vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-vnoremap <leader>y "+
+vnoremap <leader>y "+y
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
@@ -516,6 +543,12 @@ function! ClearRegister(chars)
     endfor
 endfunction
 
+command! -nargs=+ CopyFromRegisterInto call CopyRegisterFromInto(<f-args>)
+command! -nargs=1 CPR call CopyFromRegisterInto(<f-args>, '+')
+function! CopyFromRegisterInto(from, into)
+  exec 'let @'.a:into.'=@'.a:from
+endfunction
+
 
 " Dealing with my typos
 command! W w
@@ -536,12 +569,12 @@ call CommandAbbreviations('hh', 'help')
 call CommandAbbreviations('hhelp', 'help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')
-call CommandAbbreviations('vsb', 'vert sb')
+call CommandAbbreviations('vb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
 
-if filereadable('machine.vim')
-  source machine.vim
+if filereadable($MACHINE)
+  source $MACHINE
 endif
 
 " TODO
