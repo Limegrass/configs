@@ -116,7 +116,7 @@ DECLARE @${1:Name} VARCHAR(${2:Size})
 endsnippet
 
 snippet DET "DECLARE TABLE"
-DECLARE @${1:Name} TABLE 
+DECLARE @${1:Name} TABLE
 (
     ${2:Name Type}
 )
@@ -210,6 +210,14 @@ REPLACE
     ${2:Pattern},
     ${3:Replacement}
 )
+endsnippet
+
+snippet VAR "VARCHAR"
+VARCHAR(${1:SIZE})
+endsnippet
+
+snippet NVAR "NVARCHAR"
+NVARCHAR(${1:SIZE})
 endsnippet
 
 #########################

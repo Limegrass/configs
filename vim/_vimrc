@@ -471,8 +471,8 @@ nnoremap <leader>S :source $MYVIMRC<CR>
 " HELP Right split
 nnoremap K K<C-W>L
 nnoremap Q @q
-nnoremap <C-W>V :vnew<CR>
-nnoremap <C-W>S :new<CR>
+nnoremap <C-W>v :vnew<CR>
+nnoremap <C-W>s :new<CR>
 
 nnoremap Y y$
 nnoremap <leader>y "+
@@ -533,7 +533,7 @@ vnoremap <leader>G "gy:Google <C-R>g<CR>
 inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
 " Close popup menu with <S-Space>
-inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
+" inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 
 " Paste from system register with <C-R>r
 inoremap <C-R>r <C-R>+
@@ -555,7 +555,7 @@ command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-arg
 command! -nargs=1 Jisho call StartBrowser('https://jisho.org/search/'.<q-args>)
 command! -range JishoRange call StartBrowser('https://jisho.org/search/'.<q-args>)
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
-command! -nargs=+ CopyFromRegisterInto call CopyRegisterFromInto(<f-args>)
+command! -nargs=+ CopyFromRegisterInto call CopyFromRegisterInto(<f-args>)
 command! -nargs=1 CPR call CopyFromRegisterInto(<f-args>, '+')
 
 " Dealing with my typos
