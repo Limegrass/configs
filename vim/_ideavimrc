@@ -1,5 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
+let mapleader='\<SPACE>'
+nnoremap <SPACE> <NOP>
 
 " ============================================================================
 " BASIC SETTINGS
@@ -15,7 +17,7 @@ set number
 set wrap
 set wildmenu
 set guioptions=c
-set listchars=tab:▸\ ,trail:·
+set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
 set list
 set selection=inclusive
 set undofile
@@ -40,61 +42,59 @@ set clipboard=unnamed
 " ============================================================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
+nnoremap gj j
 nnoremap k gk
+nnoremap gk k
 nnoremap $ g$
+nnoremap g$ $
 nnoremap 0 g0
-" Yank to end of line, yy for line yank
-nnoremap Y y$
-nnoremap Q @q
-" Helps me search double enter to insert after word
-nnoremap <RETURN> ea
-" Change tab structure in normal/visual mode
-" nnoremap <Tab> >>
-" nnoremap <S-Tab> <<
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-" Toggles off Highlighting
-nnoremap <leader>h :set hlsearch!<CR>
-" Toggles tab-to-space conversion
-nnoremap <leader>t :set expandtab!<CR>
-" Toggle spell check
-nnoremap <leader>sc :set spell!<CR>
-" Switch between splits
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
-nnoremap <C-H> <C-W>h
-" Split navigation from a terminal split on neovim
-" Switch between tabs
-nnoremap <leader>[ :tabp<CR>
-nnoremap <leader>] :tabn<CR>
-" Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
-nnoremap <S-C-T> <C-T>
-" Mark TODO as DONE
-nnoremap <leader>z :s/TODO/DONE/<CR>
-nnoremap <leader>T :vimgrep /TODO/ %<CR>
-
-" ================================VISUAL MODE=================================
+nnoremap g0 0
 vnoremap j gj
 vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
 
+" ALT+jk to move lines up and down
+nnoremap <A-j> :move .+1<CR>==
+nnoremap <A-k> :move .-2<CR>==
+vnoremap <A-j> :move '>+1<CR>gv=gv
+vnoremap <A-k> :move '<-2<CR>gv=gv
+inoremap <A-j> <Esc>:move .+1<CR>==gi
+inoremap <A-k> <Esc>:move .-2<CR>==gi
+
+" =============================== VISUAL MODE ================================
+nnoremap cm :s/,\s*/,\r/g :retab
+" Yank to end of line, yy for line yank
+nnoremap Y y$
+nnoremap Q @q
+" Helps me search double enter to insert after word
+nnoremap <RETURN> ea
+" Toggles off Highlighting
+nnoremap <leader>h :set hlsearch!<CR>
+" Switch between splits
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
+" Mark TODO as DONE
+nnoremap <leader>z :s/TODO/DONE/<CR>
+nnoremap <leader>T :vimgrep /TODO/ %<CR>
+
+nnoremap <leader><TAB> :action CommentByLineComment<CR>
+nnoremap <leader><S-TAB> :action CommentByBlockComment<CR>
+nnoremap <C-SPACE> :action GotoFile<CR>
+nnoremap <leader><C-SPACE> :action GotoChangedFile<CR>
+
+" =============================== VISUAL MODE ================================
+vnoremap <leader><TAB> :action CommentByLineComment<CR>
+vnoremap <leader><C-TAB> :action CommentByBlockComment<CR>
+
+" Change tab structure in normal/visual mode
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
 vnoremap <leader>z :s/TODO/DONE/<CR>
-
-" ================================INSERT MODE=================================
-inoremap <C-BS> <C-W>
-" Delete word forward in Insert Mode, doesn't work for single letter words.
-inoremap <C-Del> <ESC>ldei
-" Visual line navigation
-inoremap <UP> <ESC>gka
-inoremap <DOWN> <ESC>gja
-
-" ================================ABBREVIATION=================================
-" COMMANDS
-" Automatically fix typos for writing and quitting
-cnoreabbrev <expr> W ((getcmdtype() is# ':'    && getcmdline() is# 'W')?(':w<CR>'):('W'))
-cnoreabbrev <expr> Q ((getcmdtype() is# ':'    && getcmdline() is# 'Q')?(':q<CR>'):('Q'))
-cnoreabbrev <expr> X ((getcmdtype() is# ':'    && getcmdline() is# 'X')?(':x<CR>'):('X'))

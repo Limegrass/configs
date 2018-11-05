@@ -3,7 +3,7 @@
 " Sections:
 "   VIM_PLUG:
 "   PLUGIN_SETTINGS:
-"   PLUGIN_BINDINGS:
+"   PLUGIN_MAPS:
 "   FUNCTION_DEFINITIONS:
 "   AUTOCOMMANDS:
 "   BASIC_SETTINGS:
@@ -139,7 +139,7 @@ let g:clang_make_default_keymappings = 0
 let g:clang_auto_user_options = ''
 
 " ==============================================================================
-" PLUGIN_KEYBINDS
+" PLUGIN_MAPS
 " ==============================================================================
 " ALE Navigation
 nnoremap <silent> <F3> <Plug>(ale_next_wrap)
@@ -535,8 +535,16 @@ inoremap <C-DEL> <C-O>dw
 " Close popup menu with <S-Space>
 inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 
+" Paste from system register with <C-R>r
+inoremap <C-R>r <C-R>+
+inoremap <C-R><leader>r <C-R>r
+
 " =============================== COMMANDS =====================================
 cnoremap <C-BS> <C-W>
+
+" Paste from system register with <C-R>r
+cnoremap <C-R>r <C-R>+
+cnoremap <C-R><leader>r <C-R>r
 
 " Function shortcuts
 command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)

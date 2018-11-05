@@ -28,7 +28,6 @@ nnoremap Q @q
 nnoremap <RETURN> ea
 
 
-
 " Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
 " nnoremap gd :vsc Edit.GoToDefinition<CR>:vsc Window.KeepTabOpen<CR>
@@ -132,5 +131,4 @@ vnoremap // y/<C-R>"<CR>
 
 
 " ================================INSERT MODE=================================
-inoremap <A-SPACE> :vsc Edit.CompleteWord<CR>
 inoremap <C-SPACE> :vsc Edit.ListMembers<CR>
