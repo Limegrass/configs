@@ -71,6 +71,8 @@ Plug 'bling/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
+Plug 'godlygeek/tabular'
+Plug 'rickhowe/diffchar.vim'
 
 " Syntax, Typically requires some setup
 Plug 'PProvost/vim-ps1'
@@ -257,22 +259,35 @@ function! CommandAbbreviations(abbrebiation, command)
   let l:exec = ' cnoreabbrev <expr> '.a:abbrebiation.
         \ ' (getcmdtype() is# '':'''.' && getcmdline() is# '.l:abbrev.')'.
         \ '?('.l:command.')'.':('.l:abbrev.')'
-  exec l:exec
+  execute l:exec
 endfunction
 
 " Normalizes a document with both tabs and spaces
-function! ChangeTabSizing(oldSize, newSize) range
+function! ChangeTabSizing(...) range
+  if (a:0 < 2)
+    execute a:firstline.','.a:lastline.' retab'
+    return
+  endif
+
   set expandtab
-  let &tabstop=a:oldSize
-  let &softtabstop=a:oldSize
-  let &shiftwidth=a:oldSize
+  let &tabstop=a:1
+  let &softtabstop=a:1
+  let &shiftwidth=a:1
   set noexpandtab
-  retab!
-  let &tabstop=a:newSize
-  let &softtabstop=a:newSize
-  let &shiftwidth=a:newSize
+  if (a:firstline == a:lastline)
+    retab!
+  else
+    execute a:firstline.','.a:lastline.' retab!'
+  endif
+  let &tabstop=a:2
+  let &softtabstop=a:2
+  let &shiftwidth=a:2
   set expandtab
-  retab
+  if (a:firstline == a:lastline)
+    retab!
+  else
+    execute a:firstline.','.a:lastline.' retab'
+  endif
 endfunction
 
 " Execute command while preserving cursor location
@@ -296,16 +311,16 @@ function! ShowRegisterAndReturn()
 endfunction
 
 function! DBProfile(profile)
-    exec 'DBSetOption profile=' . a:profile
+    execute 'DBSetOption profile=' . a:profile
     setf sql
     DBCompleteTables
 endfunction
 
 function! StartBrowser(link)
   if has('win32')
-    silent exec '!start '.a:link
+    silent execute '!start '.a:link
   else
-    silent exec '!xdg-open'.a:link
+    silent execute '!xdg-open'.a:link
   endif
 endfunction
 
@@ -317,7 +332,7 @@ function! ClearRegister(chars)
 endfunction
 
 function! CopyFromRegisterInto(from, into)
-  exec 'let @'.a:into.'=@'.a:from
+  execute 'let @'.a:into.'=@'.a:from
 endfunction
 
 " ==============================================================================
@@ -475,10 +490,21 @@ nnoremap <C-W>v :vnew<CR>
 nnoremap <C-W>s :new<CR>
 
 nnoremap Y y$
-nnoremap <leader>y "+
-nnoremap yc "+
-nnoremap yr :CopyToClipboard<CR>
-nnoremap y" :CPR +<CR>
+nnoremap <leader>= "+
+nnoremap yc "+y
+
+nnoremap + "+
+" Maps yr to copy registers
+function! MapYankRegister()
+  let l:regs = split('abcdefghijklmnopqrstuvwxyz1234567890"-:.%#=*+~/', '\zs')
+  for l:from in l:regs
+    for l:into in l:regs
+      execute 'nnoremap yr'. l:from . l:into . ' :CopyFromRegisterInto '. l:from . ' ' . l:into . ')<CR>'
+    endfor
+  endfor
+endfunction
+call MapYankRegister()
+
 " Helps me search double enter to insert after word
 nnoremap <CR> ea
 " Search for word currently under cursor
@@ -491,7 +517,7 @@ function! SplitCommas()
 endfunction
 
 " Reciprocal of {count}gT
-nnoremap <leader>gt :<C-U>exec 'normal '.repeat("gt", v:count1)<CR>
+nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
 nnoremap <leader>cd :cd %:p:h<CR>
 " Open file explorer on current file location
@@ -518,14 +544,12 @@ vnoremap > >gv
 vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-vnoremap <leader>y "+y
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+vnoremap <leader>= "+
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
 
-vnoremap <leader>G "gy:Google <C-R>g<CR>
+" TODO Fix this
 vnoremap <leader>G "gy:Google <C-R>g<CR>
 
 " =============================== INSERT_MODE ==================================
@@ -534,20 +558,17 @@ inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
 " Close popup menu with <S-Space>
 " inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
-
 " Paste from system register with <C-R>r
-inoremap <C-R>r <C-R>+
-inoremap <C-R><leader>r <C-R>r
+inoremap <C-R><C-R> <C-R>+
 
 " =============================== COMMANDS =====================================
 cnoremap <C-BS> <C-W>
 
 " Paste from system register with <C-R>r
-cnoremap <C-R>r <C-R>+
-cnoremap <C-R><leader>r <C-R>r
+cnoremap <C-R><C-R> <C-R>+
 
 " Function shortcuts
-command! -nargs=+ -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
+command! -nargs=* -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 CopyToClipboard call Preserve('normal gg"+yG')
@@ -607,3 +628,5 @@ endif
 " Look at Taboo.vim and take what I need from it?
 " Generic command to run a command with a visual selection
 " Ideavimrc mappings (:actionlist)
+" Autocurl and helptext dbext
+" Split into multiple files and Autosymlink?
