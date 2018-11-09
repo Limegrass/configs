@@ -85,6 +85,7 @@ nnoremap <leader>pp :vsc Debug.BreakAll<CR>
 nnoremap <leader>bb :vsc Debug.ToggleBreakpoint<CR>
 nnoremap <leader><CR> :vsc Debug.Start<CR>
 nnoremap <leader>Q :vsc Debug.StopDebugging<CR>
+nnoremap <leader>i :vsc Debug.Immediate<CR>
 
 " File
 nnoremap <leader>vh :vsc File.TfsHistory<CR>

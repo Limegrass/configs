@@ -72,7 +72,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
-Plug 'rickhowe/diffchar.vim'
+" Plug 'rickhowe/diffchar.vim'
 
 " Syntax, Typically requires some setup
 Plug 'PProvost/vim-ps1'
@@ -331,8 +331,21 @@ function! ClearRegister(chars)
     endfor
 endfunction
 
-function! CopyFromRegisterInto(from, into)
-  execute 'let @'.a:into.'=@'.a:from
+function! CopyRegisterFromInto(from, into)
+  execute "call setreg('".a:into."', getreg('".a:from."'))"
+endfunction
+
+
+function! GetVisualSelection()
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
 endfunction
 
 " ==============================================================================
@@ -499,7 +512,7 @@ function! MapYankRegister()
   let l:regs = split('abcdefghijklmnopqrstuvwxyz1234567890"-:.%#=*+~/', '\zs')
   for l:from in l:regs
     for l:into in l:regs
-      execute 'nnoremap yr'. l:from . l:into . ' :CopyFromRegisterInto '. l:from . ' ' . l:into . ')<CR>'
+      execute 'nnoremap yr'. l:from . l:into . ' :CopyRegisterFromInto '. l:from . ' ' . l:into . '<CR>'
     endfor
   endfor
 endfunction
@@ -550,7 +563,12 @@ vnoremap <leader>= "+
 vnoremap // y/<C-R>"<CR>
 
 " TODO Fix this
-vnoremap <leader>G "gy:Google <C-R>g<CR>
+vnoremap <leader>g :call Google()<CR>
+function! Google()
+  let l:searchTerm = GetVisualSelection()
+  let l:url = 'https://google.com/search?q=' . l:searchTerm
+  call StartBrowser(l:url)
+endfunction
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
@@ -576,8 +594,8 @@ command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-arg
 command! -nargs=1 Jisho call StartBrowser('https://jisho.org/search/'.<q-args>)
 command! -range JishoRange call StartBrowser('https://jisho.org/search/'.<q-args>)
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
-command! -nargs=+ CopyFromRegisterInto call CopyFromRegisterInto(<f-args>)
-command! -nargs=1 CPR call CopyFromRegisterInto(<f-args>, '+')
+command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
+command! -nargs=1 CPR call CopyRegisterFromInto(<f-args>, '+')
 
 " Dealing with my typos
 command! W w
@@ -625,8 +643,9 @@ endif
 " Plug 'ncm2/ncm2-tmux'
 " Plug 'filipekiss/ncm2-look.vim'
 "
-" Look at Taboo.vim and take what I need from it?
 " Generic command to run a command with a visual selection
+" Automatically set register v to whatever was visually selected last on
+" entering visual mode
 " Ideavimrc mappings (:actionlist)
-" Autocurl and helptext dbext
+" Autocurl, extract and helptext dbext
 " Split into multiple files and Autosymlink?
