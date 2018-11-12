@@ -83,7 +83,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
+" Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-vim'
   Plug 'Shougo/neco-vim'
@@ -152,8 +152,8 @@ nnoremap <leader><Tab> :Commentary<CR>
 vnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
-nnoremap <C-S-SPACE> :FZF<CR>
-nnoremap <C-SPACE> :Buffers<CR>
+nnoremap <C-SPACE> :FZF<CR>
+nnoremap <C-S-SPACE> :Buffers<CR>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -504,6 +504,8 @@ nnoremap <C-W>s :new<CR>
 
 nnoremap Y y$
 nnoremap <leader>= "+
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
 nnoremap yc "+y
 
 nnoremap + "+
@@ -538,7 +540,7 @@ if has('win32')
   nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
 endif
 " Copy file path to system register
-nnoremap <leader>p :let @+=expand("%:p")<CR>
+nnoremap <leader>fp :let @+=expand("%:p")<CR>
 " Navigate out of terminal mode
 if has('nvim')
   tnoremap <ESC> <C-\><C-N>
@@ -558,6 +560,8 @@ vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 vnoremap <leader>= "+
+vnoremap <leader>p "+p
+vnoremap <leader>y "+y
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
