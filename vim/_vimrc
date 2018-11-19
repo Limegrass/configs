@@ -144,16 +144,16 @@ let g:clang_auto_user_options = ''
 " PLUGIN_MAPS
 " ==============================================================================
 " ALE Navigation
-nnoremap <silent> <F3> <Plug>(ale_next_wrap)
-nnoremap <silent> <F4> <Plug>(ale_previous_wrap)
+nnoremap <silent> <leader>l <Plug>(ale_next_wrap)
+nnoremap <silent> <leader>L <Plug>(ale_previous_wrap)
 
 " Vim-commentary bind
 nnoremap <leader><Tab> :Commentary<CR>
 vnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
-nnoremap <C-SPACE> :FZF<CR>
-nnoremap <C-S-SPACE> :Buffers<CR>
+nnoremap <C-SPACE> :Buffers<CR>
+nnoremap <C-S-SPACE> :FZF<CR>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -552,7 +552,8 @@ nnoremap <C-T> :tabedit<CR>
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
 
-" Shift lines
+nnoremap <F4> :execute 'bd \| bn'<CR>
+nnoremap <leader><F4> windo bd<CR>
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
 vnoremap > >gv
@@ -653,3 +654,4 @@ endif
 " Ideavimrc mappings (:actionlist)
 " Autocurl, extract and helptext dbext
 " Split into multiple files and Autosymlink?
+"   Probably better to make batch and shell scripts instead
