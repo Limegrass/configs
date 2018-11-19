@@ -347,6 +347,12 @@ function! GetVisualSelection()
     return join(lines, "\n")
 endfunction
 
+function! RepeatForArguments(commandPrefix, commandSuffix, ...)
+  for argument in a:000
+    execute a:commandPrefix . argument . a:commandSuffix
+  endfor
+endfunction
+
 " ==============================================================================
 " AUTOCOMMANDS
 " ==============================================================================
@@ -566,14 +572,6 @@ vnoremap <leader>y "+y
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
 
-" TODO Fix this
-vnoremap <leader>g :call Google()<CR>
-function! Google()
-  let l:searchTerm = GetVisualSelection()
-  let l:url = 'https://google.com/search?q=' . l:searchTerm
-  call StartBrowser(l:url)
-endfunction
-
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
 inoremap <C-BS> <C-W>
@@ -593,10 +591,10 @@ cnoremap <C-R><C-R> <C-R>+
 command! -nargs=* -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
-command! -nargs=0 CopyToClipboard call Preserve('normal gg"+yG')
+command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
-command! -nargs=1 Jisho call StartBrowser('https://jisho.org/search/'.<q-args>)
-command! -range JishoRange  call StartBrowser('https://jisho.org/search/'.GetVisualSelection())
+command! -nargs=* Jisho call RepeatForArguments("call StartBrowser('https://jisho.org/search/", "')", <f-args>)
+command! -range JishoRange  call RepeatForArguments("call StartBrowser('https://jisho.org/search/", "')", split(GetVisualSelection(),'\s'))
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
 command! -nargs=1 CPR call CopyRegisterFromInto(<f-args>, '+')
