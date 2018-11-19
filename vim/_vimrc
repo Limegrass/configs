@@ -83,7 +83,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-" Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-vim'
   Plug 'Shougo/neco-vim'
@@ -334,7 +334,6 @@ endfunction
 function! CopyRegisterFromInto(from, into)
   execute "call setreg('".a:into."', getreg('".a:from."'))"
 endfunction
-
 
 function! GetVisualSelection()
     let [line_start, column_start] = getpos("'<")[1:2]
@@ -597,7 +596,7 @@ command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 CopyToClipboard call Preserve('normal gg"+yG')
 command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
 command! -nargs=1 Jisho call StartBrowser('https://jisho.org/search/'.<q-args>)
-command! -range JishoRange call StartBrowser('https://jisho.org/search/'.<q-args>)
+command! -range JishoRange  call StartBrowser('https://jisho.org/search/'.GetVisualSelection())
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
 command! -nargs=1 CPR call CopyRegisterFromInto(<f-args>, '+')
