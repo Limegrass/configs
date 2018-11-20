@@ -371,7 +371,6 @@ function! Jisho(...) range
     else
         let l:argsList = split(GetVisualSelection())
     endif
-        echo(l:argsList)
         call RepeatForList("call ".
             \ "StartBrowser('https://jisho.org/search/", "')",
             \ l:argsList)
