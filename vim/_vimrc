@@ -1,19 +1,19 @@
 ﻿" ==============================================================================
 " Author: James Ni (Limegrass) - @Multipoke
 " Sections:
-"       VIM_PLUG:
-"       PLUGIN_SETTINGS:
-"       PLUGIN_MAPS:
-"       FUNCTION_DEFINITIONS:
-"       AUTOCOMMANDS:
-"       BASIC_SETTINGS:
-"       MAPS_AND_ABBREVS:
-"           ALL_MODES
-"           NORMAL_MODE
-"           VISUAL_MODE
-"           INSERT_MODE
-"           COMMANDS
-"           ABBREVIATIONS
+"   VIM_PLUG:
+"   PLUGIN_SETTINGS:
+"   PLUGIN_MAPS:
+"   FUNCTION_DEFINITIONS:
+"   AUTOCOMMANDS:
+"   BASIC_SETTINGS:
+"   MAPS_AND_ABBREVS:
+"     ALL_MODES
+"     NORMAL_MODE
+"     VISUAL_MODE
+"     INSERT_MODE
+"     COMMANDS
+"     ABBREVIATIONS
 " Jump with # or *
 " ==============================================================================
 
@@ -26,20 +26,24 @@ scriptencoding utf-8
 let GVIM_WIDTH = 999
 let GVIM_HEIGHT = 999
 
-let $GITHOME = $HOME.'/git'
-if !isdirectory($GARBAGEHOME)
-    silent call mkdir($GITHOME)
+let $GITDIR = $HOME.'/git'
+if !isdirectory($GITDIR)
+    silent call mkdir($GITDIR)
 endif
 
-let $GARBAGEHOME = $HOME.'/git/garbage'
+let $GARBAGEDIR = $GITDIR.'/garbage'
+if !isdirectory($GARBAGEDIR)
+    silent call mkdir($GARBAGEDIR)
+endif
+
+let $VIMRC     = $GITDIR.'/configs/vim/_vimrc'
+let $VSVIMRC   = $GITDIR.'/configs/vim/_vsvimrc'
+let $IDEAVIMRC = $GITDIR.'/configs/vim/_ideavimrc'
+
 if has('win32') || has('win32unix')
-    let $USERVIMDIR=$HOME.'/vimfiles'
-    let $VSVIMRC = $HOME.'/_vsvimrc'
-    let $IDEAVIMRC = $HOME.'/_ideavimrc'
+    let $VIMDIR = $HOME.'/vimfiles'
 else
-    let $USERVIMDIR=$HOME.'/.vim'
-    let $VSVIMRC = $HOME.'/.vsvimrc'
-    let $IDEAVIMRC = $HOME.'/.ideavimrc'
+    let $VIMDIR = $HOME.'/.vim'
 endif
 
 let mapleader="\<SPACE>"
@@ -51,12 +55,12 @@ nnoremap <SPACE> <NOP>
 " DBExt: https://www.vim.org/scripts/download_script.php?src_id=25648
 " Unzip, navigate to it, and run :helptags
 
-if empty(glob($USERVIMDIR.'/autoload/plug.vim'))
+if empty(glob($VIMDIR.'/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-call plug#begin($USERVIMDIR.'/plugged')
+call plug#begin($VIMDIR.'/plugged')
 
 " Editing/Core
 Plug 'tpope/vim-surround'
@@ -138,10 +142,10 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 
 " Jedi-vim
-let g:jedi#auto_initialization = 1
+let g:jedi#auto_initialization  = 1
 let g:jedi#use_tabs_not_buffers = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#smart_auto_mappings = 0
+let g:jedi#completions_enabled  = 0
+let g:jedi#smart_auto_mappings  = 0
 
 " ncm-clang
 let g:clang_make_default_keymappings = 0
@@ -159,7 +163,7 @@ nnoremap <leader><Tab> :Commentary<CR>
 vnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
-nnoremap <C-SPACE> :Buffers<CR>
+nnoremap <C-SPACE>   :Buffers<CR>
 nnoremap <C-S-SPACE> :FZF<CR>
 
 " Gundo
@@ -184,18 +188,18 @@ map <leader>? <Plug>(incsearch-fuzzyspell-?)
 map <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 " jedi-vim Bindings
-let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_command             = "<leader>d"
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = ""
-let g:jedi#rename_command = "<leader>r"
+let g:jedi#documentation_command    = "K"
+let g:jedi#usages_command           = "<leader>n"
+let g:jedi#completions_command      = ""
+let g:jedi#rename_command           = "<leader>r"
 
 " Ultisnips with ncm
-let g:UltiSnipsExpandTrigger                        = "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger               = "<nop>"
-let g:UltiSnipsJumpBackwardTrigger          = "<nop>"
+let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger  = "<nop>"
+let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent> <expr> <CR> pumvisible() ?
             \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
@@ -270,7 +274,7 @@ function! CommandAbbreviations(abbrebiation, command)
 endfunction
 
 " Normalizes a document with both tabs and spaces
-function! ChangeTabSizing(...) range
+function! Retab(...) range
     if (a:0 < 2)
         execute a:firstline.','.a:lastline.' retab'
         return
@@ -309,7 +313,7 @@ function! Preserve(command)
     call cursor(l, c)
 endfunction
 
-function! ShowRegisterAndReturn()
+function! Registers()
     register
     call inputsave()
     let l:register = input('Register: ')
@@ -331,7 +335,7 @@ function! StartBrowser(link)
     endif
 endfunction
 
-function! ClearRegister(chars)
+function! ClearRegisters(chars)
     let l:regs = split(a:chars, '\zs')
     for r in l:regs
         call setreg(r, [])
@@ -354,11 +358,25 @@ function! GetVisualSelection()
     return join(lines, "\n")
 endfunction
 
-function! RepeatForArguments(commandPrefix, commandSuffix, ...)
-    for argument in a:000
-        execute a:commandPrefix . argument . a:commandSuffix
+
+function! RepeatForList(commandPrefix, commandSuffix, argsList)
+    for l:argument in a:argsList
+        execute a:commandPrefix . l:argument . a:commandSuffix
     endfor
 endfunction
+
+function! Jisho(...) range
+    if a:0 > 0
+        let l:argsList = a:000
+    else
+        let l:argsList = split(GetVisualSelection())
+    endif
+        echo(l:argsList)
+        call RepeatForList("call ".
+            \ "StartBrowser('https://jisho.org/search/", "')",
+            \ l:argsList)
+endfunction
+
 
 " ==============================================================================
 " AUTOCOMMANDS
@@ -435,19 +453,19 @@ set imsearch=-1
 " set clipboard=unnamed " system register
 
 " Put undo/swap/temp files user's vim subfolder
-let $UNDODIR=$USERVIMDIR.'/undo'
+let $UNDODIR=$VIMDIR.'/undo'
 if !isdirectory($UNDODIR)
     silent call mkdir($UNDODIR)
 endif
 set undodir=$UNDODIR
 
-let $BACKUPDIR=$USERVIMDIR.'/backup'
+let $BACKUPDIR=$VIMDIR.'/backup'
 if !isdirectory($BACKUPDIR)
     silent call mkdir($BACKUPDIR)
 endif
 set backupdir=$BACKUPDIR
 
-let $SWAPDIR=$USERVIMDIR.'/swap'
+let $SWAPDIR=$VIMDIR.'/swap'
 if !isdirectory($SWAPDIR)
     silent call mkdir($SWAPDIR)
 endif
@@ -485,20 +503,20 @@ xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
 xnoremap <expr> gj mode() ==# "v" ? "j"  : "gj"
 xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
 xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
-inoremap <expr> <UP>     pumvisible() ? "\<C-P>" : "\<C-O>gk"
+inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 " ALT+jk to move lines up and down
-nnoremap <A-j> :move .+1<CR>==
-nnoremap <A-k> :move .-2<CR>==
-vnoremap <A-j> :move '>+1<CR>gv=gv
-vnoremap <A-k> :move '<-2<CR>gv=gv
+nnoremap <A-j>      :move .+1<CR>==
+nnoremap <A-k>      :move .-2<CR>==
+vnoremap <A-j>      :move '>+1<CR>gv=gv
+vnoremap <A-k>      :move '<-2<CR>gv=gv
 inoremap <A-j> <Esc>:move .+1<CR>==gi
 inoremap <A-k> <Esc>:move .-2<CR>==gi
 
 " =============================== NORMAL_MODE ==================================
-nnoremap <leader>v :execute 'edit       $MYVIMRC \| setlocal fileformat=unix'<CR>
-nnoremap <leader>V :execute 'tabnew $MYVIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <leader>V :execute 'tabnew $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
 " HELP Right split
 nnoremap K K<C-W>L
@@ -518,7 +536,8 @@ function! MapYankRegister()
     let l:regs = split('abcdefghijklmnopqrstuvwxyz1234567890"-:.%#=*+~/', '\zs')
     for l:from in l:regs
         for l:into in l:regs
-            execute 'nnoremap yr'. l:from . l:into . ' :CopyRegisterFromInto '. l:from . ' ' . l:into . '<CR>'
+            execute 'nnoremap yr'. l:from . l:into . ' :CopyRegisterFromInto '
+                        \. l:from . ' ' . l:into . '<CR>'
         endfor
     endfor
 endfunction
@@ -587,16 +606,14 @@ cnoremap <C-BS> <C-W>
 cnoremap <C-R><C-R> <C-R>+
 
 " Function shortcuts
-command! -nargs=* -range Retab <line1>,<line2>call ChangeTabSizing(<f-args>)
+command! -nargs=* -range Retab <line1>,<line2>call Retab(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
-command! -nargs=* Jisho call RepeatForArguments("call StartBrowser('https://jisho.org/search/", "')", <f-args>)
-command! -range JishoRange  call RepeatForArguments("call StartBrowser('https://jisho.org/search/", "')", split(GetVisualSelection(),'\s'))
+command! -nargs=* -range Jisho call Jisho(<f-args>)
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
-command! -nargs=1 CPR call CopyRegisterFromInto(<f-args>, '+')
 
 " Dealing with my typos
 command! W w
@@ -621,11 +638,7 @@ call CommandAbbreviations('vb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
 
-
-if !isdirectory($GARBAGEHOME)
-    silent call mkdir($GARBAGEHOME)
-endif
-cd $GARBAGEHOME
+cd $GARBAGEDIR
 
 " TODO
 " LSP
