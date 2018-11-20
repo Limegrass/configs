@@ -1,19 +1,19 @@
 ﻿" ==============================================================================
 " Author: James Ni (Limegrass) - @Multipoke
 " Sections:
-"   VIM_PLUG:
-"   PLUGIN_SETTINGS:
-"   PLUGIN_MAPS:
-"   FUNCTION_DEFINITIONS:
-"   AUTOCOMMANDS:
-"   BASIC_SETTINGS:
-"   MAPS_AND_ABBREVS:
-"     ALL_MODES
-"     NORMAL_MODE
-"     VISUAL_MODE
-"     INSERT_MODE
-"     COMMANDS
-"     ABBREVIATIONS
+"       VIM_PLUG:
+"       PLUGIN_SETTINGS:
+"       PLUGIN_MAPS:
+"       FUNCTION_DEFINITIONS:
+"       AUTOCOMMANDS:
+"       BASIC_SETTINGS:
+"       MAPS_AND_ABBREVS:
+"           ALL_MODES
+"           NORMAL_MODE
+"           VISUAL_MODE
+"           INSERT_MODE
+"           COMMANDS
+"           ABBREVIATIONS
 " Jump with # or *
 " ==============================================================================
 
@@ -26,13 +26,20 @@ scriptencoding utf-8
 let GVIM_WIDTH = 999
 let GVIM_HEIGHT = 999
 
-let $VSVIMRC = $HOME.'/_vsvimrc'
-let $IDEAVIMRC = $HOME.'/_ideavimrc'
-let $MACHINE = $HOME.'/machine.vim'
-if has('win32') || has ('win32unix')
-  let $USERVIMDIR=$HOME.'/vimfiles'
+let $GITHOME = $HOME.'/git'
+if !isdirectory($GARBAGEHOME)
+    silent call mkdir($GITHOME)
+endif
+
+let $GARBAGEHOME = $HOME.'/git/garbage'
+if has('win32') || has('win32unix')
+    let $USERVIMDIR=$HOME.'/vimfiles'
+    let $VSVIMRC = $HOME.'/_vsvimrc'
+    let $IDEAVIMRC = $HOME.'/_ideavimrc'
 else
-  let $USERVIMDIR=$HOME.'/.vim'
+    let $USERVIMDIR=$HOME.'/.vim'
+    let $VSVIMRC = $HOME.'/.vsvimrc'
+    let $IDEAVIMRC = $HOME.'/.ideavimrc'
 endif
 
 let mapleader="\<SPACE>"
@@ -45,9 +52,9 @@ nnoremap <SPACE> <NOP>
 " Unzip, navigate to it, and run :helptags
 
 if empty(glob($USERVIMDIR.'/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin($USERVIMDIR.'/plugged')
 
@@ -64,7 +71,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-scriptease'
 Plug 'haya14busa/incsearch.vim'
-  Plug 'haya14busa/incsearch-fuzzy.vim'
+    Plug 'haya14busa/incsearch-fuzzy.vim'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
@@ -77,7 +84,7 @@ Plug 'godlygeek/tabular'
 " Syntax, Typically requires some setup
 Plug 'PProvost/vim-ps1'
 if !has('nvim')
-  Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -86,7 +93,7 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-vim'
-  Plug 'Shougo/neco-vim'
+    Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-tern'
 Plug 'ncm2/ncm2-cssomni'
 Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
@@ -103,7 +110,7 @@ Plug 'lervag/vimtex'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'mhartington/nvim-typescript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 call plug#end()
 
@@ -186,36 +193,36 @@ let g:jedi#completions_command = ""
 let g:jedi#rename_command = "<leader>r"
 
 " Ultisnips with ncm
-let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger       = "<nop>"
-let g:UltiSnipsJumpBackwardTrigger      = "<nop>"
+let g:UltiSnipsExpandTrigger                        = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger               = "<nop>"
+let g:UltiSnipsJumpBackwardTrigger          = "<nop>"
 " let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent> <expr> <CR> pumvisible() ?
-      \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
+            \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 function! ForwardJumpOrTab()
-  if pumvisible()
-    return "\<C-N>"
-  else
-    call UltiSnips#JumpForwards()
-    if !g:ulti_jump_forwards_res
-      return "\<TAB>"
+    if pumvisible()
+        return "\<C-N>"
+    else
+        call UltiSnips#JumpForwards()
+        if !g:ulti_jump_forwards_res
+            return "\<TAB>"
+        endif
+        return ""
     endif
-    return ""
-  endif
 endfunction
 
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 function! BackwardJumpOrSTab()
-  if pumvisible()
-    return "\<C-P>"
-  else
-    call UltiSnips#JumpBackwards()
-    if !g:ulti_jump_backwards_res
-      return "\<C-O><<"
+    if pumvisible()
+        return "\<C-P>"
+    else
+        call UltiSnips#JumpBackwards()
+        if !g:ulti_jump_backwards_res
+            return "\<C-O><<"
+        endif
+        return ""
     endif
-    return ""
-  endif
 endfunction
 
 " ==============================================================================
@@ -224,104 +231,104 @@ endfunction
 
 set diffexpr=MyDiff()
 function! MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+            if empty(&shellxquote)
+                let l:shxq_sav = ''
+                set shellxquote&
+            endif
+            let cmd = '"' . $VIMRUNTIME . '\diff"'
+        else
+            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
     else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        let cmd = $VIMRUNTIME . '\diff'
     endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+    if exists('l:shxq_sav')
+        let &shellxquote=l:shxq_sav
+    endif
 endfunction
 
 " Abbrev in command mode if not system cmd
 function! CommandAbbreviations(abbrebiation, command)
-  let l:abbrev = '''' . a:abbrebiation . ''''
-  let l:command = '''' . a:command . ''''
-  let l:exec = ' cnoreabbrev <expr> '.a:abbrebiation.
-        \ ' (getcmdtype() is# '':'''.' && getcmdline() is# '.l:abbrev.')'.
-        \ '?('.l:command.')'.':('.l:abbrev.')'
-  execute l:exec
+    let l:abbrev = '''' . a:abbrebiation . ''''
+    let l:command = '''' . a:command . ''''
+    let l:exec = ' cnoreabbrev <expr> '.a:abbrebiation.
+                \' (getcmdtype() is# '':'''.' && getcmdline() is# '.l:abbrev.')'.
+                \'?('.l:command.')'.':('.l:abbrev.')'
+    execute l:exec
 endfunction
 
 " Normalizes a document with both tabs and spaces
 function! ChangeTabSizing(...) range
-  if (a:0 < 2)
-    execute a:firstline.','.a:lastline.' retab'
-    return
-  endif
+    if (a:0 < 2)
+        execute a:firstline.','.a:lastline.' retab'
+        return
+    endif
 
-  set expandtab
-  let &tabstop=a:1
-  let &softtabstop=a:1
-  let &shiftwidth=a:1
-  set noexpandtab
-  if (a:firstline == a:lastline)
-    retab!
-  else
-    execute a:firstline.','.a:lastline.' retab!'
-  endif
-  let &tabstop=a:2
-  let &softtabstop=a:2
-  let &shiftwidth=a:2
-  set expandtab
-  if (a:firstline == a:lastline)
-    retab!
-  else
-    execute a:firstline.','.a:lastline.' retab'
-  endif
+    set expandtab
+    let &tabstop=a:1
+    let &softtabstop=a:1
+    let &shiftwidth=a:1
+    set noexpandtab
+    if (a:firstline == a:lastline)
+        retab!
+    else
+        execute a:firstline.','.a:lastline.' retab!'
+    endif
+    let &tabstop=a:2
+    let &softtabstop=a:2
+    let &shiftwidth=a:2
+    set expandtab
+    if (a:firstline == a:lastline)
+        retab!
+    else
+        execute a:firstline.','.a:lastline.' retab'
+    endif
 endfunction
 
 " Execute command while preserving cursor location
 function! Preserve(command)
-  " save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
+    " save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 
 function! ShowRegisterAndReturn()
-  register
-  call inputsave()
-  let l:register = input('Register: ')
-  call inputrestore()
-  return getreg(l:register)
+    register
+    call inputsave()
+    let l:register = input('Register: ')
+    call inputrestore()
+    return getreg(l:register)
 endfunction
 
 function! DBProfile(profile)
-    execute 'DBSetOption profile=' . a:profile
-    setf sql
-    DBCompleteTables
+      execute 'DBSetOption profile=' . a:profile
+      setf sql
+      DBCompleteTables
 endfunction
 
 function! StartBrowser(link)
-  if has('win32')
-    silent execute '!start '.a:link
-  else
-    silent execute '!xdg-open'.a:link
-  endif
+    if has('win32')
+        silent execute '!start '.a:link
+    else
+        silent execute '!xdg-open'.a:link
+    endif
 endfunction
 
 function! ClearRegister(chars)
@@ -332,7 +339,7 @@ function! ClearRegister(chars)
 endfunction
 
 function! CopyRegisterFromInto(from, into)
-  execute "call setreg('".a:into."', getreg('".a:from."'))"
+    execute "call setreg('".a:into."', getreg('".a:from."'))"
 endfunction
 
 function! GetVisualSelection()
@@ -348,9 +355,9 @@ function! GetVisualSelection()
 endfunction
 
 function! RepeatForArguments(commandPrefix, commandSuffix, ...)
-  for argument in a:000
-    execute a:commandPrefix . argument . a:commandSuffix
-  endfor
+    for argument in a:000
+        execute a:commandPrefix . argument . a:commandSuffix
+    endfor
 endfunction
 
 " ==============================================================================
@@ -358,34 +365,26 @@ endfunction
 " ==============================================================================
 " QuickFix window on vimgrep
 if has('autocmd')
-  augroup quickfix
-    autocmd!
-    " autocmd QuickFixCmdPost [^l]* cwindow
-    " autocmd QuickFixCmdPost l*    lwindow
-    autocmd CmdwinEnter * nnoremap <CR> <CR>
-    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-  augroup END
+    augroup quickfix
+        autocmd!
+        " autocmd QuickFixCmdPost [^l]* cwindow
+        " autocmd QuickFixCmdPost l*        lwindow
+        autocmd CmdwinEnter * nnoremap <CR> <CR>
+        autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+    augroup END
 
-  " Set spellchecking on for text buffers
-  augroup textspell
-    autocmd!
-    autocmd Filetype text setlocal spell
-    autocmd Filetype help setlocal nospell
-  augroup END
+    " Set spellchecking on for text buffers
+    augroup textspell
+        autocmd!
+        autocmd Filetype text setlocal spell
+        autocmd Filetype help setlocal nospell
+    augroup END
 
-  " Tab setting in vimscript and html to 2
-  " C/C++? According to Google Style. Removed for now
-  augroup tabbing
-    autocmd!
-    autocmd Filetype vim,html,xml setlocal tabstop=2
-    autocmd Filetype vim,html,xml setlocal shiftwidth=2
-  augroup END
-
-  " Autocompletion for HTML tags
-  augroup htmlBinds
-    autocmd!
-    autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
-  augroup END
+    " Autocompletion for HTML tags
+    augroup htmlBinds
+        autocmd!
+        autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
+    augroup END
 endif
 
 " ==============================================================================
@@ -438,35 +437,35 @@ set imsearch=-1
 " Put undo/swap/temp files user's vim subfolder
 let $UNDODIR=$USERVIMDIR.'/undo'
 if !isdirectory($UNDODIR)
-  silent call mkdir($UNDODIR)
+    silent call mkdir($UNDODIR)
 endif
 set undodir=$UNDODIR
 
 let $BACKUPDIR=$USERVIMDIR.'/backup'
 if !isdirectory($BACKUPDIR)
-  silent call mkdir($BACKUPDIR)
+    silent call mkdir($BACKUPDIR)
 endif
 set backupdir=$BACKUPDIR
 
 let $SWAPDIR=$USERVIMDIR.'/swap'
 if !isdirectory($SWAPDIR)
-  silent call mkdir($SWAPDIR)
+    silent call mkdir($SWAPDIR)
 endif
 set directory=$SWAPDIR
 
 if has('gui_running')
-  colorscheme corporation
-  set guifont=Consolas:h9:cANSI:qDRAFT
-  let &lines=GVIM_HEIGHT
-  let &columns=GVIM_WIDTH
+    colorscheme corporation
+    set guifont=Consolas:h9:cANSI:qDRAFT
+    let &lines=GVIM_HEIGHT
+    let &columns=GVIM_WIDTH
 else
-  if $TERM == "xterm-256color"
-    set t_Co=256
-    colorscheme hybrid
-    set background=dark
-  else
-    colorscheme zenburn
-  endif
+    if $TERM == "xterm-256color"
+        set t_Co=256
+        colorscheme hybrid
+        set background=dark
+    else
+        colorscheme zenburn
+    endif
 endif
 
 " ==============================================================================
@@ -486,7 +485,7 @@ xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
 xnoremap <expr> gj mode() ==# "v" ? "j"  : "gj"
 xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
 xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
-inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
+inoremap <expr> <UP>     pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 " ALT+jk to move lines up and down
@@ -498,8 +497,8 @@ inoremap <A-j> <Esc>:move .+1<CR>==gi
 inoremap <A-k> <Esc>:move .-2<CR>==gi
 
 " =============================== NORMAL_MODE ==================================
-nnoremap <leader>v :edit $MYVIMRC<CR>
-nnoremap <leader>V :tabnew $MYVIMRC<CR>
+nnoremap <leader>v :execute 'edit       $MYVIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <leader>V :execute 'tabnew $MYVIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
 " HELP Right split
 nnoremap K K<C-W>L
@@ -516,12 +515,12 @@ nnoremap yc "+y
 nnoremap + "+
 " Maps yr to copy registers
 function! MapYankRegister()
-  let l:regs = split('abcdefghijklmnopqrstuvwxyz1234567890"-:.%#=*+~/', '\zs')
-  for l:from in l:regs
-    for l:into in l:regs
-      execute 'nnoremap yr'. l:from . l:into . ' :CopyRegisterFromInto '. l:from . ' ' . l:into . '<CR>'
+    let l:regs = split('abcdefghijklmnopqrstuvwxyz1234567890"-:.%#=*+~/', '\zs')
+    for l:from in l:regs
+        for l:into in l:regs
+            execute 'nnoremap yr'. l:from . l:into . ' :CopyRegisterFromInto '. l:from . ' ' . l:into . '<CR>'
+        endfor
     endfor
-  endfor
 endfunction
 call MapYankRegister()
 
@@ -532,8 +531,8 @@ nnoremap // yiw/<C-R>"
 
 nnoremap cm :silent call SplitCommas()<CR>
 function! SplitCommas()
-  s/,\s*/,\r/g
-  retab
+    s/,\s*/,\r/g
+    retab
 endfunction
 
 " Reciprocal of {count}gT
@@ -542,13 +541,13 @@ nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 nnoremap <leader>cd :cd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
-  nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
+    nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
 endif
 " Copy file path to system register
 nnoremap <leader>fp :let @+=expand("%:p")<CR>
 " Navigate out of terminal mode
 if has('nvim')
-  tnoremap <ESC> <C-\><C-N>
+    tnoremap <ESC> <C-\><C-N>
 endif
 " Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
 nnoremap <S-C-T> <C-T>
@@ -607,7 +606,7 @@ command! -bang Q q
 
 " Sudo write in UNIX
 if !has('win32')
-  command! -nargs=0 Sw w silent !sudo tee % > /dev/null
+    command! -nargs=0 Sw w silent !sudo tee % > /dev/null
 endif
 
 " =============================== ABBREVIATIONS ================================
@@ -622,21 +621,22 @@ call CommandAbbreviations('vb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
 
-if filereadable($MACHINE)
-  source $MACHINE
+
+if !isdirectory($GARBAGEHOME)
+    silent call mkdir($GARBAGEHOME)
 endif
+cd $GARBAGEHOME
 
 " TODO
 " LSP
 " inoremap <C-SPACE> to force open ncm2 pum
-" Fix whatever is happening with the popup eating a space while typing sql
 " Fix this function
 " cnoreabbrev admincmd !runas /user:hostname\administrator cmd
 " inoremap <C-R> <C-O>:set nopaste
 " function! NoAutoIndentPaste(command)
-"   set nopaste
-"   <C-R>command
-"   set paste
+"       set nopaste
+"       <C-R>command
+"       set paste
 " endfunction
 "
 " Things to check back on
@@ -645,10 +645,8 @@ endif
 " Plug 'ncm2/ncm2-tmux'
 " Plug 'filipekiss/ncm2-look.vim'
 "
-" Generic command to run a command with a visual selection
 " Automatically set register v to whatever was visually selected last on
 " entering visual mode
 " Ideavimrc mappings (:actionlist)
 " Autocurl, extract and helptext dbext
-" Split into multiple files and Autosymlink?
-"   Probably better to make batch and shell scripts instead
+" Split into multiple files?
