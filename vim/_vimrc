@@ -20,8 +20,8 @@
 " INITIALIZATION
 cd $HOME
 
-if filereadable($HOME.'/machine.vim')
-    source $HOME/machine.vim
+if filereadable($HOME.'/local.vim')
+    source $HOME/local.vim
 endif
 
 set encoding=utf-8
@@ -30,33 +30,24 @@ scriptencoding utf-8
 let GVIM_WIDTH = 999
 let GVIM_HEIGHT = 999
 
-let $GITDIR = $HOME.'/git'
+let $GITDIR = $HOME.'\git'
 if !isdirectory($GITDIR)
     silent call mkdir($GITDIR)
 endif
 
-let $GARBAGEDIR = $GITDIR.'/garbage'
+let $GARBAGEDIR = $GITDIR.'\garbage'
 if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
 
-let $VIMRC     = $GITDIR.'/configs/vim/_vimrc'
-let $VSVIMRC   = $GITDIR.'/configs/vim/_vsvimrc'
-let $IDEAVIMRC = $GITDIR.'/configs/vim/_ideavimrc'
+let $VIMRC     = $GITDIR.'\configs\vim\_vimrc'
+let $VSVIMRC   = $GITDIR.'\configs\vim\_vsvimrc'
+let $IDEAVIMRC = $GITDIR.'\configs\vim\_ideavimrc'
 
 if has('win32') || has('win32unix')
-    let $VIMDIR = $HOME.'/vimfiles'
+    let $VIMDIR = $HOME.'\vimfiles'
 else
     let $VIMDIR = $HOME.'/.vim'
-endif
-
-let $SNIPPETSDIR = $GITDIR.'/configs/vim/UltiSnips'
-if !isdirectory($VIMDIR.'/UltiSnips')
-    if has('win32')
-        execute '!mklink \D ' . $VIMDIR . '/UltiSnips ' . $SNIPPETSDIR
-    else
-        execute '!ln -s ' .  $SNIPPETSDIR . ' ' . $VIMDIR . '/UltiSnips'
-    endif
 endif
 
 let mapleader="\<SPACE>"
@@ -632,6 +623,15 @@ command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-arg
 command! -nargs=* -range Jisho call Jisho(<f-args>)
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
+command! -nargs=1 Sudo call Sudo(<q-args>)
+function! Sudo(cmd)
+    if has('win32')
+        " TODO: Fix this for passwordless accounts
+        execute 'silent !runas /user:\%USERNAME\%@\%USERDOMAIN\% "' . a:cmd . '"'
+    else
+        execute 'silent !sudo ' . a:cmd
+    endif
+endfunction
 
 " Dealing with my typos
 command! W w
@@ -655,12 +655,6 @@ call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('vb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
-
-if has('win32')
-    call CommandAbbreviations('sudo', 'silent !runas /user:\%USERNAME\%@\%USERDOMAIN\%')
-else
-    call CommandAbbreviations('sudo', 'silent !sudo')
-endif
 
 cd $GARBAGEDIR
 
