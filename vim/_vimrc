@@ -20,8 +20,9 @@
 " INITIALIZATION
 cd $HOME
 
-if filereadable($HOME.'/local.vim')
-    source $HOME/local.vim
+let $LOCALRC = $HOME . '/local.vim'
+if filereadable($LOCALRC)
+    source $LOCALRC
 endif
 
 set encoding=utf-8
@@ -47,7 +48,7 @@ let $IDEAVIMRC = $GITDIR.'\configs\vim\_ideavimrc'
 if has('win32') || has('win32unix')
     let $VIMDIR = $HOME.'\vimfiles'
 else
-    let $VIMDIR = $HOME.'/.vim'
+    let $VIMDIR = $HOME.'\.vim'
 endif
 
 let mapleader="\<SPACE>"
@@ -375,16 +376,6 @@ function! RepeatForList(commandPrefix, commandSuffix, argsList)
     endfor
 endfunction
 
-function! Jisho(...) range
-    if a:0 > 0
-        let l:argsList = a:000
-    else
-        let l:argsList = split(GetVisualSelection())
-    endif
-        call RepeatForList("call ".
-            \ "StartBrowser('https://jisho.org/search/", "')",
-            \ l:argsList)
-endfunction
 
 
 " ==============================================================================
@@ -515,6 +506,9 @@ xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
 inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
+nnoremap <CR> :
+vnoremap <CR> :
+
 " ALT+jk to move lines up and down
 nnoremap <A-j>      :move .+1<CR>==
 nnoremap <A-k>      :move .-2<CR>==
@@ -552,8 +546,6 @@ function! MapYankRegister()
 endfunction
 call MapYankRegister()
 
-" Helps me search double enter to insert after word
-nnoremap <CR> ea
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
 
@@ -619,10 +611,22 @@ command! -nargs=* -range Retab <line1>,<line2>call Retab(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
-command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
-command! -nargs=* -range Jisho call Jisho(<f-args>)
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
+command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
+
+command! -nargs=* -range Jisho call Jisho(<f-args>)
+function! Jisho(...) range
+    if a:0 > 0
+        let l:argsList = a:000
+    else
+        let l:argsList = split(GetVisualSelection())
+    endif
+    call RepeatForList("call ".
+        \ "StartBrowser('https://jisho.org/search/", "')",
+        \ l:argsList)
+endfunction
+
 command! -nargs=1 Sudo call Sudo(<q-args>)
 function! Sudo(cmd)
     if has('win32')

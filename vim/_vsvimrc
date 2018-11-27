@@ -24,8 +24,9 @@ nnoremap gk k
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 nnoremap Q @q
-" Helps me search double enter to insert after word
-nnoremap <RETURN> ea
+
+vnoremap <CR> :
+nnoremap <CR> :
 
 
 " Edit
@@ -116,6 +117,7 @@ xnoremap $ g$
 xnoremap g$ $
 xnoremap 0 g0
 xnoremap g0 0
+
 
 " Change tab structure in visual mode
 vnoremap <Tab> >gv

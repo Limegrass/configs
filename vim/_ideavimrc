@@ -54,6 +54,9 @@ vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
 
+nnoremap <CR> :
+vnoremap <CR> :
+
 " ALT+jk to move lines up and down
 nnoremap <A-j> :move .+1<CR>==
 nnoremap <A-k> :move .-2<CR>==
@@ -67,8 +70,6 @@ nnoremap cm :s/,\s*/,\r/g :retab
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 nnoremap Q @q
-" Helps me search double enter to insert after word
-nnoremap <RETURN> ea
 " Toggles off Highlighting
 nnoremap <leader>h :set hlsearch!<CR>
 " Switch between splits
