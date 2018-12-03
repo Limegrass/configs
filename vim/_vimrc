@@ -506,8 +506,6 @@ xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
 inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
-nnoremap <CR> :
-vnoremap <CR> :
 
 " ALT+jk to move lines up and down
 nnoremap <A-j>      :move .+1<CR>==

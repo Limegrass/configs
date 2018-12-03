@@ -276,6 +276,51 @@ FROM sys.procedures
 WHERE OBJECT_DEFINITION(object_id) LIKE '%${1:SPName}%'
 endsnippet
 
+snippet SYSOBJ "FIND SYS.SYSOBJECTS"
+SELECT
+    OBJECT_NAME(id),
+    OBJECT_DEFINITION(id)
+FROM sys.sysobjects
+WHERE OBJECT_DEFINITION(id) LIKE '%${1:SearchTerm}%'
+endsnippet
+
+snippet FINDDEF "FIND SYS.SYSOBJECTS"
+SELECT
+    OBJECT_NAME(id),
+    OBJECT_DEFINITION(id)
+FROM sys.sysobjects
+WHERE OBJECT_DEFINITION(id) LIKE '%${1:SearchTerm}%'
+endsnippet
+
+# TODO: Change this so it accepts a number param or deletes rest when one is selected.
+snippet SYSOBJTYPE "Type codes for sys objects"
+'AF' -- Aggregate function (CLR)
+'C' -- CHECK constraint
+'D' -- Default or DEFAULT constraint
+'F' -- FOREIGN KEY constraint
+'L' -- Log
+'FN' -- Scalar function
+'FS' -- Assembly (CLR) scalar-function
+'FT' -- Assembly (CLR) table-valued function
+'IF' -- In-lined table-function
+'IT' -- Internal table
+'P' -- Stored procedure
+'PC' -- Assembly (CLR) stored-procedure
+'PK' -- PRIMARY KEY constraint (type is K)
+'RF' -- Replication filter stored procedure
+'S' -- System table
+'SN' -- Synonym
+'SQ' -- Service queue
+'TA' -- Assembly (CLR) DML trigger
+'TF' -- Table function
+'TR' -- SQL DML Trigger
+'TT' -- Table type
+'U' -- User table
+'UQ' -- UNIQUE constraint (type is K)
+'V' -- View
+'X' -- Extended stored procedure
+endsnippet
+
 snippet OBJNAME "OBJECT_NAME"
 OBJECT_NAME(${1:object_id})
 endsnippet

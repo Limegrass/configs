@@ -25,10 +25,6 @@ nnoremap gk k
 nnoremap Y y$
 nnoremap Q @q
 
-vnoremap <CR> :
-nnoremap <CR> :
-
-
 " Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
 " nnoremap gd :vsc Edit.GoToDefinition<CR>:vsc Window.KeepTabOpen<CR>

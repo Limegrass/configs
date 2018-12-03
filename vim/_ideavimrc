@@ -54,9 +54,6 @@ vnoremap k gk
 vnoremap $ g$
 vnoremap 0 g0
 
-nnoremap <CR> :
-vnoremap <CR> :
-
 " ALT+jk to move lines up and down
 nnoremap <A-j> :move .+1<CR>==
 nnoremap <A-k> :move .-2<CR>==
