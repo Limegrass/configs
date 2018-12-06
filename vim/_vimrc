@@ -72,7 +72,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
-Plug 'sjl/gundo.vim'
+Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
@@ -121,13 +121,13 @@ Plug 'mhartington/nvim-typescript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'previm/previm', { 'on': 'PrevimOpen'}
+    Plug 'tyru/open-browser.vim'
 call plug#end()
 
 " ==============================================================================
 " PLUGIN_SETTINGS
 " ==============================================================================
-
-let g:indent_guides_enable_on_vim_startup = 1
 
 let g:taboo_tab_format=' %N [%f%m] '
 
@@ -151,6 +151,9 @@ let g:jedi#auto_initialization  = 1
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#completions_enabled  = 0
 let g:jedi#smart_auto_mappings  = 0
+" Temp fix for jedi
+py3 import os; import sys; sys.executable=os.path.join(sys.prefix, 'python.exe')
+
 
 " ncm-clang
 let g:clang_make_default_keymappings = 0
@@ -339,11 +342,7 @@ function! DBProfile(profile)
 endfunction
 
 function! StartBrowser(link)
-    if has('win32')
-        silent execute '!start '.a:link
-    else
-        silent execute '!xdg-open'.a:link
-    endif
+    silent execute 'OpenBrowser 'a:link
 endfunction
 
 function! ClearRegisters(chars)
@@ -383,7 +382,7 @@ endfunction
 " ==============================================================================
 " QuickFix window on vimgrep
 if has('autocmd')
-    augroup quickfix
+    augroup QuickFix
         autocmd!
         " autocmd QuickFixCmdPost [^l]* cwindow
         " autocmd QuickFixCmdPost l*        lwindow
@@ -392,17 +391,23 @@ if has('autocmd')
     augroup END
 
     " Set spellchecking on for text buffers
-    augroup textspell
+    augroup Spell
         autocmd!
         autocmd Filetype text setlocal spell
         autocmd Filetype help setlocal nospell
     augroup END
 
     " Autocompletion for HTML tags
-    augroup htmlBinds
+    augroup Html
         autocmd!
         autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
     augroup END
+
+    augroup PrevimSettings
+        autocmd!
+        autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+    augroup END
+
 endif
 
 " ==============================================================================

@@ -91,11 +91,12 @@ endsnippet
 #        DECLARE        #
 #########################
 
+# TODO: dynamic for whether to include a value
 snippet DEB "DECLARE BIT"
 DECLARE @${1:Name} BIT
 endsnippet
 
-snippet DL "DELETE"
+snippet DEL "DELETE"
 DELETE
 endsnippet
 
@@ -143,6 +144,10 @@ snippet FR "FROM"
 FROM ${1:Table}
 endsnippet
 
+snippet NN "NOT NULL"
+NOT NULL
+endsnippet
+
 snippet JOIN "JOIN SAME COLUMN"
 JOIN ${1:Table} ${2:Abbv}
     ON ${3:Column} = ${4:Table}
@@ -153,13 +158,13 @@ JOIN ${1:Table} ${2:Abbv}
     ON ${3:Column} = ${4:Column}
 endsnippet
 
-snippet BEG "BEGIN END"
+snippet BEGIN "BEGIN END"
 BEGIN
     ${1:}
 END
 endsnippet
 
-snippet BT "BEGIN TRAN"
+snippet BEGINTRAN "BEGIN TRAN"
 BEGIN TRAN
     ${1:}
 ROLLBACK TRAN
@@ -173,7 +178,7 @@ snippet CJ "CROSS JOIN"
 CROSS JOIN
 endsnippet
 
-snippet GB "GROUP BY"
+snippet GROUPBY "GROUP BY"
 GROUP BY ${1:Column}
 endsnippet
 
