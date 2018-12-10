@@ -81,6 +81,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-scriptease'
 Plug 'haya14busa/incsearch.vim'
     Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'previm/previm', {'for': ['markdown']}
+    Plug 'tyru/open-browser.vim'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
@@ -99,7 +106,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-jedi', {'for': ['python']}
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-vim'
     Plug 'Shougo/neco-vim'
@@ -111,23 +118,18 @@ Plug 'w0rp/ale'
 
 " Currently installed linters
 " on main machine: vint, proselint, clang, autopep8, javac, jedi
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'davidhalter/jedi-vim'
-Plug 'OrangeT/vim-csharp'
-Plug 'lervag/vimtex'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'mhartington/nvim-typescript'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'previm/previm', { 'on': 'PrevimOpen'}
-    Plug 'tyru/open-browser.vim'
+Plug 'davidhalter/jedi-vim', {'for': ['python']}
+Plug 'OrangeT/vim-csharp', {'for': ['cs']}
+Plug 'lervag/vimtex', {'for': ['tex']}
+Plug 'cakebaker/scss-syntax.vim', {'for': ['cs', 'html', 'cshtml', 'scss', 'css']}
+Plug 'mhartington/nvim-typescript', {'for': ['ts']}
 call plug#end()
 
 " ==============================================================================
 " PLUGIN_SETTINGS
 " ==============================================================================
+
+let g:indent_guides_enable_on_vim_startup = 1
 
 let g:taboo_tab_format=' %N [%f%m] '
 
@@ -164,6 +166,8 @@ let g:vimtex_view_general_viewer  = 'SumatraPDF'
 let g:vimtex_view_general_options =
             \'-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
+
+let g:previm_enable_realtime = 0
 
 " ==============================================================================
 " PLUGIN_MAPS
@@ -327,6 +331,19 @@ function! Preserve(command)
     call cursor(l, c)
 endfunction
 
+function! ToggleBool(setting)
+    if !exists(a:setting)
+        silent execute 'let '.a:setting.' = 0'
+    endif
+    execute 'let '.a:setting.' = !'.a:setting
+    let l:reg = @b
+    redir @b
+    silent execute 'echo '.a:setting
+    redir END
+    echo a:setting.' = '.trim(@b)
+    let @b = l:reg
+endfunction
+
 function! Registers()
     register
     call inputsave()
@@ -342,7 +359,11 @@ function! DBProfile(profile)
 endfunction
 
 function! StartBrowser(link)
-    silent execute 'OpenBrowser 'a:link
+    if has('win32')
+        silent execute '!start '.a:link
+    else
+        silent execute '!xdg-open'.a:link
+    endif
 endfunction
 
 function! ClearRegisters(chars)
@@ -648,6 +669,8 @@ command! W w
 command! -bang W w
 command! Q q
 command! -bang Q q
+
+command! TogglePrevimLive call ToggleBool('g:previm_enable_realtime')
 
 " Sudo write in UNIX
 if !has('win32')
