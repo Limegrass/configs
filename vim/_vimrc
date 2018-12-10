@@ -400,7 +400,7 @@ if has('autocmd')
     " Autocompletion for HTML tags
     augroup Html
         autocmd!
-        autocmd Filetype html,xml inoremap <buffer> </ </<C-X><C-O>
+        autocmd Filetype html,xml,markdown inoremap <buffer> </ </<C-X><C-O>
     augroup END
 
     augroup PrevimSettings
@@ -604,6 +604,7 @@ inoremap <C-DEL> <C-O>dw
 " inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 " Paste from system register with <C-R>r
 inoremap <C-R><C-R> <C-R>+
+inoremap <C-R><C-E> <C-R>0
 
 " =============================== COMMANDS =====================================
 cnoremap <C-BS> <C-W>
