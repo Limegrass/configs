@@ -217,11 +217,11 @@ REPLACE
 )
 endsnippet
 
-snippet VAR "VARCHAR"
+snippet VARCHAR "VARCHAR"
 VARCHAR(${1:SIZE})
 endsnippet
 
-snippet NVAR "NVARCHAR"
+snippet NVARCHAR "NVARCHAR"
 NVARCHAR(${1:SIZE})
 endsnippet
 
@@ -256,7 +256,7 @@ ORDER BY ORDINAL_POSITION ASC
 endsnippet
 
 snippet HELP "Gets OBJECT_DEFINITION"
-EXEC sp_helptext '${1:SPName}'
+EXEC sp_helptext [${1:SPName}]
 endsnippet
 
 snippet FINDCOLS "FIND COLS LIKE"
@@ -385,7 +385,26 @@ SELECT TOP ${1:COUNT} *
 FROM ${2:Table}
 endsnippet
 
-snippet MODSP "Check modified date for DB objects"
+snippet HISTORY "Check SQL history through the default trace"
+DECLARE @DefaultTraceFileLocation NVARCHAR(MAX) = (SELECT t.path FROM sys.traces t WHERE is_default = 1);
+
+SELECT TextData
+    , NTUserName
+    , ApplicationName
+    , HostName
+    , StartTime
+FROM fn_trace_gettable(@DefaultTraceFileLocation, DEFAULT)
+WHERE TextData LIKE '%${1:Term}%'
+endsnippet
+
+snippet FINDDATE "Check modified date for DB objects"
+SELECT name, create_date, modify_date
+FROM sys.objects
+WHERE type = 'P'
+ORDER BY modify_date DESC;
+endsnippet
+
+snippet SPDATE "Check modified date for DB objects"
 SELECT name, create_date, modify_date
 FROM sys.objects
 WHERE type = 'P'
