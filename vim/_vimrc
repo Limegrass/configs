@@ -88,6 +88,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'previm/previm', {'for': ['markdown']}
     Plug 'tyru/open-browser.vim'
+Plug 'tpope/vim-dispatch'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
@@ -115,6 +116,12 @@ Plug 'ncm2/ncm2-cssomni'
 Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
 Plug 'yuki-ycino/ncm2-dictionary'
 Plug 'w0rp/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'OmniSharp/omnisharp-vim'
 
 " Currently installed linters
 " on main machine: vint, proselint, clang, autopep8, javac, jedi
@@ -167,7 +174,22 @@ let g:vimtex_view_general_options =
             \'-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
+" Previm
 let g:previm_enable_realtime = 0
+
+" LSP
+let g:LanguageClient_serverCommands = {
+    \ 'cs': ['C:\Users\james.ni\vimfiles\OmniSharp\OmniSharp.exe'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+let g:OmniSharp_server_path = 'C:\Users\james.ni\vimfiles\OmniSharp\OmniSharp.exe'
+let g:OmniSharp_selector_ui = 'fzf'
+let g:OmniSharp_want_snippet=1
 
 " ==============================================================================
 " PLUGIN_MAPS
@@ -429,6 +451,26 @@ if has('autocmd')
         autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
     augroup END
 
+    augroup omnisharp_commands
+        autocmd!
+        " Show type information automatically when the cursor stops moving
+        autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+        " The following commands are contextual, based on the cursor position.
+        autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+        autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+        autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+        autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+        " Finds members in the current buffer
+        autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+        autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+        autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+        autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+        autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+        autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+        " Navigate up and down by method/property/field
+        autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+        autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+    augroup END
 endif
 
 " ==============================================================================
@@ -454,7 +496,7 @@ set cursorline
 set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
-set virtualedit=block
+set virtualedit=all
 packadd! matchit
 set spelllang=en
 set mouse=nicr
@@ -580,6 +622,16 @@ function! SplitCommas()
     retab
 endfunction
 
+nnoremap >( :silent call AlignToCharInPreviousLine('(')<CR>
+nnoremap >" :silent call AlignToCharInPreviousLine('"')<CR>
+nnoremap >' :silent call AlignToCharInPreviousLine("'")<CR>
+" Aligns beginning of current line to char of previous line
+function! AlignToCharInPreviousLine(char)
+    let l:prefix = 'normal ^kyf'
+    let l:suffix = 'jPv0r '
+    exec l:prefix.a:char.l:suffix
+endfunction
+
 " Reciprocal of {count}gT
 nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
@@ -621,6 +673,8 @@ vnoremap // y/<C-R>"<CR>
 " CTRL+BS/DEL like other editors
 inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
+inoremap <C-V> <C-O>p
+inoremap <C-S-V> <C-V>
 " Close popup menu with <S-Space>
 " inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
 " Paste from system register with <C-R>r

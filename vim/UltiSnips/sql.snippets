@@ -35,6 +35,11 @@ SELECT COUNT(1)
 FROM ${1:Table}
 endsnippet
 
+snippet COUNT "SELECT COUNT"
+SELECT COUNT(1)
+FROM ${1:Table}
+endsnippet
+
 #########################
 #         WHERE         #
 #########################
@@ -286,7 +291,15 @@ SELECT
     OBJECT_NAME(id),
     OBJECT_DEFINITION(id)
 FROM sys.sysobjects
-WHERE OBJECT_DEFINITION(id) LIKE '%${1:SearchTerm}%'
+WHERE OBJECT_NAME(id) LIKE '%${1:SearchTerm}%'
+endsnippet
+
+snippet FINDOBJ "FIND SYS.SYSOBJECTS"
+SELECT
+    OBJECT_NAME(id),
+    OBJECT_DEFINITION(id)
+FROM sys.sysobjects
+WHERE OBJECT_NAME(id) LIKE '%${1:SearchTerm}%'
 endsnippet
 
 snippet FINDDEF "FIND SYS.SYSOBJECTS"
