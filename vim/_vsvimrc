@@ -3,6 +3,7 @@
 " <A-O> Tools.Options
 " <F4> Window.CloseDocumentWindow
 " <C-S-SPACE> Window.NextPane
+" <C-S-A-I> C# Interactive
 set number
 set splitright
 set splitbelow
