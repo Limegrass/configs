@@ -3,6 +3,7 @@
 " <A-O> Tools.Options
 " <F4> Window.CloseDocumentWindow
 " <C-S-SPACE> Window.NextPane
+" <C-S-A-I> C# Interactive
 set number
 set splitright
 set splitbelow
@@ -12,7 +13,7 @@ set ignorecase
 set smartcase
 set backspace=indent,eol,start
 
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " ================================ KEYBINDINGS =================================
 let mapleader="\<SPACE>"
@@ -21,8 +22,6 @@ nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
-" Yank to end of line, yy for line yank
-nnoremap Y y$
 nnoremap Q @q
 
 " Edit
@@ -100,9 +99,27 @@ nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 
 " Pair of commands to split up a long commas list
 " CoMmas
-nnoremap cm 0f(a<CR><ESC>V:s/,\s*/,\r/g<CR><ESC>
+nnoremap cm :s/,\s*/,\r/g<CR>
+
+" Aligns to character of previous line +1
+nnoremap >( ^kyf(jPv0r<SPACE>
+nnoremap >' ^kyf'jPv0r<SPACE>
+nnoremap >" ^kyf"jPv0r<SPACE>
+nnoremap >{ ^kyf{jPv0r<SPACE>
+nnoremap >[ ^kyf[jPv0r<SPACE>
+nnoremap >. ^kyt.jPv0r<SPACE>
+nnoremap >, ^kyt,jPv0r<SPACE>
+
 " Change (inside) INdent
 nnoremap cin 0yiwjI<C-R>+<ESC>
+
+" Yank to end of line, yy for line yank
+nnoremap Y y$
+nnoremap <leader>= "+
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+nnoremap <leader>y "+y
+nnoremap yc "+y
 
 " ================================VISUAL MODE=================================
 xnoremap j  gj
@@ -127,6 +144,10 @@ vnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
+vnoremap <leader>= "+
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+vnoremap <leader>y "+y
 
 
 " ================================INSERT MODE=================================
