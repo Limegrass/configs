@@ -218,9 +218,10 @@ let g:jedi#rename_command           = "<leader>r"
 let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger = "<nop>"
-" let g:UltiSnipsRemoveSelectModeMappings = 0
+let g:UltiSnipsRemoveSelectModeMappings = 1
 inoremap <silent> <expr> <CR> pumvisible() ?
             \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
+
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 function! ForwardJumpOrTab()
     if pumvisible()
@@ -451,7 +452,7 @@ set undofile
 set history=100
 set lazyredraw
 set cursorline
-set hidden
+" set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
 set virtualedit=block

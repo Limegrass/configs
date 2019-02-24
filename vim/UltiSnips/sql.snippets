@@ -380,6 +380,10 @@ snippet FKEY "TSQL/Oracle/Access FOREIGN KEY"
 ${1:FKColumn} ${2:DataType} FOREIGN KEY REFERENCES ${3:TableName}(${4:ForeignKeyColumn})
 endsnippet
 
+snippet FKEYLITE "SQLite FOREIGN KEY"
+FOREIGN KEY(${1:FKColumn}) REFERENCES ${3:TableName}(${4:ForeignKeyColumn})
+endsnippet
+
 snippet TOP "SELECT TOP STAR (TSQL)"
 SELECT TOP ${1:COUNT} *
 FROM ${2:Table}

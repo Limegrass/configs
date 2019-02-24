@@ -1,7 +1,6 @@
 set encoding=utf-8
 scriptencoding utf-8
-let mapleader='\<SPACE>'
-nnoremap <SPACE> <NOP>
+let mapleader=' '
 
 " ============================================================================
 " BASIC SETTINGS
@@ -63,7 +62,7 @@ inoremap <A-j> <Esc>:move .+1<CR>==gi
 inoremap <A-k> <Esc>:move .-2<CR>==gi
 
 " =============================== VISUAL MODE ================================
-nnoremap cm :s/,\s*/,\r/g :retab
+nnoremap cm :s/,\s*/,\r/g<CR>
 " Yank to end of line, yy for line yank
 nnoremap Y y$
 nnoremap Q @q
@@ -82,6 +81,13 @@ nnoremap <leader><TAB> :action CommentByLineComment<CR>
 nnoremap <leader><S-TAB> :action CommentByBlockComment<CR>
 nnoremap <C-SPACE> :action GotoFile<CR>
 nnoremap <leader><C-SPACE> :action GotoChangedFile<CR>
+nnoremap <C-S-SPACE> :action FindInPath<CR>
+nnoremap <leader>cf :action Compare.SameVersion<CR>
+nnoremap <leader>rn :action RenameElement<CR>
+nnoremap zz :action StepOver<CR>
+nnoremap z<SPACE> :action StepInto<CR>
+nnoremap z<CR> :action StepOut<CR>
+nnoremap zQ :action Resume<CR>
 
 " =============================== VISUAL MODE ================================
 vnoremap <leader><TAB> :action CommentByLineComment<CR>
