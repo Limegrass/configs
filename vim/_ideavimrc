@@ -61,6 +61,34 @@ vnoremap <A-k> :move '<-2<CR>gv=gv
 inoremap <A-j> <Esc>:move .+1<CR>==gi
 inoremap <A-k> <Esc>:move .-2<CR>==gi
 
+
+" One day the extensions will support functions
+" Aligns to character of previous line +1
+" Assumed above is longer than current
+nnoremap >( ^kyf(jPv0r<SPACE>
+nnoremap >' ^kyf'jPv0r<SPACE>
+nnoremap >" ^kyf"jPv0r<SPACE>
+nnoremap >{ ^kyf{jPv0r<SPACE>
+nnoremap >[ ^kyf[jPv0r<SPACE>
+"Aligns to given element
+nnoremap >. ^kyt.jPv0r<SPACE>
+nnoremap >, ^kyt,jPv0r<SPACE>
+" Aligns to the previous start of the line
+nnoremap >K ^kywjP
+nnoremap >J ^jywkP
+
+" Assumed above is longer than current
+nnoremap <( ^kT(jdw
+nnoremap <' ^kT'jdw
+nnoremap <" ^kT"jdw
+nnoremap <{ ^kT{jdw
+nnoremap <[ ^kT[jdw
+"Aligns to given element
+nnoremap <. ^kF.jdw
+nnoremap <, ^kF,jdw
+nnoremap <K ^k^jdw
+nnoremap <J ^j^kdw
+
 " =============================== VISUAL MODE ================================
 nnoremap cm :s/,\s*/,\r/g<CR>
 " Yank to end of line, yy for line yank
@@ -88,6 +116,7 @@ nnoremap zz :action StepOver<CR>
 nnoremap z<SPACE> :action StepInto<CR>
 nnoremap z<CR> :action StepOut<CR>
 nnoremap zQ :action Resume<CR>
+
 
 " =============================== VISUAL MODE ================================
 vnoremap <leader><TAB> :action CommentByLineComment<CR>

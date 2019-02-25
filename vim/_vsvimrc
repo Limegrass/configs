@@ -101,6 +101,7 @@ nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 " CoMmas
 nnoremap cm :s/,\s*/,\r/g<CR>
 
+" One day the extensions will support functions
 " Aligns to character of previous line +1
 nnoremap >( ^kyf(jPv0r<SPACE>
 nnoremap >' ^kyf'jPv0r<SPACE>
@@ -109,6 +110,21 @@ nnoremap >{ ^kyf{jPv0r<SPACE>
 nnoremap >[ ^kyf[jPv0r<SPACE>
 nnoremap >. ^kyt.jPv0r<SPACE>
 nnoremap >, ^kyt,jPv0r<SPACE>
+" Aligns to the previous start of the line
+nnoremap >K ^kywjP
+nnoremap >J ^jywkP
+
+" Assumed above is longer than current
+nnoremap <( ^kT(jdw
+nnoremap <' ^kT'jdw
+nnoremap <" ^kT"jdw
+nnoremap <{ ^kT{jdw
+nnoremap <[ ^kT[jdw
+"Aligns to given element
+nnoremap <. ^kF.jdw
+nnoremap <, ^kF,jdw
+nnoremap <K ^k^jdw
+nnoremap <J ^j^kdw
 
 " Change (inside) INdent
 nnoremap cin 0yiwjI<C-R>+<ESC>
