@@ -494,7 +494,7 @@ set undofile
 set history=100
 set lazyredraw
 set cursorline
-" set hidden
+set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
 set virtualedit=all
