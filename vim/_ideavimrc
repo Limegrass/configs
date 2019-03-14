@@ -97,10 +97,8 @@ nnoremap Q @q
 " Toggles off Highlighting
 nnoremap <leader>h :set hlsearch!<CR>
 " Switch between splits
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
-nnoremap <C-H> <C-W>h
+nnoremap <C-W>L :action MoveTabRight<CR>
+nnoremap <C-W>J :action MoveTabDown<CR>
 " Mark TODO as DONE
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
@@ -116,6 +114,10 @@ nnoremap zz :action StepOver<CR>
 nnoremap z<SPACE> :action StepInto<CR>
 nnoremap z<CR> :action StepOut<CR>
 nnoremap zQ :action Resume<CR>
+nnoremap zZ :action ToggleLineBreakpoint<CR>
+
+" :( no abbrevs in Ideavim
+nnoremap <leader>f i//<editor-fold desc=""><CR>//</editor-fold><ESC>
 
 
 " =============================== VISUAL MODE ================================
