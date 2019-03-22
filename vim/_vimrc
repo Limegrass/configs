@@ -5,6 +5,7 @@
 "   PLUGIN_SETTINGS:
 "   PLUGIN_MAPS:
 "   FUNCTION_DEFINITIONS:
+"   VARIABLE_DEFINITIONS:
 "   AUTOCOMMANDS:
 "   BASIC_SETTINGS:
 "   MAPS_AND_ABBREVS:
@@ -419,7 +420,15 @@ function! RepeatForList(commandPrefix, commandSuffix, argsList)
     endfor
 endfunction
 
-
+" Like gJ, but always remove spaces
+function! JoinSpaceless()
+    execute 'normal gJ'
+    " Character under cursor is whitespace?
+    if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+        " When remove it!
+        execute 'normal dw'
+    endif
+endfunction
 
 " ==============================================================================
 " AUTOCOMMANDS
@@ -498,6 +507,7 @@ set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
 set virtualedit=all
+set nostartofline
 packadd! matchit
 set spelllang=en
 set mouse=nicr
@@ -554,6 +564,12 @@ else
         colorscheme zenburn
     endif
 endif
+
+" ==============================================================================
+" VARIABLE_DEFINITIONS
+" ==============================================================================
+let g:guid_regex = '[a-zA-Z0-9]\{8,8}-[a-zA-Z0-9]\{4,4}-'
+            \ .'[a-zA-Z0-9]\{4,4}-[a-zA-Z0-9]\{4,4}-[a-zA-Z0-9]\{12,12}'
 
 " ==============================================================================
 " MAPS_AND_ABBREVS
@@ -633,6 +649,9 @@ function! AlignToCharInPreviousLine(char)
     exec l:prefix.a:char.l:suffix
 endfunction
 
+"TODO: Create a better mapping (and function itself) for splitting (cm) and
+" aligning
+
 " Reciprocal of {count}gT
 nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
@@ -656,6 +675,9 @@ nnoremap <leader>T :vimgrep /TODO/ %<CR>
 
 nnoremap <F4> :execute 'bd \| bn'<CR>
 nnoremap <leader><F4> windo bd<CR>
+
+nnoremap <Leader>J :call JoinSpaceless()<CR>
+
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
 vnoremap > >gv
@@ -690,7 +712,7 @@ cnoremap <C-R><C-R> <C-R>+
 
 " Function shortcuts
 command! -nargs=* -range Retab <line1>,<line2>call Retab(<f-args>)
-command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e')
+command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e') | call Preserve('%s/\($\n\s*\)\+\%$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
@@ -707,6 +729,13 @@ function! Jisho(...) range
     call RepeatForList("call ".
         \ "StartBrowser('https://jisho.org/search/", "')",
         \ l:argsList)
+endfunction
+
+
+command! -nargs=1 SplitLines call SplitLines(<f-args>)
+function! SplitLines(delimiter)
+    let l:cmd = 's/'.a:delimiter.'/\r/g'
+    execute l:cmd
 endfunction
 
 command! -nargs=1 Sudo call Sudo(<q-args>)
