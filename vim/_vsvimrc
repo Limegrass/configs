@@ -5,6 +5,7 @@
 " <C-S-SPACE> Window.NextPane
 " <C-S-A-I> C# Interactive
 set number
+set virtualedit=all
 set splitright
 set splitbelow
 set showmode

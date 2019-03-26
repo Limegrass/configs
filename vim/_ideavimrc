@@ -15,6 +15,7 @@ set smartcase
 set number
 set wrap
 set wildmenu
+set virtualedit=all
 set guioptions=c
 set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
 set list
