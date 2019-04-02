@@ -241,25 +241,26 @@ let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 let g:UltiSnipsRemoveSelectModeMappings = 1
+let g:abolish_save_file
+let g:ulti_jump_backwards_res = 0
+let g:ulti_jump_forwards_res = 0
 inoremap <silent> <expr> <CR> pumvisible() ?
             \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
 
-
+" TODO: Find a way to not show pum when the one entry = the entered text
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 function! ForwardJumpOrTab()
-    if pumvisible()
-        if(!g:ulti_jump_forwards_res)
-            return ncm2_ultisnips#expand_or("\<TAB>", 'n')
-        else
-            return "\<C-Y>"
+    if(!g:ulti_jump_forwards_res)
+        if pumvisible()
+            return ncm2_ultisnips#expand_or("\<C-Y>", 'n')
         endif
     else
         call UltiSnips#JumpForwards()
-        if !g:ulti_jump_forwards_res
-            return "\<TAB>"
+        if g:ulti_jump_forwards_res
+            return ""
         endif
-        return ""
     endif
+    return "\<TAB>"
 endfunction
 
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
