@@ -241,7 +241,6 @@ let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 let g:UltiSnipsRemoveSelectModeMappings = 1
-let g:abolish_save_file
 let g:ulti_jump_backwards_res = 0
 let g:ulti_jump_forwards_res = 0
 inoremap <silent> <expr> <CR> pumvisible() ?
