@@ -249,26 +249,23 @@ inoremap <silent> <expr> <CR> pumvisible() ?
 " TODO: Find a way to not show pum when the one entry = the entered text
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 function! ForwardJumpOrTab()
-    if(!g:ulti_jump_forwards_res)
-        if pumvisible()
-            return ncm2_ultisnips#expand_or("\<C-Y>", 'n')
-        endif
-    else
-        call UltiSnips#JumpForwards()
-        if g:ulti_jump_forwards_res
-            return ""
-        endif
+    call UltiSnips#JumpForwards()
+    if g:ulti_jump_forwards_res
+        return ""
+    elseif pumvisible()
+        return ncm2_ultisnips#expand_or("", 'n')
     endif
     return "\<TAB>"
 endfunction
 
+
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 function! BackwardJumpOrSTab()
     call UltiSnips#JumpBackwards()
-    if !g:ulti_jump_backwards_res
-        return "\<C-O><<"
+    if g:ulti_jump_backwards_res
+        return ""
     endif
-    return ""
+    return "\<C-O><<"
 endfunction
 
 " ==============================================================================
