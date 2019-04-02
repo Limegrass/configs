@@ -58,8 +58,6 @@ nnoremap <SPACE> <NOP>
 " ==============================================================================
 " VIM_PLUG
 " ==============================================================================
-" DBExt: https://www.vim.org/scripts/download_script.php?src_id=25648
-" Unzip, navigate to it, and run :helptags
 
 if empty(glob($VIMDIR.'/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -70,6 +68,7 @@ call plug#begin($VIMDIR.'/plugged')
 
 " Editing/Core
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
@@ -245,10 +244,15 @@ let g:UltiSnipsRemoveSelectModeMappings = 1
 inoremap <silent> <expr> <CR> pumvisible() ?
             \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
 
+
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 function! ForwardJumpOrTab()
     if pumvisible()
-        return "\<C-N>"
+        if(!g:ulti_jump_forwards_res)
+            return ncm2_ultisnips#expand_or("\<TAB>", 'n')
+        else
+            return "\<C-Y>"
+        endif
     else
         call UltiSnips#JumpForwards()
         if !g:ulti_jump_forwards_res
@@ -260,15 +264,11 @@ endfunction
 
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 function! BackwardJumpOrSTab()
-    if pumvisible()
-        return "\<C-P>"
-    else
-        call UltiSnips#JumpBackwards()
-        if !g:ulti_jump_backwards_res
-            return "\<C-O><<"
-        endif
-        return ""
+    call UltiSnips#JumpBackwards()
+    if !g:ulti_jump_backwards_res
+        return "\<C-O><<"
     endif
+    return ""
 endfunction
 
 " ==============================================================================
