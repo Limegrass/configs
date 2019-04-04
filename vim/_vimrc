@@ -42,9 +42,10 @@ if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
 
-let $VIMRC     = $GITDIR.'\configs\vim\_vimrc'
-let $VSVIMRC   = $GITDIR.'\configs\vim\_vsvimrc'
-let $IDEAVIMRC = $GITDIR.'\configs\vim\_ideavimrc'
+let $GITVIMDIR = $GITDIR.'\configs\vim\'
+let $VIMRC     = $GITVIMDIR.'\_vimrc'
+let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
+let $IDEAVIMRC = $GITVIMDIR.'\_ideavimrc'
 
 if has('win32') || has('win32unix')
     let $VIMDIR = $HOME.'\vimfiles'
@@ -98,39 +99,19 @@ Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
 " Plug 'rickhowe/diffchar.vim'
 
-" Syntax, Typically requires some setup
-Plug 'PProvost/vim-ps1'
-if !has('nvim')
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi', {'for': ['python']}
-Plug 'ncm2/ncm2-pyclang'
-Plug 'ncm2/ncm2-vim'
-    Plug 'Shougo/neco-vim'
-Plug 'ncm2/ncm2-tern'
-Plug 'ncm2/ncm2-cssomni'
-Plug 'ncm2/ncm2-ultisnips' " Depends on SirVer/ultisnips
-Plug 'yuki-ycino/ncm2-dictionary'
-Plug 'w0rp/ale'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'OmniSharp/omnisharp-vim'
+Plug 'Shougo/neco-vim'
+Plug 'neoclide/coc-neco'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
-" Currently installed linters
-" on main machine: vint, proselint, clang, autopep8, javac, jedi
-Plug 'davidhalter/jedi-vim', {'for': ['python']}
+" Syntax
+Plug 'PProvost/vim-ps1'
 Plug 'OrangeT/vim-csharp', {'for': ['cs']}
 Plug 'lervag/vimtex', {'for': ['tex']}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['cs', 'html', 'cshtml', 'scss', 'css']}
 Plug 'mhartington/nvim-typescript', {'for': ['ts']}
 call plug#end()
+
+source $GITVIMDIR\cocrc.vim
 
 " ==============================================================================
 " PLUGIN_SETTINGS
@@ -143,26 +124,6 @@ let g:taboo_tab_format=' %N [%f%m] '
 let g:airline_theme='deus'
 
 let g:gundo_prefer_python3 = 1
-
-" ncm2: nvim completion manager
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-let g:ncm2#matcher = 'abbrfuzzy'
-let g:ncm2#sorter = 'abbrfuzzy'
-
-" ALE
-let g:airline#extensions#ale#enabled = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-
-" Jedi-vim
-let g:jedi#auto_initialization  = 1
-let g:jedi#use_tabs_not_buffers = 1
-let g:jedi#completions_enabled  = 0
-let g:jedi#smart_auto_mappings  = 0
-" Temp fix for jedi
-py3 import os; import sys; sys.executable=os.path.join(sys.prefix, 'python.exe')
-
 
 " ncm-clang
 let g:clang_make_default_keymappings = 0
@@ -177,27 +138,9 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " Previm
 let g:previm_enable_realtime = 0
 
-" LSP
-let g:LanguageClient_serverCommands = {
-    \ 'cs': ['C:\Users\james.ni\vimfiles\OmniSharp\OmniSharp.exe'],
-    \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-let g:OmniSharp_server_path = 'C:\Users\james.ni\vimfiles\OmniSharp\OmniSharp.exe'
-let g:OmniSharp_selector_ui = 'fzf'
-let g:OmniSharp_want_snippet=1
-
 " ==============================================================================
 " PLUGIN_MAPS
 " ==============================================================================
-" ALE Navigation
-nnoremap <silent> <leader>l <Plug>(ale_next_wrap)
-nnoremap <silent> <leader>L <Plug>(ale_previous_wrap)
-
 " Vim-commentary bind
 nnoremap <leader><Tab> :Commentary<CR>
 vnoremap <leader><Tab> :Commentary<CR>
@@ -227,15 +170,6 @@ map <leader>/ <Plug>(incsearch-fuzzyspell-/)
 map <leader>? <Plug>(incsearch-fuzzyspell-?)
 map <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
-" jedi-vim Bindings
-let g:jedi#goto_command             = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command    = "K"
-let g:jedi#usages_command           = "<leader>n"
-let g:jedi#completions_command      = ""
-let g:jedi#rename_command           = "<leader>r"
-
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
@@ -243,8 +177,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 let g:UltiSnipsRemoveSelectModeMappings = 1
 let g:ulti_jump_backwards_res = 0
 let g:ulti_jump_forwards_res = 0
-inoremap <silent> <expr> <CR> pumvisible() ?
-            \ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
 
 " TODO: Find a way to not show pum when the one entry = the entered text
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
@@ -253,7 +185,7 @@ function! ForwardJumpOrTab()
     if g:ulti_jump_forwards_res
         return ""
     elseif pumvisible()
-        return ncm2_ultisnips#expand_or("", 'n')
+        return coc#_select_confirm()
     endif
     return "\<TAB>"
 endfunction
@@ -513,6 +445,7 @@ set splitbelow
 set foldmethod=indent
 set foldlevel=99
 set sessionoptions+=tabpages,globals
+set completeopt=noinsert,menuone,noselect
 " INDENT SETTINGS
 set expandtab
 set smartindent
