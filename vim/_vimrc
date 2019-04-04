@@ -685,6 +685,7 @@ vnoremap <leader>= "+
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 vnoremap <leader>y "+y
+vnoremap . :normal .<CR>
 
 " Search for visual selected
 vnoremap // y/<C-R>"<CR>
