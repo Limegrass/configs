@@ -102,6 +102,7 @@ Plug 'godlygeek/tabular'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" if !nvim !yarn global add vim-node-rpc
 
 " Syntax
 Plug 'PProvost/vim-ps1'
