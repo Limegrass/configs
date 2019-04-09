@@ -35,7 +35,7 @@ set foldlevel=99
 set iminsert=0
 set imsearch=-1
 " Set default clipboard to be the system register
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " ============================================================================
 " KEYBINDINGS AND REMAPS

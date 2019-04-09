@@ -110,6 +110,7 @@ Plug 'OrangeT/vim-csharp', {'for': ['cs']}
 Plug 'lervag/vimtex', {'for': ['tex']}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['cs', 'html', 'cshtml', 'scss', 'css']}
 Plug 'mhartington/nvim-typescript', {'for': ['ts']}
+Plug 'aonemd/kuroi.vim'
 call plug#end()
 
 source $GITVIMDIR\cocrc.vim
@@ -176,12 +177,11 @@ let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 let g:UltiSnipsRemoveSelectModeMappings = 1
-let g:ulti_jump_backwards_res = 0
-let g:ulti_jump_forwards_res = 0
 
 " TODO: Find a way to not show pum when the one entry = the entered text
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
 function! ForwardJumpOrTab()
+    let g:ulti_jump_forwards_res = 0
     call UltiSnips#JumpForwards()
     if g:ulti_jump_forwards_res
         return ""
@@ -194,6 +194,7 @@ endfunction
 
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
 function! BackwardJumpOrSTab()
+    let g:ulti_jump_backwards_res = 0
     call UltiSnips#JumpBackwards()
     if g:ulti_jump_backwards_res
         return ""
@@ -460,8 +461,10 @@ if !isdirectory($SWAPDIR)
 endif
 set directory=$SWAPDIR
 
+set termguicolors
+set background=dark
 if has('gui_running')
-    colorscheme corporation
+    colorscheme kuroi
     set guifont=Consolas:h9:cANSI:qDRAFT
     let &lines=GVIM_HEIGHT
     let &columns=GVIM_WIDTH
@@ -469,7 +472,6 @@ else
     if $TERM == "xterm-256color"
         set t_Co=256
         colorscheme hybrid
-        set background=dark
     else
         colorscheme zenburn
     endif
@@ -708,3 +710,4 @@ cd $GARBAGEDIR
 " Ideavimrc mappings (:actionlist)
 " Autocurl, extract and helptext dbext
 " Split into multiple files?
+

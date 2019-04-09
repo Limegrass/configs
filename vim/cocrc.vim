@@ -1,20 +1,11 @@
 " TODO: See if I can register Omnisharp
-" CocInstall coc-dictionary coc-tag coc-word coc-omni coc-syntax coc-ultisnips coc-json coc-vimtex coc-python coc-java coc-snippets
+" CocInstall coc-dictionary coc-tag coc-word coc-omni coc-syntax coc-ultisnips coc-json coc-vimtex coc-python coc-java
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
-" let g:coc_snippet_next = '<tab>'
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
