@@ -373,7 +373,7 @@ snippet RN "RANK"
 RANK()
 endsnippet
 
-snippet RNO "RANK OVER"
+snippet RANKOVER "RANK OVER"
 RANK() OVER (PARTITION BY ${1:Column} ORDER BY ${2:Column})
 endsnippet
 
@@ -381,19 +381,19 @@ snippet RN "ROW_NUMBER"
 ROW_NUMBER()
 endsnippet
 
-snippet RNO "ROW_NUMBER OVER"
+snippet ROWNUMBEROVER "ROW_NUMBER OVER"
 ROW_NUMBER() OVER (PARTITION BY ${1:Column} ORDER BY ${2:Column})
 endsnippet
 
-snippet PKEY "TSQL/Oracle/Access PRIMARY KEY"
+snippet PRIMARYKEY "TSQL/Oracle/Access PRIMARY KEY"
 ${1:ColumnName} ${2:DataType} NOT NULL PRIMARY KEY
 endsnippet
 
-snippet FKEY "TSQL/Oracle/Access FOREIGN KEY"
+snippet FOREIGNKEY "TSQL/Oracle/Access FOREIGN KEY"
 ${1:FKColumn} ${2:DataType} FOREIGN KEY REFERENCES ${3:TableName}(${4:ForeignKeyColumn})
 endsnippet
 
-snippet FKEYLITE "SQLite FOREIGN KEY"
+snippet FOREIGNKEYSQLITE "SQLite FOREIGN KEY"
 FOREIGN KEY(${1:FKColumn}) REFERENCES ${3:TableName}(${4:ForeignKeyColumn})
 endsnippet
 

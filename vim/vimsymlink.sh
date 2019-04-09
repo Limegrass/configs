@@ -7,3 +7,4 @@ if [ ! -d "~/.vim"]; then
 fi
 
 ln -s ~/git/configs/vim/UltiSnips  ~/.vim/UltiSnips
+ln -s ~/git/configs/vim/coc-settings.json  ~/.vim/coc-settings.json

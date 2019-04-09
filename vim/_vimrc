@@ -145,7 +145,7 @@ let g:previm_enable_realtime = 0
 " ==============================================================================
 " Vim-commentary bind
 nnoremap <leader><Tab> :Commentary<CR>
-vnoremap <leader><Tab> :Commentary<CR>
+xnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
 nnoremap <C-SPACE>   :Buffers<CR>
@@ -159,27 +159,28 @@ nnoremap <F2> :TagbarToggle<CR>
 
 " incsearch/fuzzy rebindings
 let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map <leader>/ <Plug>(incsearch-fuzzyspell-/)
-map <leader>? <Plug>(incsearch-fuzzyspell-?)
-map <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
+nmap n  <Plug>(incsearch-nohl-n)
+nmap N  <Plug>(incsearch-nohl-N)
+nmap *  <Plug>(incsearch-nohl-*)
+nmap #  <Plug>(incsearch-nohl-#)
+nmap g* <Plug>(incsearch-nohl-g*)
+nmap g# <Plug>(incsearch-nohl-g#)
+nmap /  <Plug>(incsearch-forward)
+nmap ?  <Plug>(incsearch-backward)
+nmap g/ <Plug>(incsearch-stay)
+nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
+nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
+nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger = "<nop>"
-let g:UltiSnipsRemoveSelectModeMappings = 1
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " TODO: Find a way to not show pum when the one entry = the entered text
 inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
+snoremap <TAB> <C-O>:call UltiSnips#JumpForwards()<CR>
 function! ForwardJumpOrTab()
     let g:ulti_jump_forwards_res = 0
     call UltiSnips#JumpForwards()
@@ -193,6 +194,7 @@ endfunction
 
 
 inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
+snoremap <silent> <S-TAB> <C-O>:call UltiSnips#JumpBackwards()<CR>
 function! BackwardJumpOrSTab()
     let g:ulti_jump_backwards_res = 0
     call UltiSnips#JumpBackwards()
@@ -507,8 +509,8 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 " ALT+jk to move lines up and down
 nnoremap <A-j>      :move .+1<CR>==
 nnoremap <A-k>      :move .-2<CR>==
-vnoremap <A-j>      :move '>+1<CR>gv=gv
-vnoremap <A-k>      :move '<-2<CR>gv=gv
+xnoremap <A-j>      :move '>+1<CR>gv=gv
+xnoremap <A-k>      :move '<-2<CR>gv=gv
 inoremap <A-j> <Esc>:move .+1<CR>==gi
 inoremap <A-k> <Esc>:move .-2<CR>==gi
 
@@ -592,18 +594,18 @@ nnoremap <Leader>J :call JoinSpaceless()<CR>
 
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-vnoremap <leader>= "+
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
-vnoremap <leader>y "+y
-vnoremap . :normal .<CR>
+xnoremap > >gv
+xnoremap < <gv
+xnoremap <Tab> >gv
+xnoremap <S-Tab> <gv
+xnoremap <leader>= "+
+xnoremap <leader>p "+p
+xnoremap <leader>P "+P
+xnoremap <leader>y "+y
+xnoremap . :normal .<CR>
 
 " Search for visual selected
-vnoremap // y/<C-R>"<CR>
+xnoremap // y/<C-R>"<CR>
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors

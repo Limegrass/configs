@@ -9,3 +9,5 @@ IF NOT EXIST %USERPROFILE%\vimfiles\ ^
 ( mkdir %USERPROFILE%\vimfiles )
 
 mklink /D %USERPROFILE%\vimfiles\UltiSnips %USERPROFILE%\git\configs\vim\UltiSnips
+
+mklink %USERPROFILE%\vimfiles\coc-settings.json %USERPROFILE%\git\configs\vim\coc-settings.json
