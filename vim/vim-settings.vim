@@ -75,11 +75,11 @@ set directory=$SWAPDIR
 
 set termguicolors
 set background=dark
-colorscheme kuroi " corporation, hybrid, zenburn
+colorscheme kuroi " alt: corporation, hybrid, zenburn
 set guifont=Consolas:h9
 if has('gui_running')
-    let &lines=GVIM_HEIGHT
-    let &columns=GVIM_WIDTH
+    let &lines=999
+    let &columns=999
 endif
 
 " ==============================================================================

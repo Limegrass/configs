@@ -36,28 +36,36 @@ nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 
-inoremap <silent> <TAB> <C-R>=ForwardJumpOrTab()<CR>
+inoremap <silent> <TAB> <C-R>=CompleteOrJumpOrKey("\<TAB>")<CR>
 snoremap <TAB> <C-O>:call UltiSnips#JumpForwards()<CR>
-function! ForwardJumpOrTab()
+function! CompleteOrJumpOrKey(key)
+    if pumvisible()
+        return coc#_select_confirm()
+    else
+        return UltiJumpOrKey(a:key)
+    endif
+endfunction
+
+function! UltiJumpOrKey(key)
     let g:ulti_jump_forwards_res = 0
     call UltiSnips#JumpForwards()
     if g:ulti_jump_forwards_res
         return ""
-    elseif pumvisible()
-        return coc#_select_confirm()
+    else
+        return a:key
     endif
-    return "\<TAB>"
 endfunction
 
-inoremap <silent> <S-TAB> <C-R>=BackwardJumpOrSTab()<CR>
+inoremap <silent> <S-TAB> <C-R>=UltiJumpBackOrKey("\<C-O><<")<CR>
 snoremap <silent> <S-TAB> <C-O>:call UltiSnips#JumpBackwards()<CR>
-function! BackwardJumpOrSTab()
+function! UltiJumpBackOrKey(key)
     let g:ulti_jump_backwards_res = 0
     call UltiSnips#JumpBackwards()
     if g:ulti_jump_backwards_res
         return ""
+    else
+        return a:key
     endif
-    return "\<C-O><<"
 endfunction
 
 " ================================ ALL_MODES ===================================
@@ -104,7 +112,7 @@ nnoremap <leader>y "+y
 nnoremap yc "+y
 
 nnoremap + "+
-nnoremap <expr> yr CopyRegisterFromIntoInput()
+nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
@@ -215,14 +223,6 @@ function! SplitLines(delimiter)
 endfunction
 
 command! -nargs=1 Sudo call Sudo(<q-args>)
-function! Sudo(cmd)
-    if has('win32')
-        " TODO: Fix this for passwordless accounts
-        execute 'silent !runas /user:\%USERNAME\%@\%USERDOMAIN\% "' . a:cmd . '"'
-    else
-        execute 'silent !sudo ' . a:cmd
-    endif
-endfunction
 
 " Dealing with my typos
 command! W w
@@ -248,30 +248,4 @@ call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('vb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
-
-cd $GARBAGEDIR
-
-" TODO
-" LSP
-" inoremap <C-SPACE> to force open ncm2 pum
-" Fix this function
-" inoremap <C-R> <C-O>:set nopaste
-" function! NoAutoIndentPaste(command)
-"       set nopaste
-"       <C-R>command
-"       set paste
-" endfunction
-"
-" Things to check back on
-" Plug 'Floobits/floobits-vim'
-" Plug 'FredKSchott/CoVim'
-" Plug 'ncm2/ncm2-tmux'
-" Plug 'filipekiss/ncm2-look.vim'
-"
-" Automatically set register v to whatever was visually selected last on
-" entering visual mode
-" Ideavimrc mappings (:actionlist)
-" Autocurl, extract and helptext dbext
-" Split into multiple files?
-
-
+call CommandAbbreviations('bd', 'BD')

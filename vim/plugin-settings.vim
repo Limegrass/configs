@@ -72,6 +72,9 @@ let g:airline_theme='deus'
 
 let g:gundo_prefer_python3 = 1
 
+" fzf-vim
+let g:fzf_layout = { 'right' : '20%'}
+
 " ncm-clang
 let g:clang_make_default_keymappings = 0
 let g:clang_auto_user_options = ''

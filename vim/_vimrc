@@ -1,27 +1,12 @@
 ﻿" ==============================================================================
 " Author: James Ni (Limegrass) - @Multipoke
-" Sections:
-"   VIM_PLUG
-"   SUBCONFIGS
 " ==============================================================================
-" INITIALIZATION
 cd $HOME
-
-let $LOCALRC = $HOME . '/local.vim'
-if filereadable($LOCALRC)
-    source $LOCALRC
-endif
 
 set encoding=utf-8
 scriptencoding utf-8
 
-let GVIM_WIDTH = 999
-let GVIM_HEIGHT = 999
-
 let $GITDIR = $HOME.'\git'
-if !isdirectory($GITDIR)
-    silent call mkdir($GITDIR)
-endif
 
 let $GARBAGEDIR = $GITDIR.'\garbage'
 if !isdirectory($GARBAGEDIR)
@@ -29,9 +14,6 @@ if !isdirectory($GARBAGEDIR)
 endif
 
 let $GITVIMDIR = $GITDIR.'\configs\vim\'
-let $VIMRC     = $GITVIMDIR.'\_vimrc'
-let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
-let $IDEAVIMRC = $GITVIMDIR.'\_ideavimrc'
 
 if has('win32') || has('win32unix')
     let $VIMDIR = $HOME.'\vimfiles'
@@ -39,6 +21,10 @@ else
     let $VIMDIR = $HOME.'\.vim'
 endif
 
+let $VIMRC     = $GITVIMDIR.'\_vimrc'
+let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
+let $IDEAVIMRC = $GITVIMDIR.'\_ideavimrc'
+let $LOCALRC = $HOME . '\local.vim'
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
@@ -46,3 +32,31 @@ source $GITVIMDIR\plugin-settings.vim
 source $GITVIMDIR\vim-settings.vim
 source $GITVIMDIR\function-definitions.vim
 source $GITVIMDIR\keymaps.vim
+
+cd $GARBAGEDIR
+
+if filereadable($LOCALRC)
+    source $LOCALRC
+endif
+
+" TODO
+" inoremap <C-R> <C-O>:set nopaste
+" function! NoAutoIndentPaste(command)
+"       set nopaste
+"       <C-R>command
+"       set paste
+" endfunction
+"
+" Things to check back on
+" Plug 'Floobits/floobits-vim'
+" Plug 'FredKSchott/CoVim'
+" Plug 'ncm2/ncm2-tmux'
+"
+" Automatically set register v to whatever was visually selected last on entering visual mode
+" Ideavimrc mappings (:actionlist)
+" Better implementation of indention
+"   Autoalign multiple rows
+" Coc language server working properly.
+" OmniSharp integration.
+"   Figure out how to build and run like Visual Studio, if it's possible
+" Glob check for the symlink files and run the symlink if it isn't found

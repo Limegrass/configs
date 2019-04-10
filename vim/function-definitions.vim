@@ -1,3 +1,12 @@
+function! Sudo(cmd)
+    if has('win32')
+        " TODO: Fix this for passwordless accounts
+        execute '!runas /user:\%USERNAME\%@\%USERDOMAIN\% "' . a:cmd . '"'
+    else
+        execute '!sudo ' . a:cmd
+    endif
+endfunction
+
 " Abbrev in command mode if not system cmd
 function! CommandAbbreviations(abbrebiation, command)
     let l:abbrev = '''' . a:abbrebiation . ''''
@@ -92,12 +101,6 @@ endfunction
 
 function! CopyRegisterFromInto(from, into)
     execute "call setreg('".a:into."', getreg('".a:from."'))"
-endfunction
-
-function! CopyRegisterFromIntoInput()
-    let l:from = getchar()
-    let l:into = getchar()
-    execute "call setreg('".l:into."', getreg('".l:from."'))"
 endfunction
 
 function! GetVisualSelection()
