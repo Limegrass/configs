@@ -90,6 +90,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'previm/previm', {'for': ['markdown']}
     Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-dispatch'
+Plug 'sheerun/vim-polyglot'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
@@ -420,7 +421,6 @@ set diffopt+=vertical,iwhite
 set fileformat=unix
 set virtualedit=all
 set nostartofline
-packadd! matchit
 set spelllang=en
 set mouse=nicr
 set splitright
@@ -429,6 +429,7 @@ set foldmethod=indent
 set foldlevel=99
 set sessionoptions+=tabpages,globals
 set completeopt=noinsert,menuone,noselect
+runtime macros/matchit.vim
 " INDENT SETTINGS
 set expandtab
 set smartindent
@@ -465,18 +466,11 @@ set directory=$SWAPDIR
 
 set termguicolors
 set background=dark
+colorscheme kuroi " corporation, hybrid, zenburn
+set guifont=Consolas:h9
 if has('gui_running')
-    colorscheme kuroi
-    set guifont=Consolas:h9:cANSI:qDRAFT
     let &lines=GVIM_HEIGHT
     let &columns=GVIM_WIDTH
-else
-    if $TERM == "xterm-256color"
-        set t_Co=256
-        colorscheme hybrid
-    else
-        colorscheme zenburn
-    endif
 endif
 
 " ==============================================================================
