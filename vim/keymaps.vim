@@ -13,7 +13,7 @@ xnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
 nnoremap <C-SPACE>   :Buffers<CR>
-nnoremap <C-S-SPACE> :FZF<CR>
+nnoremap <SPACE><C-SPACE> :FZF<CR>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>

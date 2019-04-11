@@ -15,11 +15,8 @@ endif
 
 let $GITVIMDIR = $GITDIR.'\configs\vim\'
 
-if has('win32') || has('win32unix')
-    let $VIMDIR = $HOME.'\vimfiles'
-else
-    let $VIMDIR = $HOME.'\.vim'
-endif
+let $VIMDIR = $HOME.'\.vim'
+set runtimepath+=$HOME\.vim
 
 let $VIMRC     = $GITVIMDIR.'\_vimrc'
 let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
