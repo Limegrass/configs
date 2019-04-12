@@ -5,9 +5,9 @@ IF NOT EXIST %USERPROFILE%\_vsvimrc ^
 IF NOT EXIST %USERPROFILE%\_ideavimrc ^
     ( mklink %USERPROFILE%\_ideavimrc %USERPROFILE%\git\configs\vim\_ideavimrc )
 
-IF NOT EXIST %USERPROFILE%\vimfiles\ ^
-( mkdir %USERPROFILE%\vimfiles )
+IF NOT EXIST %USERPROFILE%\.vim\ ^
+( mkdir %USERPROFILE%\.vim )
 
-mklink /D %USERPROFILE%\vimfiles\UltiSnips %USERPROFILE%\git\configs\vim\UltiSnips
+mklink /D %USERPROFILE%\.vim\UltiSnips %USERPROFILE%\git\configs\vim\UltiSnips
 
-mklink %USERPROFILE%\vimfiles\coc-settings.json %USERPROFILE%\git\configs\vim\coc-settings.json
+mklink %USERPROFILE%\.vim\coc-settings.json %USERPROFILE%\git\configs\vim\coc-settings.json

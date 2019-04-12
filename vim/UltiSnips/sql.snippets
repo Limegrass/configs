@@ -234,6 +234,10 @@ endsnippet
 #         TSQL          #
 #########################
 
+snippet UNIQUEINDEX "UNIQUE INDEX (TSQL)"
+CONSTRAINT ${1:UC_NAME} UNIQUE (${2:Columns})
+endsnippet
+
 snippet UN "READ UNCOMMITED"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 

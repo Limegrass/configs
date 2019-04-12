@@ -129,8 +129,10 @@ endif
 if has('nvim')
     tnoremap <ESC> <C-\><C-N>
 endif
+
 nnoremap <C-W>t :tabedit<CR>
 nnoremap <C-W>C :windo bd<CR>
+nnoremap <C-W><C-F> <C-W>vgf
 
 nnoremap <Leader>J :call JoinSpaceless()<CR>
 

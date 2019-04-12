@@ -39,6 +39,7 @@ set foldlevel=99
 set sessionoptions+=tabpages,globals
 set completeopt=noinsert,menuone,noselect
 runtime macros/matchit.vim
+let g:omni_sql_no_default_maps = 1
 " INDENT SETTINGS
 set expandtab
 set smartindent
@@ -89,8 +90,6 @@ endif
 if has('autocmd')
     augroup QuickFix
         autocmd!
-        " autocmd QuickFixCmdPost [^l]* cwindow
-        " autocmd QuickFixCmdPost l*        lwindow
         autocmd CmdwinEnter * nnoremap <CR> <CR>
         autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     augroup END

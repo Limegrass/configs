@@ -3,6 +3,7 @@
 " ==============================================================================
 cd $HOME
 
+set fileformat=unix
 set encoding=utf-8
 scriptencoding utf-8
 
@@ -21,7 +22,7 @@ set runtimepath+=$HOME\.vim
 let $VIMRC     = $GITVIMDIR.'\_vimrc'
 let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
 let $IDEAVIMRC = $GITVIMDIR.'\_ideavimrc'
-let $LOCALRC = $HOME . '\local.vim'
+let $LOCALRC = $HOME.'\local.vim'
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
