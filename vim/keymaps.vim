@@ -15,12 +15,6 @@ xnoremap <leader><Tab> :Commentary<CR>
 nnoremap <C-SPACE>   :Buffers<CR>
 nnoremap <SPACE><C-SPACE> :FZF<CR>
 
-" Gundo
-nnoremap <leader>u :GundoToggle<CR>
-
-" tagbar
-nnoremap <F2> :TagbarToggle<CR>
-
 " incsearch/fuzzy rebindings
 nmap n  <Plug>(incsearch-nohl-n)
 nmap N  <Plug>(incsearch-nohl-N)
@@ -86,21 +80,12 @@ inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 
-" ALT+jk to move lines up and down
-nnoremap <A-j>      :move .+1<CR>==
-nnoremap <A-k>      :move .-2<CR>==
-xnoremap <A-j>      :move '>+1<CR>gv=gv
-xnoremap <A-k>      :move '<-2<CR>gv=gv
-inoremap <A-j> <Esc>:move .+1<CR>==gi
-inoremap <A-k> <Esc>:move .-2<CR>==gi
-
 " =============================== NORMAL_MODE ==================================
 nnoremap <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>V :execute 'tabnew $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
-" HELP Right split
-nnoremap K K<C-W>L
-nnoremap Q @q
+
+nnoremap Q @q " Ex mode by gQ still
 nnoremap <C-W>v :vnew<CR>
 nnoremap <C-W>s :new<CR>
 
@@ -109,14 +94,13 @@ nnoremap <leader>= "+
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y
-nnoremap yc "+y
 
-nnoremap + "+
 nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
 
+"TODO: Create a better mapping (and function itself) for splitting (cm) and aligning
 nnoremap cm :silent call SplitCommas()<CR>
 function! SplitCommas()
     s/,\s*/,\r/g
@@ -133,8 +117,6 @@ function! AlignToCharInPreviousLine(char)
     exec l:prefix.a:char.l:suffix
 endfunction
 
-"TODO: Create a better mapping (and function itself) for splitting (cm) and aligning
-
 " Reciprocal of {count}gT
 nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
@@ -143,21 +125,12 @@ nnoremap <leader>cd :cd %:p:h<CR>
 if has('win32')
     nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
 endif
-" Copy file path to system register
-nnoremap <leader>fp :let @+=expand("%:p")<CR>
 " Navigate out of terminal mode
 if has('nvim')
     tnoremap <ESC> <C-\><C-N>
 endif
-" Remap tag jump to Shift+Ctrl+T, Map Ctrl+T to new tab
-nnoremap <S-C-T> <C-T>
-nnoremap <C-T> :tabedit<CR>
-" Mark TODO as DONE
-nnoremap <leader>z :s/TODO/DONE/<CR>
-nnoremap <leader>T :vimgrep /TODO/ %<CR>
-
-nnoremap <F4> :bd \| bn<CR>
-nnoremap <leader><F4> windo bd<CR>
+nnoremap <C-W>t :tabedit<CR>
+nnoremap <C-W>C :windo bd<CR>
 
 nnoremap <Leader>J :call JoinSpaceless()<CR>
 
@@ -180,13 +153,11 @@ xnoremap // y/<C-R>"<CR>
 " CTRL+BS/DEL like other editors
 inoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
-inoremap <C-V> <C-O>p
-inoremap <C-S-V> <C-V>
-" Close popup menu with <S-Space>
-" inoremap <expr> <S-SPACE>  pumvisible() ? "\<C-E>" : "\<S-SPACE>"
-" Paste from system register with <C-R>r
+
 inoremap <C-R><C-R> <C-R>+
 inoremap <C-R><C-E> <C-R>0
+inoremap <C-R><C-T> <C-R>"
+
 
 " =============================== COMMANDS =====================================
 cnoremap <C-BS> <C-W>
@@ -201,7 +172,7 @@ command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
-command! -nargs=1 Google call StartBrowser('https://google.com/search?q='.<q-args>)
+command! -nargs=* Google call StartBrowser('https://google.com/search?q='.<q-args>)
 
 command! -nargs=* -range Jisho call Jisho(<f-args>)
 function! Jisho(...) range
@@ -248,4 +219,3 @@ call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('vb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
-call CommandAbbreviations('bd', 'BD')

@@ -16,7 +16,7 @@ endif
 let $GITVIMDIR = $GITDIR.'\configs\vim\'
 
 let $VIMDIR = $HOME.'\.vim'
-set runtimepath+=$HOME\.vim
+" set runtimepath+=$HOME\.vim
 
 let $VIMRC     = $GITVIMDIR.'\_vimrc'
 let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
@@ -48,8 +48,8 @@ endif
 " Plug 'Floobits/floobits-vim'
 " Plug 'FredKSchott/CoVim'
 " Plug 'ncm2/ncm2-tmux'
-"
 " Automatically set register v to whatever was visually selected last on entering visual mode
+"
 " Ideavimrc mappings (:actionlist)
 " Better implementation of indention
 "   Autoalign multiple rows
