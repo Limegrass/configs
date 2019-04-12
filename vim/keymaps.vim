@@ -86,8 +86,6 @@ nnoremap <leader>V :execute 'tabnew $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
 
 nnoremap Q @q " Ex mode by gQ still
-nnoremap <C-W>v :vnew<CR>
-nnoremap <C-W>s :new<CR>
 
 nnoremap Y y$
 nnoremap <leader>= "+
@@ -130,6 +128,8 @@ if has('nvim')
     tnoremap <ESC> <C-\><C-N>
 endif
 
+nnoremap <C-W>V :vnew<CR>
+nnoremap <C-W>S :new<CR>
 nnoremap <C-W>t :tabedit<CR>
 nnoremap <C-W>C :windo bd<CR>
 nnoremap <C-W><C-F> <C-W>vgf
