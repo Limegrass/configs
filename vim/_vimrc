@@ -16,7 +16,7 @@ endif
 let $GITVIMDIR = $GITDIR.'\configs\vim\'
 
 let $VIMDIR = $HOME.'\.vim'
-" set runtimepath+=$HOME\.vim
+set runtimepath+=$HOME\.vim
 
 let $VIMRC     = $GITVIMDIR.'\_vimrc'
 let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
@@ -30,7 +30,9 @@ source $GITVIMDIR\vim-settings.vim
 source $GITVIMDIR\function-definitions.vim
 source $GITVIMDIR\keymaps.vim
 
-cd $GARBAGEDIR
+if empty(expand('%:t'))
+    lcd $GARBAGEDIR
+endif
 
 if filereadable($LOCALRC)
     source $LOCALRC
@@ -47,7 +49,6 @@ endif
 " Things to check back on
 " Plug 'Floobits/floobits-vim'
 " Plug 'FredKSchott/CoVim'
-" Plug 'ncm2/ncm2-tmux'
 " Automatically set register v to whatever was visually selected last on entering visual mode
 "
 " Ideavimrc mappings (:actionlist)

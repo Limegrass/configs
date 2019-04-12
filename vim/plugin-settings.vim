@@ -51,6 +51,7 @@ Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " if !nvim !yarn global add vim-node-rpc
+Plug 'OmniSharp/omnisharp-vim'
 
 " Syntax
 Plug 'PProvost/vim-ps1'
@@ -100,3 +101,4 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 let g:incsearch#auto_nohlsearch = 1
 
 source $GITVIMDIR\cocrc.vim
+source $GITVIMDIR\omnisharp.vim

@@ -12,8 +12,8 @@ nnoremap <leader><Tab> :Commentary<CR>
 xnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
-nnoremap <C-SPACE>   :Buffers<CR>
-nnoremap <SPACE><C-SPACE> :FZF<CR>
+nnoremap <C-SPACE>          :Buffers<CR>
+nnoremap <C-SPACE><C-SPACE> :FZF<CR>
 
 " incsearch/fuzzy rebindings
 nmap n  <Plug>(incsearch-nohl-n)
@@ -173,6 +173,7 @@ command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
 command! -nargs=* Google call StartBrowser('https://google.com/search?q='.<q-args>)
+command! -complete=file -nargs=* LoadBuffer silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
 command! -nargs=* -range Jisho call Jisho(<f-args>)
 function! Jisho(...) range
