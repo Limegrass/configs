@@ -133,7 +133,7 @@ endif
 
 nnoremap <C-W>V :vnew<CR>
 nnoremap <C-W>S :new<CR>
-nnoremap <C-W>t :tabedit<CR>
+nnoremap <C-W>t :tabedit \| lcd $GARBAGEDIR<CR>
 nnoremap <C-W>C :windo bd<CR>
 nnoremap <C-W><C-F> <C-W>vgf
 
