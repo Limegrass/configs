@@ -406,7 +406,7 @@ SELECT TOP ${1:COUNT} *
 FROM ${2:Table}
 endsnippet
 
-snippet HISTORY "Check SQL history through the default trace"
+snippet SQLHISTORY "Check SQL history through the default trace"
 DECLARE @DefaultTraceFileLocation NVARCHAR(MAX) = (SELECT t.path FROM sys.traces t WHERE is_default = 1);
 
 SELECT TextData
@@ -416,6 +416,13 @@ SELECT TextData
     , StartTime
 FROM fn_trace_gettable(@DefaultTraceFileLocation, DEFAULT)
 WHERE TextData LIKE '%${1:Term}%'
+endsnippet
+
+snippet DBOHISTORY "Check modified date for DB objects"
+SELECT name, create_date, modify_date
+FROM sys.objects
+WHERE type = 'P'
+ORDER BY modify_date DESC;
 endsnippet
 
 snippet FINDDATE "Check modified date for DB objects"

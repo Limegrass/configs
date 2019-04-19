@@ -30,7 +30,7 @@ nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 
-inoremap <silent> <TAB> <C-R>=CompleteOrJumpOrKey("\<TAB>")<CR>
+inoremap <silent> <TAB> <C-R>=UltiJumpOrKey("\<TAB>")<CR>
 snoremap <TAB> <C-O>:call UltiSnips#JumpForwards()<CR>
 function! CompleteOrJumpOrKey(key)
     if pumvisible()
@@ -81,6 +81,9 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 
 " =============================== NORMAL_MODE ==================================
+if has("win32") || has ("win32unix")
+    nnoremap <C-Z> <NOP>
+endif
 nnoremap <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>V :execute 'tabnew $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
@@ -163,6 +166,9 @@ inoremap <C-R><C-T> <C-R>"
 
 " =============================== COMMANDS =====================================
 cnoremap <C-BS> <C-W>
+cnoremap <C-R><C-R> <C-R>+
+cnoremap <C-R><C-E> <C-R>0
+cnoremap <C-R><C-T> <C-R>"
 
 " Paste from system register with <C-R>r
 cnoremap <C-R><C-R> <C-R>+
