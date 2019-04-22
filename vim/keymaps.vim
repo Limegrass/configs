@@ -82,7 +82,7 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 " =============================== NORMAL_MODE ==================================
 nnoremap <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
-nnoremap <leader>V :execute 'tabnew $VIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <leader>V :execute 'vnew $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>S :source $MYVIMRC<CR>
 
 nnoremap Q @q " Ex mode by gQ still
@@ -147,6 +147,8 @@ xnoremap <leader>p "+p
 xnoremap <leader>P "+P
 xnoremap <leader>y "+y
 xnoremap . :normal .<CR>
+
+xnoremap <space>x "xy:<C-R>x<CR>
 
 " Search for visual selected
 xnoremap // y/<C-R>"<CR>
