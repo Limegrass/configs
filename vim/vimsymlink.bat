@@ -11,3 +11,4 @@ IF NOT EXIST %USERPROFILE%\.vim\ ^
 mklink /D %USERPROFILE%\.vim\UltiSnips %USERPROFILE%\git\configs\vim\UltiSnips
 
 mklink %USERPROFILE%\.vim\coc-settings.json %USERPROFILE%\git\configs\vim\coc-settings.json
+mklink %USERPROFILE%\AppData\Local\nvim\coc-settings.json %USERPROFILE%\git\configs\vim\coc-settings.json

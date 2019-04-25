@@ -1,8 +1,6 @@
 ﻿" ==============================================================================
 " Author: James Ni (Limegrass) - @Multipoke
 " ==============================================================================
-cd $HOME
-
 set fileformat=unix
 set encoding=utf-8
 scriptencoding utf-8
@@ -31,8 +29,10 @@ source $GITVIMDIR\vim-settings.vim
 source $GITVIMDIR\function-definitions.vim
 source $GITVIMDIR\keymaps.vim
 
-if empty(expand('%:t'))
+" Start in the garbage directory
+if !get(s:, 'is_initialized', 0)
     lcd $GARBAGEDIR
+    let s:is_initialized = 1
 endif
 
 if filereadable($LOCALRC)
@@ -59,3 +59,9 @@ endif
 " OmniSharp integration.
 "   Figure out how to build and run like Visual Studio, if it's possible
 " Glob check for the symlink files and run the symlink if it isn't found
+"   Might be a problem to do setup on Windows without sudo
+" Setup ctags properly for cross platform support
+" If it's a single entry, <CR> should expand or newline
+" Better linter and formatter support, esp for SQL
+" Fix inability to use fugitive and dadbod on windows.
+" Bug with visual leader y
