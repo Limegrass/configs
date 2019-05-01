@@ -104,7 +104,7 @@ nnoremap // yiw/<C-R>"
 "TODO: Create a better mapping (and function itself) for splitting (cm) and aligning
 nnoremap cm :silent call SplitCommas()<CR>
 function! SplitCommas()
-    s/,\s*/,\r/g
+    s/,\s*/,\r/ge
     retab
 endfunction
 
@@ -131,13 +131,17 @@ if has('nvim')
     tnoremap <ESC> <C-\><C-N>
 endif
 
-nnoremap <C-W>V :vnew<CR>
-nnoremap <C-W>S :new<CR>
-nnoremap <C-W>t :tabedit \| lcd $GARBAGEDIR<CR>
-nnoremap <C-W>C :windo bd<CR>
+nnoremap <silent> <C-W>V :vnew<CR>
+" :new
+nnoremap <C-W>S <C-W>n
+" New tab starting in the same location as default
+nnoremap <silent> <C-W><C-T> :tabedit \| lcd $GARBAGEDIR<CR>
+" Delete all buffers of current tab
+nnoremap <silent> <C-W>C :windo bd<CR>
+" vsplit of <C-W>f
 nnoremap <C-W><C-F> <C-W>vgf
 
-nnoremap <Leader>J :call JoinSpaceless()<CR>
+nnoremap <silent> <Leader>J :call JoinSpaceless()<CR>
 
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
