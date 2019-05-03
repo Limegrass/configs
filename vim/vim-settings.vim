@@ -24,7 +24,7 @@ set selection=inclusive
 set undofile
 set history=100
 set lazyredraw
-set cursorline
+" set cursorline
 set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix

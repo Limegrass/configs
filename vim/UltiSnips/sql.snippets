@@ -205,12 +205,25 @@ CASE
 END
 endsnippet
 
-snippet CW "WHEN for CASE"
+snippet WHENTHEN "WHEN THEN (CASE WHEN)"
 WHEN ${1:Condition} THEN ${2:Result}
 endsnippet
 
-snippet WT "WHEN THEN (CASE WHEN)"
-WHEN ${1:Condition} THEN ${2:Result}
+snippet WITHCTE "WITH CTE Declaration"
+WITH ${1:cte}
+AS
+(
+    ${2:SELECTION}
+)
+${3:SELECTION}
+endsnippet
+
+snippet UNION "UNION"
+UNION
+endsnippet
+
+snippet UNIONALL "UNION ALL"
+UNION ALL
 endsnippet
 
 snippet REPLACE "REPLACE"

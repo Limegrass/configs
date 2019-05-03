@@ -30,8 +30,9 @@ nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 
-inoremap <silent> <TAB> <C-R>=UltiJumpOrKey("\<TAB>")<CR>
-snoremap <TAB> <C-O>:call UltiSnips#JumpForwards()<CR>
+"FIX WHEN I GET HOME
+inoremap <silent> <C-J> <C-R>=UltiJumpOrKey("\<C-J>")<CR>
+snoremap <silent> <C-J> <C-O>:call UltiSnips#JumpForwards()<CR>
 function! CompleteOrJumpOrKey(key)
     if pumvisible()
         return coc#_select_confirm()
@@ -50,8 +51,8 @@ function! UltiJumpOrKey(key)
     endif
 endfunction
 
-inoremap <silent> <S-TAB> <C-R>=UltiJumpBackOrKey("\<C-O><<")<CR>
-snoremap <silent> <S-TAB> <C-O>:call UltiSnips#JumpBackwards()<CR>
+inoremap <silent> <C-K> <C-R>=UltiJumpBackOrKey("\<C-K>")<CR>
+snoremap <silent> <C-K> <C-O>:call UltiSnips#JumpBackwards()<CR>
 function! UltiJumpBackOrKey(key)
     let g:ulti_jump_backwards_res = 0
     call UltiSnips#JumpBackwards()

@@ -65,7 +65,7 @@ call plug#end()
 " PLUGIN_SETTINGS
 " ==============================================================================
 
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 
 let g:taboo_tab_format=' %N [%f%m] '
 
