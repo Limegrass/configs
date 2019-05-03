@@ -92,7 +92,6 @@ let g:previm_enable_realtime = 0
 let g:BufKillCreateMappings = 0
 
 " Ultisnips with ncm
-let g:UltiSnipsExpandTrigger       = "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger  = "<nop>"
 let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 let g:UltiSnipsRemoveSelectModeMappings = 0

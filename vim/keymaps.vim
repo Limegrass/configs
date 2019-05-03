@@ -29,9 +29,7 @@ nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
 nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
-
-"FIX WHEN I GET HOME
-inoremap <silent> <C-J> <C-R>=UltiJumpOrKey("\<C-J>")<CR>
+inoremap <silent> <C-J> <C-R>=UltiJumpOrKey("\<lt>C-J>")<CR>
 snoremap <silent> <C-J> <C-O>:call UltiSnips#JumpForwards()<CR>
 function! CompleteOrJumpOrKey(key)
     if pumvisible()
@@ -51,7 +49,7 @@ function! UltiJumpOrKey(key)
     endif
 endfunction
 
-inoremap <silent> <C-K> <C-R>=UltiJumpBackOrKey("\<C-K>")<CR>
+inoremap <silent> <C-K> <C-R>=UltiJumpBackOrKey("\<lt>C-K>")<CR>
 snoremap <silent> <C-K> <C-O>:call UltiSnips#JumpBackwards()<CR>
 function! UltiJumpBackOrKey(key)
     let g:ulti_jump_backwards_res = 0
