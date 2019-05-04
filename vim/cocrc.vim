@@ -8,7 +8,7 @@ set updatetime=300
 set shortmess+=c
 
 " Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> pumvisible() ? "\<C-X>\<CR>" : coc#refresh()
+inoremap <silent> <expr> <c-space> pumvisible() ? "\<C-X>\<CR>" : coc#refresh()
 
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -41,7 +41,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " vmap <leader>f  <Plug>(coc-format-selected)
 " nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup coc
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
@@ -81,5 +81,3 @@ command! -nargs=? Fold :call   CocAction('fold', <f-args>)
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" TODO: Add airline config, or compare to lightline and if better, switch

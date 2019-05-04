@@ -29,17 +29,10 @@ nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
 nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
-inoremap <silent> <C-J> <C-R>=UltiJumpOrKey("\<lt>C-J>")<CR>
+inoremap <silent> <C-J> <C-R>=<SID>UltiJumpOrKey("\<lt>C-J>")<CR>
 snoremap <silent> <C-J> <C-O>:call UltiSnips#JumpForwards()<CR>
-function! CompleteOrJumpOrKey(key)
-    if pumvisible()
-        return coc#_select_confirm()
-    else
-        return UltiJumpOrKey(a:key)
-    endif
-endfunction
 
-function! UltiJumpOrKey(key)
+function! s:UltiJumpOrKey(key)
     let g:ulti_jump_forwards_res = 0
     call UltiSnips#JumpForwards()
     if g:ulti_jump_forwards_res
@@ -49,9 +42,9 @@ function! UltiJumpOrKey(key)
     endif
 endfunction
 
-inoremap <silent> <C-K> <C-R>=UltiJumpBackOrKey("\<lt>C-K>")<CR>
+inoremap <silent> <C-K> <C-R>=<SID>UltiJumpBackOrKey("\<lt>C-K>")<CR>
 snoremap <silent> <C-K> <C-O>:call UltiSnips#JumpBackwards()<CR>
-function! UltiJumpBackOrKey(key)
+function! s:UltiJumpBackOrKey(key)
     let g:ulti_jump_backwards_res = 0
     call UltiSnips#JumpBackwards()
     if g:ulti_jump_backwards_res
@@ -77,7 +70,6 @@ xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
 xnoremap <expr> gk mode() ==# "v" ? "k"  : "gk"
 inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
-
 
 " =============================== NORMAL_MODE ==================================
 if has("win32") || has ("win32unix")
@@ -167,6 +159,19 @@ inoremap <C-DEL> <C-O>dw
 inoremap <C-R><C-R> <C-R>+
 inoremap <C-R><C-E> <C-R>0
 inoremap <C-R><C-T> <C-R>"
+
+inoremap <silent> <TAB> <C-R>=<SID>TabOrComplete()<CR>
+function! s:TabOrComplete()
+    if pumvisible()
+        if empty(v:completed_item)
+            return "\<C-n>\<C-y>" 
+        else
+            return "\<C-y>" 
+        endif
+    else
+        return "\<TAB>"
+    endif
+endfunction
 
 
 " =============================== COMMANDS =====================================

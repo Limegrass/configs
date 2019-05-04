@@ -37,6 +37,7 @@ Plug 'previm/previm', {'for': ['markdown']}
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 Plug 'qpkorr/vim-bufkill'
+Plug 'kshenoy/vim-signature'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'aonemd/kuroi.vim'
@@ -75,6 +76,9 @@ let g:gundo_prefer_python3 = 1
 
 " fzf-vim
 let g:fzf_layout = { 'right' : '20%'}
+
+" vim-signature
+let g:SignatureEnabledAtStartup = 0
 
 " ncm-clang
 let g:clang_make_default_keymappings = 0

@@ -55,13 +55,11 @@ endif
 " Ideavimrc mappings (:actionlist)
 " Better implementation of indention
 "   Autoalign multiple rows
-" Coc language server working properly.
 " OmniSharp integration.
 "   Figure out how to build and run like Visual Studio, if it's possible
 " Glob check for the symlink files and run the symlink if it isn't found
 "   Might be a problem to do setup on Windows without sudo
 " Setup ctags properly for cross platform support
-" If it's a single entry, <CR> should expand or newline
 " Better linter and formatter support, esp for SQL
 " Fix inability to use fugitive and dadbod on windows.
-" Bug with visual leader y
+" TODO: Add airline config, or compare to lightline and if better, switch
