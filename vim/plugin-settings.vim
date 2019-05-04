@@ -96,8 +96,9 @@ let g:previm_enable_realtime = 0
 let g:BufKillCreateMappings = 0
 
 " Ultisnips with ncm
-let g:UltiSnipsJumpForwardTrigger  = "<nop>"
-let g:UltiSnipsJumpBackwardTrigger = "<nop>"
+let g:UltiSnipsExpandTrigger  = "<NUL>"
+let g:UltiSnipsJumpForwardTrigger  = "<NUL>"
+let g:UltiSnipsJumpBackwardTrigger = "<NUL>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " incsearch/fuzzy
