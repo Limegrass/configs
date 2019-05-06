@@ -86,6 +86,8 @@ nnoremap <leader>= "+
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y
+nnoremap "" "+
+nnoremap """ "_
 
 nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 
