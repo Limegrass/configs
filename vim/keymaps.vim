@@ -25,6 +25,9 @@ nmap g# <Plug>(incsearch-nohl-g#)
 nmap /  <Plug>(incsearch-forward)
 nmap ?  <Plug>(incsearch-backward)
 nmap g/ <Plug>(incsearch-stay)
+nmap z/ <Plug>(incsearch-fuzzy-/)
+nmap z? <Plug>(incsearch-fuzzy-?)
+nmap zg/ <Plug>(incsearch-fuzzy-stay)
 nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
 nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
@@ -73,7 +76,7 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 " =============================== NORMAL_MODE ==================================
 if has("win32") || has ("win32unix")
-    nnoremap <C-Z> <NOP>
+    noremap <C-Z> <NOP>
 endif
 nnoremap <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
 nnoremap <leader>V :execute 'vnew $VIMRC \| setlocal fileformat=unix'<CR>
@@ -156,19 +159,24 @@ xnoremap // y/<C-R>"<CR>
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
 inoremap <C-BS> <C-W>
+cnoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
+" cnoremap <C-DEL> <C-O>dw Fix this
 
-inoremap <C-R><C-R> <C-R>+
+inoremap <C-R><C-S> <C-R>+
 inoremap <C-R><C-E> <C-R>0
 inoremap <C-R><C-T> <C-R>"
+cnoremap <C-R><C-S> <C-R>+
+cnoremap <C-R><C-E> <C-R>0
+cnoremap <C-R><C-T> <C-R>"
 
 inoremap <silent> <TAB> <C-R>=<SID>TabOrComplete()<CR>
 function! s:TabOrComplete()
     if pumvisible()
         if empty(v:completed_item)
-            return "\<C-n>\<C-y>" 
+            return "\<C-n>\<C-y>"
         else
-            return "\<C-y>" 
+            return "\<C-y>"
         endif
     else
         return "\<TAB>"
@@ -177,14 +185,6 @@ endfunction
 
 
 " =============================== COMMANDS =====================================
-cnoremap <C-BS> <C-W>
-cnoremap <C-R><C-R> <C-R>+
-cnoremap <C-R><C-E> <C-R>0
-cnoremap <C-R><C-T> <C-R>"
-
-" Paste from system register with <C-R>r
-cnoremap <C-R><C-R> <C-R>+
-
 " Function shortcuts
 command! -nargs=* -range Retab <line1>,<line2>call Retab(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e') | call Preserve('%s/\($\n\s*\)\+\%$//e')
@@ -207,6 +207,7 @@ function! Jisho(...) range
         \ l:argsList)
 endfunction
 
+command! -nargs=0 DeleteEmptyBuffers silent call DeleteEmptyBuffers()
 
 command! -nargs=1 SplitLines call SplitLines(<f-args>)
 function! SplitLines(delimiter)
@@ -232,6 +233,7 @@ endif
 " =============================== ABBREVIATIONS ================================
 " Force vertical splits for help files and expand gui window for help
 call CommandAbbreviations('h', 'vert help')
+call CommandAbbreviations('bs', 'buffers<CR>:')
 call CommandAbbreviations('help', 'vert help')
 call CommandAbbreviations('hh', 'help')
 call CommandAbbreviations('hhelp', 'help')

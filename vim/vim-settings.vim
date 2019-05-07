@@ -36,7 +36,7 @@ set splitright
 set splitbelow
 set foldmethod=indent
 set foldlevel=99
-set sessionoptions+=tabpages,globals
+" set sessionoptions+=tabpages,globals
 set completeopt=noinsert,menuone,noselect
 runtime macros/matchit.vim
 let g:omni_sql_no_default_maps = 1

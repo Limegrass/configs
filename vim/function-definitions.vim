@@ -122,6 +122,19 @@ function! RepeatForList(commandPrefix, commandSuffix, argsList)
     endfor
 endfunction
 
+function! DeleteEmptyBuffers()
+    let [i, n; empty] = [1, bufnr('$')]
+    while i <= n
+        if bufexists(i) && bufname(i) == ''
+            call add(empty, i)
+        endif
+        let i += 1
+    endwhile
+    if len(empty) > 0
+        exe 'bdelete' join(empty)
+    endif
+endfunction
+
 function! JoinSpaceless()
     execute 'normal gJ'
     " Check and remove char under cursor if it's whitespace.
