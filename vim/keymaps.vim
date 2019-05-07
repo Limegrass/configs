@@ -78,9 +78,10 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 if has("win32") || has ("win32unix")
     noremap <C-Z> <NOP>
 endif
-nnoremap <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
-nnoremap <leader>V :execute 'vnew $VIMRC \| setlocal fileformat=unix'<CR>
-nnoremap <leader>S :source $MYVIMRC<CR>
+nnoremap <silent> <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <silent> <leader>V :execute 'vnew $VIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <silent> <leader>S :source $MYVIMRC<CR>
+nnoremap <silent> <ESC> :nohlsearch<CR><ESC>
 
 nnoremap Q @q " Ex mode by gQ still
 
@@ -149,6 +150,7 @@ xnoremap <leader>= "+
 xnoremap <leader>p "+p
 xnoremap <leader>P "+P
 xnoremap <leader>y "+y
+xnoremap <leader>d "+d
 xnoremap . :normal .<CR>
 
 xnoremap <space>x "xy:<C-R>x<CR>

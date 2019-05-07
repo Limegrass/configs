@@ -300,6 +300,7 @@ endsnippet
 snippet FINDSP "FIND STORED PROCEDURE LIKE"
 SELECT
 	OBJECT_SCHEMA_NAME(object_id) + '.' + OBJECT_NAME(object_id),
+	'EXEC sp_helptext [' + OBJECT_SCHEMA_NAME(object_id) + '.' + OBJECT_NAME(object_id) + ']',
 	OBJECT_DEFINITION(object_id)
 FROM sys.procedures
 WHERE OBJECT_DEFINITION(object_id) LIKE '%${1:SPName}%'
@@ -308,6 +309,7 @@ endsnippet
 snippet SYSOBJ "FIND SYS.SYSOBJECTS"
 SELECT
 	OBJECT_SCHEMA_NAME(id) + '.' + OBJECT_NAME(id),
+	'EXEC sp_helptext [' + OBJECT_SCHEMA_NAME(id) + '.' + OBJECT_NAME(id) + ']',
 	OBJECT_DEFINITION(id)
 FROM sys.sysobjects
 WHERE OBJECT_NAME(id) LIKE '%${1:SearchTerm}%'
@@ -316,14 +318,41 @@ endsnippet
 snippet FINDOBJ "FIND SYS.SYSOBJECTS"
 SELECT
 	OBJECT_SCHEMA_NAME(id) + '.' + OBJECT_NAME(id),
+	'EXEC sp_helptext [' + OBJECT_SCHEMA_NAME(id) + '.' + OBJECT_NAME(id) + ']',
 	OBJECT_DEFINITION(id)
 FROM sys.sysobjects
 WHERE OBJECT_NAME(id) LIKE '%${1:SearchTerm}%'
 endsnippet
 
+snippet CHECKCONSTRAINTS "Check table constraints"
+SELECT origin.TABLE_SCHEMA + '.' + origin.TABLE_NAME AS [Table]
+	,  origin.COLUMN_NAME AS [Column]
+	,  origin.CONSTRAINT_SCHEMA + '.' + origin.CONSTRAINT_NAME AS [Key]
+	,  origin.ORDINAL_POSITION AS [Ordinal]
+	,  usage.TABLE_SCHEMA + '.' + usage.TABLE_NAME AS [FK_Table]
+	,  usage.COLUMN_NAME AS [FK_Column]
+	,  usage.CONSTRAINT_SCHEMA + '.' + usage.CONSTRAINT_NAME AS [FK_Constraint]
+	, usage.ORDINAL_POSITION AS [FK_Ordinal]
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
+JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE usage
+	ON usage.CONSTRAINT_CATALOG = RC.CONSTRAINT_CATALOG
+	AND usage.CONSTRAINT_SCHEMA = RC.CONSTRAINT_SCHEMA
+	AND usage.CONSTRAINT_NAME = RC.CONSTRAINT_NAME
+JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE origin
+	ON origin.CONSTRAINT_CATALOG = RC.UNIQUE_CONSTRAINT_CATALOG
+		AND origin.CONSTRAINT_SCHEMA = RC.UNIQUE_CONSTRAINT_SCHEMA
+		AND origin.CONSTRAINT_NAME = RC.UNIQUE_CONSTRAINT_NAME
+		AND origin.ORDINAL_POSITION = usage.ORDINAL_POSITION
+WHERE origin.TABLE_NAME = '${1:TableName}'
+ORDER BY [Table]
+	,    [Column]
+	,    [Ordinal]
+endsnippet
+
 snippet FINDDEF "FIND SYS.SYSOBJECTS"
 SELECT
 	OBJECT_SCHEMA_NAME(id) + '.' + OBJECT_NAME(id),
+	'EXEC sp_helptext [' + OBJECT_SCHEMA_NAME(id) + '.' + OBJECT_NAME(id) + ']',
 	OBJECT_DEFINITION(id)
 FROM sys.sysobjects
 WHERE OBJECT_DEFINITION(id) LIKE '%${1:SearchTerm}%'
