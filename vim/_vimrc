@@ -40,26 +40,26 @@ if filereadable($LOCALRC)
 endif
 
 " TODO
-" inoremap <C-R> <C-O>:set nopaste
-" function! NoAutoIndentPaste(command)
-"       set nopaste
-"       <C-R>command
-"       set paste
-" endfunction
-"
 " Things to check back on
 " Plug 'Floobits/floobits-vim'
 " Plug 'FredKSchott/CoVim'
 " Automatically set register v to whatever was visually selected last on entering visual mode
+"   Make as a function
+"   Map it to c_<C-R><C-V>
+"   Probably involves an autocmd
 "
 " Ideavimrc mappings (:actionlist)
-" Better implementation of indention
+" Better implementation of indention like >(
 "   Autoalign multiple rows
+"   Get cursor position of character in line above
+"   run substitute for ^ to that line position.
 " OmniSharp integration.
 "   Figure out how to build and run like Visual Studio, if it's possible
-" Glob check for the symlink files and run the symlink if it isn't found
-"   Might be a problem to do setup on Windows without sudo
+"   msbuild => ?
 " Setup ctags properly for cross platform support
-" Better linter and formatter support, esp for SQL
+" Better linting
+" SQL formatter support
+" Fix Coc being broken for java.
 " Fix inability to use fugitive and dadbod on windows.
+" Audible on phone
 " TODO: Add airline config, or compare to lightline and if better, switch

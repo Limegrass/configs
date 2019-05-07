@@ -24,7 +24,7 @@ set selection=inclusive
 set undofile
 set history=100
 set lazyredraw
-" set cursorline
+set cursorline
 set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
@@ -36,7 +36,7 @@ set splitright
 set splitbelow
 set foldmethod=indent
 set foldlevel=99
-set sessionoptions+=tabpages,globals
+" set sessionoptions+=tabpages,globals
 set completeopt=noinsert,menuone,noselect
 runtime macros/matchit.vim
 let g:omni_sql_no_default_maps = 1
