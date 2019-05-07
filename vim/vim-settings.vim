@@ -52,6 +52,11 @@ call matchadd('ColorColumn', '\%81v.', 100)
 " Prevent starting in Hiragana
 set iminsert=0
 set imsearch=-1
+if has('python3')
+    set pyx=3
+elseif has('python')
+    set pyx=2
+endif
 
 " set clipboard=unnamed " system register
 

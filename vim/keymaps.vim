@@ -12,8 +12,13 @@ nnoremap <leader><Tab> :Commentary<CR>
 xnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
-nnoremap <C-SPACE>          :Buffers<CR>
-nnoremap <C-SPACE><C-SPACE> :FZF<CR>
+nnoremap <silent> <C-SPACE>          :Buffers<CR>
+nnoremap <silent> <C-SPACE><C-SPACE> :FZF<CR>
+nnoremap <silent> <C-SPACE>f :FZF <C-R><C-W><CR>
+nnoremap <silent> <C-SPACE>F :FZF <C-R><C-A><CR>
+nnoremap <silent> <C-SPACE>r :Rg <C-R><C-W><CR>
+nnoremap <silent> <C-SPACE>R :Rg <C-R><C-A><CR>
+
 
 " incsearch/fuzzy rebindings
 nmap n  <Plug>(incsearch-nohl-n)
