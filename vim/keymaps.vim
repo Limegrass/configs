@@ -123,7 +123,7 @@ endfunction
 " Reciprocal of {count}gT
 nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
-nnoremap <leader>cd :cd %:p:h<CR>
+nnoremap <leader>cd :lcd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
     nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
