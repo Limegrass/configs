@@ -75,7 +75,7 @@ let g:airline_theme='deus'
 let g:gundo_prefer_python3 = 1
 
 " fzf-vim
-let g:fzf_layout = { 'right' : '20%'}
+let g:fzf_layout = { 'down' : '20%'}
 
 " vim-signature
 let g:SignatureEnabledAtStartup = 0

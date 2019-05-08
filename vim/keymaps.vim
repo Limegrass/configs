@@ -98,6 +98,11 @@ nnoremap <leader>y "+y
 nnoremap "" "+
 nnoremap """ "_
 
+nnoremap <silent> ZW :w<CR>
+nnoremap <silent> ZB :buffers<CR>:b
+nnoremap <silent> ZX :bd<CR>
+nnoremap <silent> ZD :BD<CR>
+
 nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 
 " Search for word currently under cursor
@@ -121,9 +126,9 @@ function! AlignToCharInPreviousLine(char)
 endfunction
 
 " Reciprocal of {count}gT
-nnoremap <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
+nnoremap <silent> <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
-nnoremap <leader>cd :lcd %:p:h<CR>
+nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
     nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
@@ -200,7 +205,9 @@ command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
 command! -nargs=* Google call StartBrowser('https://google.com/search?q='.<q-args>)
-command! -complete=file -nargs=* LoadBuffer silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
+if has('gui')
+    command! -complete=file -nargs=* LoadBuffer silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
+endif
 
 command! -nargs=* -range Jisho call Jisho(<f-args>)
 function! Jisho(...) range
@@ -240,12 +247,14 @@ endif
 " =============================== ABBREVIATIONS ================================
 " Force vertical splits for help files and expand gui window for help
 call CommandAbbreviations('h', 'vert help')
-call CommandAbbreviations('bs', 'buffers<CR>:')
+call CommandAbbreviations('bs', 'buffers<CR>:b')
+call CommandAbbreviations('bds', 'buffers<CR>:bd')
 call CommandAbbreviations('help', 'vert help')
 call CommandAbbreviations('hh', 'help')
 call CommandAbbreviations('hhelp', 'help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('vb', 'vert sb')
+call CommandAbbreviations('vsb', 'vert sb')
 call CommandAbbreviations('H', 'helpgrep')
 call CommandAbbreviations('bdall', '%bd\|e#')
