@@ -5,29 +5,29 @@ set fileformat=unix
 set encoding=utf-8
 scriptencoding utf-8
 
-let $GITDIR = $HOME.'\git'
+let $GITDIR = $HOME.'/git'
 
-let $GARBAGEDIR = $GITDIR.'\garbage'
+let $GARBAGEDIR = $GITDIR.'/garbage'
 if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
 
-let $GITVIMDIR = $GITDIR.'\configs\vim\'
+let $GITVIMDIR = $GITDIR.'/configs/vim/'
 
-let $VIMDIR = $HOME.'\.vim'
-set runtimepath+=$HOME\.vim
+let $VIMDIR = $HOME.'/.vim'
+set runtimepath+=$HOME/.vim
 
-let $VIMRC     = $GITVIMDIR.'\_vimrc'
-let $VSVIMRC   = $GITVIMDIR.'\_vsvimrc'
-let $IDEAVIMRC = $GITVIMDIR.'\_ideavimrc'
-let $LOCALRC = $HOME.'\local.vim'
+let $VIMRC     = $GITVIMDIR.'/_vimrc'
+let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
+let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
+let $LOCALRC = $HOME.'/local.vim'
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
-source $GITVIMDIR\plugin-settings.vim
-source $GITVIMDIR\vim-settings.vim
-source $GITVIMDIR\function-definitions.vim
-source $GITVIMDIR\keymaps.vim
+source $GITVIMDIR/plugin-settings.vim
+source $GITVIMDIR/vim-settings.vim
+source $GITVIMDIR/function-definitions.vim
+source $GITVIMDIR/keymaps.vim
 
 " Start in the garbage directory
 if !get(s:, 'is_initialized', 0)
