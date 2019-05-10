@@ -104,5 +104,10 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 " incsearch/fuzzy
 let g:incsearch#auto_nohlsearch = 1
 
+augroup commentary
+    autocmd!
+    autocmd FileType sql setlocal commentstring=--\ %s
+augroup END
+
 source $GITVIMDIR\cocrc.vim
 source $GITVIMDIR\omnisharp.vim
