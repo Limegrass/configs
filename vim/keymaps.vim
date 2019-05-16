@@ -8,8 +8,8 @@
 "       ABBREVIATIONS
 " ================================ PLUGINS ===================================
 " Vim-commentary bind
-nnoremap <leader><Tab> :Commentary<CR>
-xnoremap <leader><Tab> :Commentary<CR>
+nnoremap <SPACE><Tab> :Commentary<CR>
+xnoremap <SPACE><Tab> :Commentary<CR>
 
 " FZF
 nnoremap <silent> <C-SPACE>          :Buffers<CR>
@@ -33,9 +33,9 @@ nmap g/ <Plug>(incsearch-stay)
 nmap z/ <Plug>(incsearch-fuzzy-/)
 nmap z? <Plug>(incsearch-fuzzy-?)
 nmap zg/ <Plug>(incsearch-fuzzy-stay)
-nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
-nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
-nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
+nmap <SPACE>/ <Plug>(incsearch-fuzzyspell-/)
+nmap <SPACE>? <Plug>(incsearch-fuzzyspell-?)
+nmap <SPACE>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 inoremap <silent> <C-J> <C-R>=<SID>UltiJumpOrKey("\<lt>C-J>")<CR>
 snoremap <silent> <C-J> <C-O>:call UltiSnips#JumpForwards()<CR>
@@ -128,7 +128,7 @@ endfunction
 " Reciprocal of {count}gT
 nnoremap <silent> <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
-nnoremap <silent> <leader>cd :lcd %:p:h<CR>
+nnoremap <silent> <SPACE>cd :lcd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
     nnoremap <leader>e :silent !explorer.exe %:p:h<CR>

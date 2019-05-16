@@ -132,6 +132,7 @@ nnoremap cin 0yiwjI<C-R>+<ESC>
 
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+nnoremap // "syiw/<C-R>s<CR>
 nnoremap <leader>= "+
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
@@ -160,7 +161,7 @@ vnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>
 vnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
 "Search for visual selected
-vnoremap // y/<C-R>"<CR>
+vnoremap // "sy/<C-R>s<CR>
 vnoremap <leader>= "+
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P

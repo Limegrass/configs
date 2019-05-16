@@ -64,3 +64,4 @@ endif
 " Fix inability to use fugitive and dadbod on windows.
 " Audible on phone
 " TODO: Add airline config, or compare to lightline and if better, switch
+" Add a snippet for automapping parameters to fields.
