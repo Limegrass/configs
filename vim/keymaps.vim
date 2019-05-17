@@ -97,6 +97,11 @@ nnoremap <leader>P "+P
 nnoremap <leader>y "+y
 nnoremap "" "+
 nnoremap """ "_
+nnoremap <SPACE>w :w<CR>
+nnoremap <SPACE>bd :bd<CR>
+nnoremap <SPACE>bn :bn<CR>
+nnoremap <SPACE>bp :bp<CR>
+nnoremap <SPACE>bq :q<CR>
 
 nnoremap <silent> ZW :w<CR>
 nnoremap <silent> ZB :buffers<CR>:b

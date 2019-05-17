@@ -24,6 +24,8 @@ nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 nnoremap Q @q
+nnoremap <SPACE>w :w
+nnoremap <SPACE>q :q
 
 " Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
