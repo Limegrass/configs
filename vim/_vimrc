@@ -67,3 +67,5 @@ endif
 " TODO: Arch Install/trizen + i3 Setup script
 " TODO: rice it up and backup
 " Add a snippet for automapping parameters to fields.
+" Minidox setup better alt tabbing and layers where order of keys pressed does
+" not matter.
