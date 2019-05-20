@@ -63,3 +63,5 @@ endif
 " Fix inability to use fugitive and dadbod on windows.
 " Audible on phone
 " TODO: Add airline config, or compare to lightline and if better, switch
+" TODO: Arch Install/trizen + i3 Setup script
+" TODO: rice it up and backup
