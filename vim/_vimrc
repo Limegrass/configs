@@ -40,6 +40,7 @@ if filereadable($LOCALRC)
 endif
 
 " TODO
+" Remove bitmasks from Wanicchou
 " Things to check back on
 " Plug 'Floobits/floobits-vim'
 " Plug 'FredKSchott/CoVim'
@@ -65,3 +66,4 @@ endif
 " TODO: Add airline config, or compare to lightline and if better, switch
 " TODO: Arch Install/trizen + i3 Setup script
 " TODO: rice it up and backup
+" Add a snippet for automapping parameters to fields.

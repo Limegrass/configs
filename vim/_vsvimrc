@@ -24,6 +24,8 @@ nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 nnoremap Q @q
+nnoremap <SPACE>w :w
+nnoremap <SPACE>q :q
 
 " Edit
 nnoremap gD :vsc Edit.PeekDefinition<CR>
@@ -132,6 +134,7 @@ nnoremap cin 0yiwjI<C-R>+<ESC>
 
 " Yank to end of line, yy for line yank
 nnoremap Y y$
+nnoremap // "syiw/<C-R>s<CR>
 nnoremap <leader>= "+
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
@@ -160,7 +163,7 @@ vnoremap <leader><Tab> :vsc Edit.CommentSelection<CR>
 vnoremap <leader><S-Tab> :vsc Edit.UncommentSelection<CR>
 
 "Search for visual selected
-vnoremap // y/<C-R>"<CR>
+vnoremap // "sy/<C-R>s<CR>
 vnoremap <leader>= "+
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
