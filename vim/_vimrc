@@ -40,7 +40,10 @@ if filereadable($LOCALRC)
 endif
 
 " TODO
-" Remove bitmasks from Wanicchou
+" Finish Hakoiri,
+" Remove bitmasks from Wanicchou,
+" Add Unit Tests to Wanicchou,
+" Look for positions Add new dictionary sources,
 " Things to check back on
 " Plug 'Floobits/floobits-vim'
 " Plug 'FredKSchott/CoVim'
@@ -68,4 +71,5 @@ endif
 " TODO: rice it up and backup
 " Add a snippet for automapping parameters to fields.
 " Minidox setup better alt tabbing and layers where order of keys pressed does
-" not matter.
+" not matter. Combination of Combos and leader key would probably work better
+" than tap dance.
