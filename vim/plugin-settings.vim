@@ -38,6 +38,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 Plug 'qpkorr/vim-bufkill'
 Plug 'kshenoy/vim-signature'
+Plug 'andymass/vim-matchup'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'aonemd/kuroi.vim'

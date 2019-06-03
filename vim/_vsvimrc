@@ -4,6 +4,9 @@
 " <F4> Window.CloseDocumentWindow
 " <C-S-SPACE> Window.NextPane
 " <C-S-A-I> C# Interactive
+" For blame window
+" <A-S-W> Window.Float
+" <C-S-;> Edit.GoTo
 set number
 set virtualedit=all
 set splitright

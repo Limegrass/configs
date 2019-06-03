@@ -1,11 +1,11 @@
 #######################################################################
-#					  SQL Snippets for UltiSnips					  #
+#                     SQL Snippets for UltiSnips                      #
 #######################################################################
 
 priority -50
 
 #########################
-#		 SELECTS		#
+#        SELECTS        #
 #########################
 
 snippet SSF "SELECT * FROM"
@@ -41,7 +41,7 @@ FROM ${1:Table}
 endsnippet
 
 #########################
-#		  WHERE			#
+#         WHERE         #
 #########################
 snippet WHERE "WHERE"
 WHERE
@@ -60,13 +60,13 @@ WHERE ${1:Column} IN ${2:Table}
 endsnippet
 
 #########################
-#	   OTHER CRUD		#
+#      OTHER CRUD       #
 #########################
 
 snippet UPDATE "UPDATE"
 UPDATE ${1:Table}
 SET ${2:Column} = ${3:Value}
-WHERE ${4:Column} = ${5:Value}
+WHERE ${4:Condition}
 endsnippet
 
 snippet CREATE "CREATE"
@@ -96,8 +96,23 @@ DELETE
 endsnippet
 
 
+#############################
+#        CONDITIONAL        #
+#############################
+snippet IF "IF"
+IF ${1:Condition}
+endsnippet
+
+snippet WHILE "WHILE"
+WHILE ${1:Condition}
+endsnippet
+
+snippet EXISTS
+EXISTS
+endsnippet
+
 #########################
-#		 DECLARE		#
+#        DECLARE        #
 #########################
 
 # TODO: dynamic for whether to include a value
@@ -136,7 +151,7 @@ endsnippet
 
 
 #########################
-#		 GENERIC		#
+#        GENERIC        #
 #########################
 
 snippet LIKE "LIKE"
@@ -247,7 +262,7 @@ NVARCHAR(${1:SIZE})
 endsnippet
 
 #########################
-#		  TSQL			#
+#         TSQL          #
 #########################
 
 snippet UNIQUEINDEX "UNIQUE INDEX (TSQL)"

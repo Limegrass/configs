@@ -68,10 +68,6 @@ nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
-nnoremap $ g$
-nnoremap g$ $
-nnoremap 0 g0
-nnoremap g0 0
 xnoremap <expr> j  mode() ==# "v" ? "gj" : "j"
 xnoremap <expr> gj mode() ==# "v" ? "j"  : "gj"
 xnoremap <expr> k  mode() ==# "v" ? "gk" : "k"
@@ -251,12 +247,10 @@ endif
 
 " =============================== ABBREVIATIONS ================================
 " Force vertical splits for help files and expand gui window for help
-call CommandAbbreviations('h', 'vert help')
+call CommandAbbreviations('vh', 'vert help')
 call CommandAbbreviations('bs', 'buffers<CR>:b')
 call CommandAbbreviations('bds', 'buffers<CR>:bd')
 call CommandAbbreviations('help', 'vert help')
-call CommandAbbreviations('hh', 'help')
-call CommandAbbreviations('hhelp', 'help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')
 call CommandAbbreviations('vb', 'vert sb')
