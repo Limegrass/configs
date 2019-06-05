@@ -8,8 +8,8 @@
 "       ABBREVIATIONS
 " ================================ PLUGINS ===================================
 " Vim-commentary bind
-nnoremap <SPACE><Tab> :Commentary<CR>
-xnoremap <SPACE><Tab> :Commentary<CR>
+nnoremap <leader><Tab> :Commentary<CR>
+xnoremap <leader><Tab> :Commentary<CR>
 
 " FZF
 nnoremap <silent> <C-SPACE>          :Buffers<CR>
@@ -33,9 +33,9 @@ nmap g/ <Plug>(incsearch-stay)
 nmap z/ <Plug>(incsearch-fuzzy-/)
 nmap z? <Plug>(incsearch-fuzzy-?)
 nmap zg/ <Plug>(incsearch-fuzzy-stay)
-nmap <SPACE>/ <Plug>(incsearch-fuzzyspell-/)
-nmap <SPACE>? <Plug>(incsearch-fuzzyspell-?)
-nmap <SPACE>g/ <Plug>(incsearch-fuzzyspell-stay)
+nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
+nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
+nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 inoremap <silent> <C-J> <C-R>=<SID>UltiJumpOrKey("\<lt>C-J>")<CR>
 snoremap <silent> <C-J> <C-O>:call UltiSnips#JumpForwards()<CR>
@@ -93,11 +93,11 @@ nnoremap <leader>P "+P
 nnoremap <leader>y "+y
 nnoremap "" "+
 nnoremap """ "_
-nnoremap <SPACE>w :w<CR>
-nnoremap <SPACE>bd :bd<CR>
-nnoremap <SPACE>bn :bn<CR>
-nnoremap <SPACE>bp :bp<CR>
-nnoremap <SPACE>bq :q<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>bd :bd<CR>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bq :q<CR>
 
 nnoremap <silent> ZW :w<CR>
 nnoremap <silent> ZB :buffers<CR>:b
@@ -129,7 +129,7 @@ endfunction
 " Reciprocal of {count}gT
 nnoremap <silent> <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
-nnoremap <silent> <SPACE>cd :lcd %:p:h<CR>
+nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
     nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
@@ -149,7 +149,8 @@ nnoremap <silent> <C-W>C :windo bd<CR>
 " vsplit of <C-W>f
 nnoremap <C-W><C-F> <C-W>vgf
 
-nnoremap <silent> <Leader>J :call JoinSpaceless()<CR>
+nnoremap <silent> <leader>j :call JoinSpaceless()<CR>
+nnoremap <silent> <leader>J :call JoinSpaceless()<CR>
 
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
@@ -164,7 +165,7 @@ xnoremap <leader>y "+y
 xnoremap <leader>d "+d
 xnoremap . :normal .<CR>
 
-xnoremap <space>x "xy:<C-R>x<CR>
+xnoremap <leader>x "xy:<C-R>x<CR>
 
 " Search for visual selected
 xnoremap // y/<C-R>"<CR>
