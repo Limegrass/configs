@@ -91,6 +91,7 @@ nnoremap <leader>= "+
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y
+nnoremap <leader>Y "+y$
 nnoremap "" "+
 nnoremap """ "_
 nnoremap <leader>w :w<CR>
