@@ -48,6 +48,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=-1
 " Character limit highlight
+set textwidth=100 
 call matchadd('ColorColumn', '\%81v.', 100)
 " Prevent starting in Hiragana
 set iminsert=0

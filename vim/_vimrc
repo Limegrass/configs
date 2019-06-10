@@ -29,30 +29,19 @@ source $GITVIMDIR/vim-settings.vim
 source $GITVIMDIR/function-definitions.vim
 source $GITVIMDIR/keymaps.vim
 
-" Start in the garbage directory
-if !get(s:, 'is_initialized', 0)
-    lcd $GARBAGEDIR
-    let s:is_initialized = 1
-endif
-
 if filereadable($LOCALRC)
     source $LOCALRC
 endif
 
 " TODO
-" Finish Hakoiri,
 " Remove bitmasks from Wanicchou,
 " Add Unit Tests to Wanicchou,
 " Look for positions Add new dictionary sources,
-" Things to check back on
-" Plug 'Floobits/floobits-vim'
-" Plug 'FredKSchott/CoVim'
+" Find Kotlin LSP or see if I can get ctags to support kotlin
 " Automatically set register v to whatever was visually selected last on entering visual mode
 "   Make as a function
 "   Map it to c_<C-R><C-V>
 "   Probably involves an autocmd
-"
-" Ideavimrc mappings (:actionlist)
 " Better implementation of indention like >(
 "   Autoalign multiple rows
 "   Get cursor position of character in line above
@@ -60,16 +49,12 @@ endif
 " OmniSharp integration.
 "   Figure out how to build and run like Visual Studio, if it's possible
 "   msbuild => ?
-" Setup ctags properly for cross platform support
 " Better linting
 " SQL formatter support
-" Fix Coc being broken for java.
 " Fix inability to use fugitive and dadbod on windows.
-" Audible on phone
 " TODO: Add airline config, or compare to lightline and if better, switch
 " TODO: Arch Install/trizen + i3 Setup script
 " TODO: rice it up and backup
 " Add a snippet for automapping parameters to fields.
-" Minidox setup better alt tabbing and layers where order of keys pressed does
-" not matter. Combination of Combos and leader key would probably work better
-" than tap dance.
+" Checkout autopairs, see if there's a way to jump outside of the pair
+" set thesaurus

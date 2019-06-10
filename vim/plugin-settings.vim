@@ -61,6 +61,10 @@ Plug 'OrangeT/vim-csharp', {'for': ['cs']}
 Plug 'lervag/vimtex', {'for': ['tex']}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['cs', 'html', 'cshtml', 'scss', 'css']}
 Plug 'mhartington/nvim-typescript', {'for': ['ts']}
+
+" Pair programming, check if they're usable when needed.
+" Plug 'Floobits/floobits-vim'
+" Plug 'FredKSchott/CoVim'
 call plug#end()
 
 " ==============================================================================
@@ -94,6 +98,7 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " Previm
 let g:previm_enable_realtime = 0
 
+" vim-bufkill
 let g:BufKillCreateMappings = 0
 
 " Ultisnips with ncm
