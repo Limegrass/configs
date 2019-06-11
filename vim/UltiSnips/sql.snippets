@@ -7,35 +7,36 @@ priority -50
 #########################
 #        SELECTS        #
 #########################
+# TOOD - Move to a python file
+global !p
+def get_capitals(string):
+	capitals = [c for c in string if c.isupper()]
+	return ''.join(capitals)
+def get_dbo_abbreviation(string):
+	dboName = t[1].split('.')[-1]
+	return get_capitals(dboName).lower() if len(dboName) is not 0 else ''
+endglobal
 
 snippet SSF "SELECT * FROM"
-SELECT *
-FROM ${1:Table}
-${2}
+`!p abbreviation = get_dbo_abbreviation(t[1])`
+SELECT `!p snip.rv = abbreviation`.${2:*}
+FROM ${1:Table} `!p snip.rv = abbreviation`
+$0
 endsnippet
 
 snippet STT "SELECT TOP TEN"
-SELECT TOP 10 *
-FROM ${1:Table}
-${2}
+`!p abbreviation = get_dbo_abbreviation(t[1])`
+SELECT TOP ${2:10} `!p snip.rv = abbreviation`.${3:*}
+FROM ${1:Table} `!p snip.rv = abbreviation`
+$0
 endsnippet
 
-snippet STTT "SELECT TOP TEN THOUSAND"
-SELECT TOP 10000 *
-FROM ${1:Table}
-${2}
-endsnippet
-
-snippet SELECT "SELECT"
+snippet SS "SELECT"
 SELECT
 endsnippet
 
 snippet SELECTCOUNT "SELECT COUNT"
-SELECT COUNT(1)
-FROM ${1:Table}
-endsnippet
-
-snippet COUNT "SELECT COUNT"
+`!p abbreviation = get_dbo_abbreviation(t[1])`
 SELECT COUNT(1)
 FROM ${1:Table}
 endsnippet
@@ -45,18 +46,6 @@ endsnippet
 #########################
 snippet WHERE "WHERE"
 WHERE
-endsnippet
-
-snippet WHERELIKE "WHERE LIKE"
-WHERE ${1:Column} LIKE '%${2:Pattern}%'
-endsnippet
-
-snippet WHEREEQUALS "WHERE EQUALS"
-WHERE ${1:Column} = ${2:Value}
-endsnippet
-
-snippet WHEREIN "WHERE IN"
-WHERE ${1:Column} IN ${2:Table}
 endsnippet
 
 #########################
@@ -95,16 +84,11 @@ snippet DELETE "DELETE"
 DELETE
 endsnippet
 
-
 #############################
 #        CONDITIONAL        #
 #############################
-snippet IF "IF"
-IF ${1:Condition}
-endsnippet
-
-snippet WHILE "WHILE"
-WHILE ${1:Condition}
+snippet WHILE
+WHILE
 endsnippet
 
 snippet EXISTS
@@ -118,7 +102,7 @@ endsnippet
 # TODO: dynamic for whether to include a value
 # (automatically delete = if no value is given)
 snippet DEB "DECLARE BIT"
-DECLARE @${1:Name} BIT
+DECLARE @${1:Name} BIT$0
 endsnippet
 
 
@@ -141,7 +125,7 @@ endsnippet
 snippet DET "DECLARE TABLE"
 DECLARE @${1:Name} TABLE
 (
-	${2:ColumnName} ${3:ColumnName}
+	${2:ColumnName} ${3:DataType}
 )
 endsnippet
 
@@ -172,13 +156,17 @@ endsnippet
 
 # Fix this
 snippet JOIN "JOIN SAME COLUMN"
-JOIN ${1:Table} ${2:Abbv}
-	ON ${3:Column} = ${4:Column}
+`!p abbreviation = get_dbo_abbreviation(t[1])`
+JOIN ${1:Table}  `!p snip.rv = abbreviation`
+	ON `!p snip.rv = abbreviation`.${2:Column} = ${3:Other}.$2
+$0
 endsnippet
 
-snippet JOINDIFF "JOIN DIFF COLUMN"
-JOIN ${1:Table} ${2:Abbv}
-	ON ${3:Column} = ${4:Column}
+snippet JoinDiff "JOIN DIFF COLUMN"
+`!p abbreviation = get_dbo_abbreviation(t[1])`
+JOIN ${1:Table}  `!p snip.rv = abbreviation`
+	ON `!p snip.rv = abbreviation`.${2:Column} = ${3:Other}
+$0
 endsnippet
 
 snippet BEGIN "BEGIN END"
