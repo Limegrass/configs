@@ -250,8 +250,7 @@ endif
 " =============================== ABBREVIATIONS ================================
 " Force vertical splits for help files and expand gui window for help
 call CommandAbbreviations('vh', 'vert help')
-call CommandAbbreviations('bs', 'buffers<CR>:b')
-call CommandAbbreviations('bds', 'buffers<CR>:bd')
+call CommandAbbreviations('bs', 'buffers<CR>:')
 call CommandAbbreviations('help', 'vert help')
 call CommandAbbreviations('doff', 'diffoff')
 call CommandAbbreviations('dt', 'diffthis')

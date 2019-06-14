@@ -12,45 +12,46 @@ if empty(glob($VIMDIR.'/autoload/plug.vim'))
 endif
 call plug#begin($VIMDIR.'/plugged')
 
-" Editing/Core
+" Core
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-abolish'
-Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
-Plug 'mg979/vim-visual-multi'
-Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-commentary'
 Plug 'wellle/targets.vim'
+Plug 'andymass/vim-matchup'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-scriptease'
-Plug 'haya14busa/incsearch.vim'
-    Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'previm/previm', {'for': ['markdown']}
-    Plug 'tyru/open-browser.vim'
+Plug 'haya14busa/incsearch.vim'
+    Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'qpkorr/vim-bufkill'
+Plug 'SirVer/ultisnips'
+    " Plug 'honza/vim-snippets'
+" Editing/Core
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-scriptease'
+" Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'tyru/open-browser.vim'
+    Plug 'previm/previm', {'for': ['markdown']}
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
-Plug 'qpkorr/vim-bufkill'
 Plug 'kshenoy/vim-signature'
-Plug 'andymass/vim-matchup'
+Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
+" Plug 'rickhowe/diffchar.vim'
+
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'aonemd/kuroi.vim'
 Plug 'bling/vim-airline'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides', {'on': ['IndentGuidesEnable', 'IndentGuidesToggle']}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
-" Plug 'rickhowe/diffchar.vim'
 
-Plug 'Shougo/neco-vim'
-Plug 'neoclide/coc-neco'
+Plug 'Shougo/neco-vim', {'for': ['vim']}
+Plug 'neoclide/coc-neco', {'for': ['vim']}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " if !nvim !yarn global add vim-node-rpc
 Plug 'OmniSharp/omnisharp-vim'

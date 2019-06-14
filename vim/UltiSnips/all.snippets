@@ -1,0 +1,15 @@
+priority -1000
+
+snippet box "Box"
+`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+│ $1 │
+`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+global !p
+def get_file_contents(filepath):
+	file = open(filepath, "r")
+	contents = ''.join(file.readlines())
+	file.close()
+	return contents
+endglobal

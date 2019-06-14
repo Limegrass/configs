@@ -14,7 +14,10 @@ def get_capitals(string):
 	return ''.join(capitals)
 def get_dbo_abbreviation(string):
 	dboName = t[1].split('.')[-1]
-	return get_capitals(dboName).lower() if len(dboName) is not 0 else ''
+	if len(dboName) is 0:
+		return ''
+	capitals = get_capitals(dboName)
+	return capitals.lower() if len(capitals) is not 0 else dboName[0]
 endglobal
 
 snippet SSF "SELECT * FROM"
@@ -70,14 +73,7 @@ CREATE TABLE ${1:Table}
 endsnippet
 
 snippet INSERTINTO "INSERT"
-INSERT INTO ${1:Table}
-(
-	${2:Columns}
-)
-VALUES
-(
-	${3:Values}
-)
+INSERT INTO ${1:Table} (${2:Columns})
 endsnippet
 
 snippet DELETE "DELETE"
@@ -282,8 +278,15 @@ WHERE TABLE_NAME = '${1:TableName}'
 ORDER BY ORDINAL_POSITION ASC
 endsnippet
 
+snippet XMLHELP "Help in XML (Guarantees formatting)"
+SELECT 1 AS [Tag], 0 AS [Parent], NCHAR(13) + NCHAR(10) +
+	OBJECT_DEFINITION(OBJECT_ID(N'$1')) AS [Code!1!!CDATA]
+FOR XML EXPLICIT;
+$0
+endsnippet
+
 snippet HELP "Gets OBJECT_DEFINITION"
-EXEC sp_helptext [${1:SPName}]
+EXEC sp_helptext [${1:DboName}]
 endsnippet
 
 snippet FINDCOLS "FIND COLS LIKE"
