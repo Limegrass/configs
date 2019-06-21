@@ -51,6 +51,7 @@ nnoremap <leader>fr :vsc Edit.FindAllReferences<CR>
 nnoremap <leader>rf :vsc Edit.GoToNextLocation<CR>
 nnoremap <leader>rb :vsc Edit.GoToPrevLocation<CR>
 nnoremap <leader>ch :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<CR>
+nnoremap y+ :%y +<CR>
 
 " Window
 " Movement of splits

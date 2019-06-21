@@ -92,6 +92,7 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
+nnoremap <silent> y+ :silent %y +<CR>
 nnoremap "" "+
 nnoremap """ "_
 nnoremap <leader>w :w<CR>
@@ -99,11 +100,14 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bq :q<CR>
+nnoremap <silent> <leader>ss :set spell!<CR>
 
 nnoremap <silent> ZW :w<CR>
-nnoremap <silent> ZB :buffers<CR>:b
+nnoremap <silent> ZB :buffers<CR>:
 nnoremap <silent> ZX :bd<CR>
 nnoremap <silent> ZD :BD<CR>
+
+nnoremap <silent> cx :StripTrailingWhiteSpace<CR>
 
 nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 
@@ -136,7 +140,7 @@ if has('win32')
     nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
 endif
 " Navigate out of terminal mode
-if has('nvim')
+if has('nvim') || has('terminal')
     tnoremap <ESC> <C-\><C-N>
 endif
 
@@ -177,6 +181,7 @@ inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>dw
 " cnoremap <C-DEL> <C-O>dw Fix this
+inoremap <C-L> <C-G>u<ESC>[s1z=`]a<C-G>u
 
 inoremap <C-R><C-S> <C-R>+
 inoremap <C-R><C-E> <C-R>0
@@ -198,13 +203,11 @@ function! s:TabOrComplete()
     endif
 endfunction
 
-
 " =============================== COMMANDS =====================================
 " Function shortcuts
 command! -nargs=* -range Retab <line1>,<line2>call Retab(<f-args>)
 command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e') | call Preserve('%s/\($\n\s*\)\+\%$//e')
 command! -nargs=0 Reindent call Preserve('normal gg=G')
-command! -nargs=0 Clipboard call Preserve('normal gg"+yG')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
 command! -nargs=* Google call StartBrowser('https://google.com/search?q='.<q-args>)
