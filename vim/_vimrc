@@ -1,4 +1,4 @@
-﻿" ==============================================================================
+" ==============================================================================
 " Author: James Ni (Limegrass) - @Multipoke
 " ==============================================================================
 set fileformat=unix
@@ -28,6 +28,12 @@ source $GITVIMDIR/plugin-settings.vim
 source $GITVIMDIR/vim-settings.vim
 source $GITVIMDIR/function-definitions.vim
 source $GITVIMDIR/keymaps.vim
+
+if !get(s:, 'is_initialized', 0)
+            \ && getcwd() == 'C:\Windows\System32'
+    lcd $GARBAGEDIR
+    let s:is_initialized = 1
+endif
 
 if filereadable($LOCALRC)
     source $LOCALRC
