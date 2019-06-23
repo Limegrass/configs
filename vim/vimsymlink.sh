@@ -6,6 +6,7 @@ if [ ! -d "~/.vim"] then
     mkdir ~/.vim
 fi
 
+ln -s ~/git/configs/vim/pythonx  ~/.vim/pythonx
 ln -s ~/git/configs/vim/UltiSnips  ~/.vim/UltiSnips
 ln -s ~/git/configs/vim/coc-settings.json  ~/.vim/coc-settings.json
 
