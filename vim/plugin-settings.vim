@@ -49,6 +49,7 @@ Plug 'nathanaelkane/vim-indent-guides', {'on': ['IndentGuidesEnable', 'IndentGui
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
+Plug 'machakann/vim-highlightedyank'
 
 Plug 'Shougo/neco-vim', {'for': ['vim']}
 Plug 'neoclide/coc-neco', {'for': ['vim']}
@@ -104,8 +105,8 @@ let g:BufKillCreateMappings = 0
 
 " Ultisnips with ncm
 let g:UltiSnipsExpandTrigger  = "<NUL>"
-let g:UltiSnipsJumpForwardTrigger  = "<NUL>"
-let g:UltiSnipsJumpBackwardTrigger = "<NUL>"
+let g:UltiSnipsJumpForwardTrigger  = "<C-J>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-K>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " incsearch/fuzzy

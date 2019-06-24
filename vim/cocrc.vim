@@ -1,5 +1,5 @@
 " TODO: See if I can register Omnisharp
-" CocInstall coc-dictionary coc-tag coc-omni coc-syntax coc-ultisnips coc-json coc-vimtex coc-python coc-java
+" CocInstall coc-dictionary coc-tag coc-omni coc-syntax coc-ultisnips coc-json coc-vimtex coc-python coc-java coc-highlight
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300

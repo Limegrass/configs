@@ -8,6 +8,12 @@ nnoremap <SPACE> <NOP>
 " ==============================================================================
 " BASIC_SETTINGS
 " ==============================================================================
+if !has('nvim')
+    set diffexpr=GvimDiff()
+else
+    set inccommand=split
+endif
+
 set ruler
 set incsearch
 set ignorecase
@@ -48,7 +54,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=-1
 " Character limit highlight
-set textwidth=100 
+set textwidth=100
 call matchadd('ColorColumn', '\%81v.', 100)
 " Prevent starting in Hiragana
 set iminsert=0
@@ -60,8 +66,6 @@ if has('pythonx')
         set pyx=2
     endif
 endif
-
-" set clipboard=unnamed " system register
 
 " Put undo/swap/temp files user's vim subfolder
 let $UNDODIR=$VIMDIR.'/undo'
@@ -89,10 +93,6 @@ set guifont=Consolas:h9
 if has('gui_running')
     let &lines=999
     let &columns=999
-endif
-
-if !has('nvim')
-    set diffexpr=GvimDiff()
 endif
 
 " ==============================================================================

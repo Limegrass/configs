@@ -37,31 +37,6 @@ nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
 nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
-inoremap <silent> <C-J> <C-R>=<SID>UltiJumpOrKey("\<lt>C-J>")<CR>
-snoremap <silent> <C-J> <C-O>:call UltiSnips#JumpForwards()<CR>
-
-function! s:UltiJumpOrKey(key)
-    let g:ulti_jump_forwards_res = 0
-    call UltiSnips#JumpForwards()
-    if g:ulti_jump_forwards_res
-        return ""
-    else
-        return a:key
-    endif
-endfunction
-
-inoremap <silent> <C-K> <C-R>=<SID>UltiJumpBackOrKey("\<lt>C-K>")<CR>
-snoremap <silent> <C-K> <C-O>:call UltiSnips#JumpBackwards()<CR>
-function! s:UltiJumpBackOrKey(key)
-    let g:ulti_jump_backwards_res = 0
-    call UltiSnips#JumpBackwards()
-    if g:ulti_jump_backwards_res
-        return ""
-    else
-        return a:key
-    endif
-endfunction
-
 " ================================ ALL_MODES ===================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
@@ -115,15 +90,15 @@ nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 nnoremap // yiw/<C-R>"
 
 "TODO: Create a better mapping (and function itself) for splitting (cm) and aligning
-nnoremap cm :silent call SplitCommas()<CR>
+nnoremap <silent> cm :silent call SplitCommas()<CR>
 function! SplitCommas()
     s/,\s*/,\r/ge
     retab
 endfunction
 
-nnoremap >( :silent call AlignToCharInPreviousLine('(')<CR>
-nnoremap >" :silent call AlignToCharInPreviousLine('"')<CR>
-nnoremap >' :silent call AlignToCharInPreviousLine("'")<CR>
+nnoremap <silent> >( :silent call AlignToCharInPreviousLine('(')<CR>
+nnoremap <silent> >" :silent call AlignToCharInPreviousLine('"')<CR>
+nnoremap <silent> >' :silent call AlignToCharInPreviousLine("'")<CR>
 " Aligns beginning of current line to char of previous line
 function! AlignToCharInPreviousLine(char)
     let l:prefix = 'normal ^kyf'
@@ -161,8 +136,6 @@ nnoremap <silent> <leader>J :call JoinSpaceless()<CR>
 " Retain selection when indenting in visual mode
 xnoremap > >gv
 xnoremap < <gv
-xnoremap <Tab> >gv
-xnoremap <S-Tab> <gv
 xnoremap <leader>= "+
 xnoremap <leader>p "+p
 xnoremap <leader>P "+P
@@ -174,6 +147,8 @@ xnoremap <leader>x "xy:<C-R>x<CR>
 
 " Search for visual selected
 xnoremap // y/<C-R>"<CR>
+
+xnoremap <TAB> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
