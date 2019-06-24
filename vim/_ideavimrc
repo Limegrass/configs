@@ -91,6 +91,13 @@ nnoremap <, ^kF,jdw
 nnoremap <K ^k^jdw
 nnoremap <J ^j^kdw
 
+nnoremap <leader>y "+y
+nnoremap <leader>d "+d
+nnoremap <leader>Y "+y$
+
+vnoremap <leader>y "+y
+vnoremap <leader>d "+d
+
 " =============================== VISUAL MODE ================================
 nnoremap cm :s/,\s*/,\r/g<CR>
 " Yank to end of line, yy for line yank
