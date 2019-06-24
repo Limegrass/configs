@@ -112,6 +112,11 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 " incsearch/fuzzy
 let g:incsearch#auto_nohlsearch = 1
 
+" vim-highlightedyank
+if !exists('##TextYankPost')
+    map y <Plug>(highlightedyank)
+endif
+
 augroup commentary
     autocmd!
     autocmd FileType sql setlocal commentstring=--\ %s
