@@ -28,7 +28,8 @@ Plug 'SirVer/ultisnips'
     " Plug 'honza/vim-snippets'
 " Editing/Core
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dadbod'
+" Seems DBExt actually works on nvim
+" Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-obsession'
 " Plug 'tpope/vim-scriptease'

@@ -171,3 +171,16 @@ function! GvimDiff()
         let &shellxquote=l:shxq_sav
     endif
 endfunction
+
+" TODO: Complete these functions to generate and append to dictionary in $LOCALRC
+function! GetDictionaryPath()
+    let l:dictionary = ''
+    redir => l:dictionary
+    set dictionary?
+    redir END
+    let @"=substitute(l:dictionary, '  dictionary=', '', '')
+endfunction
+
+function! DBExtStripSchema()
+    %s/^\(.\{-}\.\)*//g
+endfunction

@@ -21,17 +21,15 @@ def get_dbo_abbreviation(string):
 endglobal
 
 snippet SSF "SELECT * FROM"
-`!p abbreviation = get_dbo_abbreviation(t[1])`
-SELECT `!p snip.rv = abbreviation`.${2:*}
-FROM ${1:Table} `!p snip.rv = abbreviation`
+SELECT `!p snip.rv = get_dbo_abbreviation(t[1])`.${3:*}
+FROM ${1:Table} `!p snip.rv = get_dbo_abbreviation(t[1])`$2
 $0
 endsnippet
 
 snippet STT "SELECT TOP TEN"
 `!p abbreviation = get_dbo_abbreviation(t[1])`
 SELECT TOP ${2:10} `!p snip.rv = abbreviation`.${3:*}
-FROM ${1:Table} `!p snip.rv = abbreviation`
-$0
+FROM ${1:Table} `!p snip.rv = abbreviation`$0
 endsnippet
 
 snippet SS "SELECT"
@@ -72,7 +70,7 @@ CREATE TABLE ${1:Table}
 )
 endsnippet
 
-snippet INSERTINTO "INSERT"
+snippet InsertInto "INSERT"
 INSERT INTO ${1:Table} (${2:Columns})
 endsnippet
 
@@ -98,35 +96,48 @@ endsnippet
 # TODO: dynamic for whether to include a value
 # (automatically delete = if no value is given)
 snippet DEB "DECLARE BIT"
-DECLARE @${1:Name} BIT$0
+DECLARE @${1:Bit} BIT`!p snip.rv = ' = 'if t[2] else ''`${2:1}
 endsnippet
 
 
 snippet DEI "DECLARE INT"
-DECLARE @${1:Name} INT
+DECLARE @${1:Int} INT`!p snip.rv = ' = 'if t[2] else ''`${2:0}
 endsnippet
 
 snippet DED "DECLARE DATETIME"
-DECLARE @${1:Name} DATETIME
+DECLARE @${1:DateTime} DATETIME`!p
+snip.rv = ' = ' if t[2] else ''
+`${2:GETDATE()};
 endsnippet
 
 snippet DENV "DECLARE NVARCHAR"
-DECLARE @${1:Name} NVARCHAR(${2:Size})
+DECLARE @${1:String} NVARCHAR(${2:Size})`!p
+snip.rv = ' = \'' if t[3] else ''
+`${3:Default}`!p
+snip.rv = '\'' if t[3] else ''`;
 endsnippet
 
 snippet DEV "DECLARE VARCHAR"
-DECLARE @${1:Name} VARCHAR(${2:Size})
+DECLARE @${1:String} VARCHAR(${2:Size})`!p
+snip.rv = ' = \'' if t[3] else ''
+`${3:Default}`!p
+snip.rv = '\'' if t[3] else ''`;
 endsnippet
 
 snippet DET "DECLARE TABLE"
-DECLARE @${1:Name} TABLE
+DECLARE @${1:Table} TABLE
 (
-	${2:ColumnName} ${3:DataType}
+	${2:Column Type}
 )
 endsnippet
 
 snippet DEU "DECLARE UNIQUEIDENTIFIER"
-DECLARE @${1:Name} UNIQUEIDENTIFIER
+DECLARE @${1:Guid} UNIQUEIDENTIFIER`!p snip.rv = ' = \'' if t[2] else ''
+`${2:`!p
+if not snip.c:
+	import uuid
+	snip.rv = uuid.uuid4()
+`}`!p snip.rv = '\'' if t[2] else ''`;
 endsnippet
 
 
@@ -152,17 +163,14 @@ endsnippet
 
 # Fix this
 snippet JOIN "JOIN SAME COLUMN"
-`!p abbreviation = get_dbo_abbreviation(t[1])`
-JOIN ${1:Table}  `!p snip.rv = abbreviation`
-	ON `!p snip.rv = abbreviation`.${2:Column} = ${3:Other}.$2
-$0
+JOIN ${1:Table} `!p snip.rv = get_dbo_abbreviation(t[1])`
+	ON `!p snip.rv = get_dbo_abbreviation(t[1])`.${2:Column} = ${3:Other}.$2$0
 endsnippet
 
-snippet JoinDiff "JOIN DIFF COLUMN"
+snippet JOINDIFF "JOIN DIFF COLUMN"
 `!p abbreviation = get_dbo_abbreviation(t[1])`
 JOIN ${1:Table}  `!p snip.rv = abbreviation`
-	ON `!p snip.rv = abbreviation`.${2:Column} = ${3:Other}
-$0
+	ON `!p snip.rv = abbreviation`.${2:Column} = ${3:Other}$0
 endsnippet
 
 snippet BEGIN "BEGIN END"
@@ -366,31 +374,31 @@ endsnippet
 
 # TODO: Change this so it accepts a number param or deletes rest when one is selected.
 snippet SYSOBJTYPE "Type codes for sys objects"
-'AF' -- Aggregate function (CLR)
-'C' -- CHECK constraint
-'D' -- Default or DEFAULT constraint
-'F' -- FOREIGN KEY constraint
-'L' -- Log
-'FN' -- Scalar function
-'FS' -- Assembly (CLR) scalar-function
-'FT' -- Assembly (CLR) table-valued function
-'IF' -- In-lined table-function
-'IT' -- Internal table
-'P' -- Stored procedure
-'PC' -- Assembly (CLR) stored-procedure
-'PK' -- PRIMARY KEY constraint (type is K)
-'RF' -- Replication filter stored procedure
-'S' -- System table
-'SN' -- Synonym
-'SQ' -- Service queue
-'TA' -- Assembly (CLR) DML trigger
-'TF' -- Table function
-'TR' -- SQL DML Trigger
-'TT' -- Table type
-'U' -- User table
-'UQ' -- UNIQUE constraint (type is K)
-'V' -- View
-'X' -- Extended stored procedure
+'${1:AF -- Aggregate function (CLR)
+C -- CHECK constraint
+D -- Default or DEFAULT constraint
+F -- FOREIGN KEY constraint
+L -- Log
+FN -- Scalar function
+FS -- Assembly (CLR) scalar-function
+FT -- Assembly (CLR) table-valued function
+IF -- In-lined table-function
+IT -- Internal table
+P -- Stored procedure
+PC -- Assembly (CLR) stored-procedure
+PK -- PRIMARY KEY constraint (type is K)
+RF -- Replication filter stored procedure
+S -- System table
+SN -- Synonym
+SQ -- Service queue
+TA -- Assembly (CLR) DML trigger
+TF -- Table function
+TR -- SQL DML Trigger
+TT -- Table type
+U -- User table
+UQ -- UNIQUE constraint (type is K)
+V -- View
+X -- Extended stored procedure}'
 endsnippet
 
 snippet OBJECT_NAME "OBJECT_NAME"

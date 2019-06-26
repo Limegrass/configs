@@ -40,9 +40,6 @@ if filereadable($LOCALRC)
 endif
 
 " TODO
-" Remove bitmasks from Wanicchou,
-" Add Unit Tests to Wanicchou,
-" Look for positions Add new dictionary sources,
 " Find Kotlin LSP or see if I can get ctags to support kotlin
 " Automatically set register v to whatever was visually selected last on entering visual mode
 "   Make as a function
@@ -56,11 +53,4 @@ endif
 "   Figure out how to build and run like Visual Studio, if it's possible
 "   msbuild => ?
 " Better linting
-" SQL formatter support
-" Fix inability to use fugitive and dadbod on windows.
-" TODO: Add airline config, or compare to lightline and if better, switch
-" TODO: Arch Install/trizen + i3 Setup script
-" TODO: rice it up and backup
-" Add a snippet for automapping parameters to fields.
-" Checkout autopairs, see if there's a way to jump outside of the pair
-" set thesaurus
+" TODO: Arch Install/trizen + i3 Setup script : rice it up and backup
