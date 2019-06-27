@@ -35,7 +35,7 @@ Plug 'tpope/vim-obsession'
 " Plug 'tpope/vim-scriptease'
 " Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'tyru/open-browser.vim'
-    Plug 'previm/previm', {'for': ['markdown']}
+    Plug 'previm/previm', {'for': ['markdown'], 'on': ['PrevimOpen']}
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 Plug 'kshenoy/vim-signature'

@@ -6,21 +6,20 @@ set encoding=utf-8
 scriptencoding utf-8
 
 let $GITDIR = $HOME.'/git'
+let $VIMDIR = $HOME.'/.vim'
+let $VIMLOCALDIR = $VIMDIR.'/.local'
+set runtimepath+=$VIMDIR,$VIMLOCALDIR
+
+let $GITVIMDIR = $GITDIR.'/configs/vim/'
+let $VIMRC     = $GITVIMDIR.'/_vimrc'
+let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
+let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
+let $LOCALRC = $VIMLOCALDIR.'/local.vim'
 
 let $GARBAGEDIR = $GITDIR.'/garbage'
 if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
-
-let $GITVIMDIR = $GITDIR.'/configs/vim/'
-
-let $VIMDIR = $HOME.'/.vim'
-set runtimepath+=$HOME/.vim
-
-let $VIMRC     = $GITVIMDIR.'/_vimrc'
-let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
-let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
-let $LOCALRC = $HOME.'/local.vim'
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
@@ -35,6 +34,9 @@ if !get(s:, 'is_initialized', 0)
     let s:is_initialized = 1
 endif
 
+if !isdirectory($VIMLOCALDIR)
+    silent call mkdir($VIMLOCALDIR)
+endif
 if filereadable($LOCALRC)
     source $LOCALRC
 endif
