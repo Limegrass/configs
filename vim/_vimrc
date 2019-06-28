@@ -7,14 +7,14 @@ scriptencoding utf-8
 
 let $GITDIR = $HOME.'/git'
 let $VIMDIR = $HOME.'/.vim'
-let $VIMLOCALDIR = $VIMDIR.'/.local'
-set runtimepath+=$VIMDIR,$VIMLOCALDIR
+let $LOCALVIMDIR = $VIMDIR.'/.local'
+set runtimepath+=$VIMDIR,$LOCALVIMDIR
 
 let $GITVIMDIR = $GITDIR.'/configs/vim/'
 let $VIMRC     = $GITVIMDIR.'/_vimrc'
 let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
 let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
-let $LOCALRC = $VIMLOCALDIR.'/local.vim'
+let $LOCALRC = $LOCALVIMDIR.'/local.vim'
 
 let $GARBAGEDIR = $GITDIR.'/garbage'
 if !isdirectory($GARBAGEDIR)
@@ -34,8 +34,8 @@ if !get(s:, 'is_initialized', 0)
     let s:is_initialized = 1
 endif
 
-if !isdirectory($VIMLOCALDIR)
-    silent call mkdir($VIMLOCALDIR)
+if !isdirectory($LOCALVIMDIR)
+    silent call mkdir($LOCALVIMDIR)
 endif
 if filereadable($LOCALRC)
     source $LOCALRC
