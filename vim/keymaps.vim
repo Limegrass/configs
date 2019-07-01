@@ -70,11 +70,11 @@ nnoremap <leader>Y "+y$
 nnoremap <silent> y+ :silent %y +<CR>
 nnoremap "" "+
 nnoremap """ "_
-nnoremap <leader>w :w<CR>
-nnoremap <leader>bd :bd<CR>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader>bq :q<CR>
+nnoremap <silent> <leader>w :w<CR>
+nnoremap <silent> <leader>bd :bd<CR>
+nnoremap <silent> <leader>bn :bn<CR>
+nnoremap <silent> <leader>bp :bp<CR>
+nnoremap <silent> <leader>bq :q<CR>
 nnoremap <silent> <leader>ss :set spell!<CR>
 
 nnoremap <silent> ZW :w<CR>
@@ -82,7 +82,7 @@ nnoremap <silent> ZB :buffers<CR>:
 nnoremap <silent> ZX :bd<CR>
 nnoremap <silent> ZD :BD<CR>
 
-nnoremap <silent> cx :StripTrailingWhiteSpace<CR>
+nnoremap <silent> cx :call StripExtraneousWhiteSpace()<CR>
 
 nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
 
@@ -142,6 +142,7 @@ xnoremap <leader>P "+P
 xnoremap <leader>y "+y
 xnoremap <leader>d "+d
 xnoremap . :normal .<CR>
+xnoremap <leader>m c<C-R>=<C-R>"<CR>
 
 xnoremap <leader>x "xy:<C-R>x<CR>
 
@@ -181,7 +182,7 @@ endfunction
 " =============================== COMMANDS =====================================
 " Function shortcuts
 command! -nargs=* -range Retab <line1>,<line2>call Retab(<f-args>)
-command! -nargs=0 StripTrailingWhiteSpace call Preserve('%s/\s\+$//e') | call Preserve('%s/\($\n\s*\)\+\%$//e')
+command! -nargs=0 StripTrailingWhiteSpace call StripExtraneousWhiteSpace()
 command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)

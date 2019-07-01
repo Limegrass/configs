@@ -184,3 +184,9 @@ endfunction
 function! DBExtStripSchema()
     %s/^\(.\{-}\.\)*//g
 endfunction
+
+function! StripExtraneousWhiteSpace()
+    call Preserve('%s/\s\+$//e')
+    call Preserve('%s/\($\n\s*\)\+\%$//e')
+    call Preserve('%s/\%^\($\n\s*\)\+//e')
+endfunction

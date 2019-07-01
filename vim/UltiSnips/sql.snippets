@@ -278,7 +278,22 @@ WHERE TABLE_NAME = '${1:TableName}'
 ORDER BY ORDINAL_POSITION ASC
 endsnippet
 
-snippet XMLHELP "Help in XML (Guarantees formatting)"
+snippet HELPALL
+USE ${1:Database};
+SELECT s.name [schema],
+	o.name object,
+	'EXEC sp_helptext [' + s.name + '.' + o.name + ']' [HelpText],
+	'SELECT 1 AS [Tag], 0 AS [Parent], NCHAR(13) + NCHAR(10) +
+		OBJECT_DEFINITION(OBJECT_ID(N'''+s.name + '.' + o.name+''')) AS [Code!1!!CDATA]
+	FOR XML EXPLICIT;'
+FROM $1.sys.sql_modules m
+JOIN $1.sys.objects o
+	ON m.object_id = o.object_id
+JOIN $1.sys.schemas s
+	ON o.schema_id = s.schema_id
+endsnippet
+
+snippet HELPXML "Help in XML (Guarantees formatting)"
 SELECT 1 AS [Tag], 0 AS [Parent], NCHAR(13) + NCHAR(10) +
 	OBJECT_DEFINITION(OBJECT_ID(N'$1')) AS [Code!1!!CDATA]
 FOR XML EXPLICIT;
