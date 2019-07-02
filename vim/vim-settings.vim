@@ -11,9 +11,11 @@ nnoremap <SPACE> <NOP>
 if !has('nvim')
     set diffexpr=GvimDiff()
 else
+    set lazyredraw
     set inccommand=split
 endif
 
+filetype plugin on
 set ruler
 set incsearch
 set ignorecase
@@ -29,11 +31,12 @@ set list
 set selection=inclusive
 set undofile
 set history=100
-set lazyredraw
 set cursorline
 set hidden
 set diffopt+=vertical,iwhite
 set fileformat=unix
+set fileformats=unix,dos
+set fileignorecase
 set virtualedit=all
 set nostartofline
 set spelllang=en
@@ -54,7 +57,6 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=-1
 " Character limit highlight
-set textwidth=100
 call matchadd('ColorColumn', '\%81v.', 100)
 " Prevent starting in Hiragana
 set iminsert=0
@@ -88,7 +90,6 @@ set directory=$SWAPDIR
 
 set termguicolors
 set background=dark
-colorscheme kuroi " alt: corporation, hybrid, zenburn
 set guifont=Consolas:h9
 if has('gui_running')
     let &lines=999

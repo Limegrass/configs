@@ -5,27 +5,28 @@ set fileformat=unix
 set encoding=utf-8
 scriptencoding utf-8
 
-let $GITDIR = $HOME.'/git'
-let $VIMDIR = $HOME.'/.vim'
-let $LOCALVIMDIR = $VIMDIR.'/.local'
+let $HOME = substitute($HOME, '\', '/', 'g')
+let $GITDIR = $HOME.'git/'
+let $VIMDIR = $HOME.'.vim/'
+let $LOCALVIMDIR = $VIMDIR.'.local/'
 set runtimepath+=$VIMDIR,$LOCALVIMDIR
 
-let $GITVIMDIR = $GITDIR.'/configs/vim/'
-let $VIMRC     = $GITVIMDIR.'/_vimrc'
-let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
-let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
-let $LOCALRC = $LOCALVIMDIR.'/local.vim'
+let $GITVIMDIR = $GITDIR.'configs/vim/'
+let $VIMRC     = $GITVIMDIR.'_vimrc'
+let $VSVIMRC   = $GITVIMDIR.'_vsvimrc'
+let $IDEAVIMRC = $GITVIMDIR.'_ideavimrc'
+let $LOCALRC = $LOCALVIMDIR.'local.vim'
 
-let $GARBAGEDIR = $GITDIR.'/garbage'
+let $GARBAGEDIR = $GITDIR.'garbage/'
 if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
-source $GITVIMDIR/plugin-settings.vim
-source $GITVIMDIR/vim-settings.vim
 source $GITVIMDIR/function-definitions.vim
+source $GITVIMDIR/vim-settings.vim
+source $GITVIMDIR/plugin-settings.vim
 source $GITVIMDIR/keymaps.vim
 
 if !get(s:, 'is_initialized', 0)

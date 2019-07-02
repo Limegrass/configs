@@ -50,7 +50,6 @@ Plug 'nathanaelkane/vim-indent-guides', {'on': ['IndentGuidesEnable', 'IndentGui
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
-Plug 'machakann/vim-highlightedyank'
 
 Plug 'Shougo/neco-vim', {'for': ['vim']}
 Plug 'neoclide/coc-neco', {'for': ['vim']}
@@ -113,10 +112,7 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 " incsearch/fuzzy
 let g:incsearch#auto_nohlsearch = 1
 
-" vim-highlightedyank
-if !exists('##TextYankPost')
-    map y <Plug>(highlightedyank)
-endif
+colorscheme kuroi " alt: corporation, hybrid, zenburn
 
 augroup commentary
     autocmd!

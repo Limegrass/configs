@@ -84,7 +84,7 @@ nnoremap <silent> ZD :BD<CR>
 
 nnoremap <silent> cx :call StripExtraneousWhiteSpace()<CR>
 
-nnoremap <expr> yr CopyRegisterFromInto(nr2char(getchar()), nr2char(getchar()))
+nnoremap <expr> yr CopyRegisterFromInto(GetCharInput(), GetCharInput())
 
 " Search for word currently under cursor
 nnoremap // yiw/<C-R>"
@@ -94,6 +94,30 @@ nnoremap <silent> cm :silent call SplitCommas()<CR>
 function! SplitCommas()
     s/,\s*/,\r/ge
     retab
+endfunction
+
+nnoremap <silent> c> :call IndentAlign()<CR>
+function! IndentAlign()
+    let l:charAlignedUnder = input('Align under: ')
+    if empty(l:charAlignedUnder)
+        return
+    endif
+    let l:prefix = input('Prefix: ')
+    if l:prefix
+        let l:prefix = '\('.l:prefix.'\)'.'\@<='
+    endif
+    let l:lineWithMatch = search(l:prefix.l:charAlignedUnder, 'nb')
+    let l:terminateAt = input('Terminate at: ')
+    if l:terminateAt
+        let l:terminationLine = search(l:terminateAt, 'n')
+    else
+        let l:terminationLine = getcurpos()[1]
+    endif
+    let l:charIndex = matchstrpos(getline(l:lineWithMatch), l:charAlignedUnder)[1]
+    let l:whitespace = repeat(' ', l:charIndex)
+    if l:lineWithMatch + 1 < l:terminationLine
+        execute (l:lineWithMatch+1).','.l:terminationLine.'s/^\s*/'.l:whitespace.'/'
+    endif
 endfunction
 
 nnoremap <silent> >( :silent call AlignToCharInPreviousLine('(')<CR>

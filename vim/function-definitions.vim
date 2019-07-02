@@ -190,3 +190,14 @@ function! StripExtraneousWhiteSpace()
     call Preserve('%s/\($\n\s*\)\+\%$//e')
     call Preserve('%s/\%^\($\n\s*\)\+//e')
 endfunction
+
+" [acceptanceRegex [, rejectionRegex]]
+function! GetCharInput(...)
+    let l:input = nr2char(getchar())
+    let l:acceptanceRegex = get(a:, 0, '')
+    let l:rejectionRegex = get(a:, 1, '')
+    if l:input =~ l:rejectionRegex || l:input !~ l:acceptanceRegex
+        return '\<ESC>'
+    endif
+    return l:input
+endfunction
