@@ -24,7 +24,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
 " Currently broken and breaks K in help, need to fix.
-nnoremap J :call CocAction('doHover')<CR>
 nnoremap <expr> K <SID>show_documentation()
 function! s:show_documentation()
     if index(['vim', 'help'], &filetype) >= 0 || !CocActionAsync('doHover')
