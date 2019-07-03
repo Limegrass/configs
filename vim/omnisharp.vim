@@ -1,10 +1,15 @@
 " Set the type lookup function to use the preview window instead of echoing it
 " let g:OmniSharp_typeLookupInPreview = 1
+" OmniSharp does not register properly on nvim with stdio
+" OmniSharp server does not start if you begin it on a file not checked in on
+" TFS not already checked out.
 
 " Timeout in seconds to wait for a response from the server
 let g:OmniSharp_timeout = 5
 
 let g:OmniSharp_selector_ui = 'fzf'
+
+let g:OmniSharp_server_stdio = 1
 
 " Don't autoselect first omnicomplete option, show options even if there is only
 " one (so the preview documentation is accessible). Remove 'preview' if you

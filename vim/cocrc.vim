@@ -1,7 +1,7 @@
 " TODO: See if I can register Omnisharp
 " CocInstall coc-dictionary coc-tag coc-omni coc-syntax coc-ultisnips
-" CocInstall coc-json coc-vimtex coc-python coc-java coc-highlight coc-html coc-yank
-" CocInstall coc-vimlsp
+" CocInstall coc-json coc-vimtex coc-pyls coc-java coc-highlight coc-html coc-yank
+" CocInstall coc-vimlsp coc-lists
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -24,14 +24,13 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
 " Currently broken and breaks K in help, need to fix.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-
+nnoremap J :call CocAction('doHover')<CR>
+nnoremap <expr> K <SID>show_documentation()
 function! s:show_documentation()
-    if &filetype == 'vim'
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
+    if index(['vim', 'help'], &filetype) >= 0 || !CocActionAsync('doHover')
+        return 'K'
     endif
+    return ''
 endfunction
 
 " Highlight symbol under cursor on CursorHold

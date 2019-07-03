@@ -7,36 +7,6 @@
 "       COMMANDS
 "       ABBREVIATIONS
 " ================================ PLUGINS ===================================
-" Vim-commentary bind
-nnoremap <leader><Tab> :Commentary<CR>
-xnoremap <leader><Tab> :Commentary<CR>
-
-" FZF
-nnoremap <silent> <C-SPACE>          :Buffers<CR>
-nnoremap <silent> <C-SPACE><C-SPACE> :FZF<CR>
-nnoremap <silent> <C-SPACE>f :FZF <C-R><C-W><CR>
-nnoremap <silent> <C-SPACE>F :FZF <C-R><C-A><CR>
-nnoremap <silent> <C-SPACE>r :Rg <C-R><C-W><CR>
-nnoremap <silent> <C-SPACE>R :Rg <C-R><C-A><CR>
-
-
-" incsearch/fuzzy rebindings
-nmap n  <Plug>(incsearch-nohl-n)
-nmap N  <Plug>(incsearch-nohl-N)
-nmap *  <Plug>(incsearch-nohl-*)
-nmap #  <Plug>(incsearch-nohl-#)
-nmap g* <Plug>(incsearch-nohl-g*)
-nmap g# <Plug>(incsearch-nohl-g#)
-nmap /  <Plug>(incsearch-forward)
-nmap ?  <Plug>(incsearch-backward)
-nmap g/ <Plug>(incsearch-stay)
-nmap z/ <Plug>(incsearch-fuzzy-/)
-nmap z? <Plug>(incsearch-fuzzy-?)
-nmap zg/ <Plug>(incsearch-fuzzy-stay)
-nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
-nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
-nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
-
 " ================================ ALL_MODES ===================================
 " Remap J, K some to navigate visible lines
 nnoremap j gj
@@ -136,14 +106,13 @@ nnoremap <silent> <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 " Open file explorer on current file location
 if has('win32')
-    nnoremap <leader>e :silent !explorer.exe %:p:h<CR>
+    nnoremap <leader>ee :silent !explorer.exe %:p:h<CR>
 endif
 " Navigate out of terminal mode
 if has('nvim') || has('terminal')
     tnoremap <ESC> <C-\><C-N>
 endif
 
-nnoremap <silent> <C-W>V :vnew<CR>
 " :new
 nnoremap <C-W>S <C-W>n
 " New tab starting in the same location as default
@@ -152,6 +121,9 @@ nnoremap <silent> <C-W><C-T> :tabedit \| lcd $GARBAGEDIR<CR>
 nnoremap <silent> <C-W>C :windo bd<CR>
 " vsplit of <C-W>f
 nnoremap <C-W><C-F> <C-W>vgf
+nnoremap <silent> <C-W><C-E> :enew<CR>
+nnoremap <silent> <C-W>V :vnew<CR>
+nnoremap <silent> <C-W><CR> :vs \| terminal<CR>
 
 nnoremap <silent> <leader>j :call JoinSpaceless()<CR>
 nnoremap <silent> <leader>J :call JoinSpaceless()<CR>
@@ -173,7 +145,6 @@ xnoremap <leader>x "xy:<C-R>x<CR>
 " Search for visual selected
 xnoremap // y/<C-R>"<CR>
 
-xnoremap <TAB> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors

@@ -36,10 +36,11 @@ Plug 'tpope/vim-obsession'
 " Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'tyru/open-browser.vim'
     Plug 'previm/previm', {'for': ['markdown'], 'on': ['PrevimOpen']}
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
+Plug 'jupyter-vim/jupyter-vim'
 " Plug 'rickhowe/diffchar.vim'
 
 " Appearances
@@ -51,8 +52,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
 
-Plug 'Shougo/neco-vim', {'for': ['vim']}
-Plug 'neoclide/coc-neco', {'for': ['vim']}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " if !nvim !yarn global add vim-node-rpc
 Plug 'OmniSharp/omnisharp-vim'
@@ -103,11 +102,12 @@ let g:previm_enable_realtime = 0
 " vim-bufkill
 let g:BufKillCreateMappings = 0
 
-" Ultisnips with ncm
+" Ultisnips
 let g:UltiSnipsExpandTrigger  = "<NUL>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-J>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-K>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
+xnoremap <TAB> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
 
 " incsearch/fuzzy
 let g:incsearch#auto_nohlsearch = 1
@@ -118,6 +118,43 @@ augroup commentary
     autocmd!
     autocmd FileType sql setlocal commentstring=--\ %s
 augroup END
+
+" jupyter-vim
+let g:jupyter_mapkeys = 0
+nnoremap <leader>EJ :JupyterRunFile<CR>
+nnoremap <leader>I :JupterImportThisFile<CR>
+nnoremap <leader>ej :JupyterSendCell<CR>
+vnoremap <leader>ej :JupyterSendRange<CR>
+
+" Vim-commentary bind
+nnoremap <leader><Tab> :Commentary<CR>
+xnoremap <leader><Tab> :Commentary<CR>
+
+" FZF
+nnoremap <silent> <C-SPACE>          :Buffers<CR>
+nnoremap <silent> <C-SPACE><C-SPACE> :FZF<CR>
+nnoremap <silent> <C-SPACE>f :FZF <C-R><C-W><CR>
+nnoremap <silent> <C-SPACE>F :FZF <C-R><C-A><CR>
+nnoremap <silent> <C-SPACE>r :Rg <C-R><C-W><CR>
+nnoremap <silent> <C-SPACE>R :Rg <C-R><C-A><CR>
+
+" incsearch/fuzzy rebindings
+nmap n  <Plug>(incsearch-nohl-n)
+nmap N  <Plug>(incsearch-nohl-N)
+nmap *  <Plug>(incsearch-nohl-*)
+nmap #  <Plug>(incsearch-nohl-#)
+nmap g* <Plug>(incsearch-nohl-g*)
+nmap g# <Plug>(incsearch-nohl-g#)
+nmap /  <Plug>(incsearch-forward)
+nmap ?  <Plug>(incsearch-backward)
+nmap g/ <Plug>(incsearch-stay)
+nmap z/ <Plug>(incsearch-fuzzy-/)
+nmap z? <Plug>(incsearch-fuzzy-?)
+nmap zg/ <Plug>(incsearch-fuzzy-stay)
+nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
+nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
+nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
+
 
 source $GITVIMDIR\cocrc.vim
 source $GITVIMDIR\omnisharp.vim

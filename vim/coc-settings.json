@@ -1,3 +1,4 @@
 {
-    "suggest.snippetIndicator": "+"
+    "suggest.snippetIndicator": "+",
+    "suggest.enablePreview": true
 }
