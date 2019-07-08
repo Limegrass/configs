@@ -93,7 +93,7 @@ endsnippet
 
 
 snippet DEI "DECLARE INT"
-DECLARE @${1:Int} INT`!p snip.rv = ' = 'if t[2] else ''`${2:0}
+DECLARE @${1:Int} INT`!p snip.rv = ' = 'if t[2] else ''`${2:${VISUAL}}
 endsnippet
 
 snippet DED "DECLARE DATETIME"
@@ -248,6 +248,14 @@ endsnippet
 #########################
 #         TSQL          #
 #########################
+
+snippet DROPEXISTING "Check for DBO and DROP"
+IF OBJECT_ID(N'${1}') IS NOT NULL
+BEGIN
+	DROP FUNCTION $1
+END
+GO
+endsnippet
 
 snippet UNIQUEINDEX "UNIQUE INDEX (TSQL)"
 CONSTRAINT ${1:UC_NAME} UNIQUE (${2:Columns})
