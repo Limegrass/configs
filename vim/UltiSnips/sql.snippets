@@ -499,3 +499,12 @@ FROM sys.objects
 WHERE type = 'P'
 ORDER BY modify_date DESC;
 endsnippet
+
+snippet DBEXTSchemaFix "Fix DBExt SQLServer DBComplete* schema"
+SELECT DISTINCT '%s/'+REPLACE(u.name, '\\', '\\\\')+'/'+s.name+'/'
+FROM sys.schemas s
+JOIN sys.sysusers u
+	ON u.uid = s.schema_id
+JOIN sys.tables t
+	ON t.schema_id = s.schema_id
+endsnippet
