@@ -124,6 +124,10 @@ if has('autocmd')
         autocmd!
         autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
     augroup END
+    augroup CSharp
+        autocmd!
+        autocmd BufReadPost *.{cs} silent call TFCheckout()
+    augroup END
 endif
 
 " ==============================================================================

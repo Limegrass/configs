@@ -135,14 +135,6 @@ function! DeleteEmptyBuffers()
     endif
 endfunction
 
-function! JoinSpaceless()
-    execute 'normal gJ'
-    " Check and remove char under cursor if it's whitespace.
-    if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
-        execute 'normal dw'
-    endif
-endfunction
-
 function! GvimDiff()
     let opt = '-a --binary '
     if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
@@ -200,4 +192,11 @@ function! GetCharInput(...)
         return '\<ESC>'
     endif
     return l:input
+endfunction
+
+function TFCheckout() abort
+    if &readonly && executable('tf')
+        call system('tf checkout '.expand('%'))
+        edit!
+    endif
 endfunction

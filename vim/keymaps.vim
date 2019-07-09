@@ -116,7 +116,7 @@ endif
 " :new
 nnoremap <C-W>S <C-W>n
 " New tab starting in the same location as default
-nnoremap <silent> <C-W><C-T> :tabedit \| lcd $GARBAGEDIR<CR>
+nnoremap <silent> <C-W><C-T> :tabedit<CR>
 " Delete all buffers of current tab
 nnoremap <silent> <C-W>C :windo bd<CR>
 " vsplit of <C-W>f
@@ -125,8 +125,17 @@ nnoremap <silent> <C-W><C-E> :enew<CR>
 nnoremap <silent> <C-W>V :vnew<CR>
 nnoremap <silent> <C-W><CR> :vs \| terminal<CR>
 
-nnoremap <silent> <leader>j :call JoinSpaceless()<CR>
-nnoremap <silent> <leader>J :call JoinSpaceless()<CR>
+nnoremap <silent> <leader>j :call <SID>JoinSpaceless()<CR>
+nnoremap <silent> <leader>J :call <SID>JoinSpaceless()<CR>
+function! s:JoinSpaceless()
+    execute 'normal gJ'
+    if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+        execute 'normal dw'
+    endif
+endfunction
+
+
+nmap <M-/> <C-]>
 
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
@@ -145,6 +154,8 @@ xnoremap <leader>x "xy:<C-R>x<CR>
 " Search for visual selected
 xnoremap // y/<C-R>"<CR>
 
+" Yank last visual selection to v
+xnoremap : "vy<CR>gv:
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
@@ -206,8 +217,6 @@ function! SplitLines(delimiter)
     execute l:cmd
 endfunction
 
-command! -nargs=1 Sudo call Sudo(<q-args>)
-
 " Dealing with my typos
 command! W w
 command! -bang W w
@@ -215,8 +224,10 @@ command! Q q
 command! -bang Q q
 
 command! TogglePrevimLive call ToggleBool('g:previm_enable_realtime')
+command! TFCheckout call TFCheckout()
 
-" Sudo write in UNIX
+" Sudo write
+command! -nargs=1 Sudo call Sudo(<q-args>)
 if !has('win32')
     command! -nargs=0 Sw w silent !sudo tee % > /dev/null
 endif

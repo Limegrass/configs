@@ -5,22 +5,19 @@ set fileformat=unix
 set encoding=utf-8
 scriptencoding utf-8
 
-if index(['/', '\'], strpart($HOME, len($HOME)-1)) < 0
-    let $HOME = $HOME.'/'
-endif
 let $HOME = substitute($HOME, '\', '/', 'g')
-let $GITDIR = $HOME.'git/'
-let $VIMDIR = $HOME.'.vim/'
-let $LOCALVIMDIR = $VIMDIR.'.local/'
+let $GITDIR = $HOME.'/git'
+let $VIMDIR = $HOME.'/.vim'
+let $LOCALVIMDIR = $VIMDIR.'/local'
 set runtimepath+=$VIMDIR,$LOCALVIMDIR
 
-let $GITVIMDIR = $GITDIR.'configs/vim/'
-let $VIMRC     = $GITVIMDIR.'_vimrc'
-let $VSVIMRC   = $GITVIMDIR.'_vsvimrc'
-let $IDEAVIMRC = $GITVIMDIR.'_ideavimrc'
-let $LOCALRC = $LOCALVIMDIR.'local.vim'
+let $GITVIMDIR = $GITDIR.'/configs/vim'
+let $VIMRC     = $GITVIMDIR.'/_vimrc'
+let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
+let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
+let $LOCALRC = $LOCALVIMDIR.'/local.vim'
 
-let $GARBAGEDIR = $GITDIR.'garbage/'
+let $GARBAGEDIR = $GITDIR.'/garbage'
 if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
@@ -31,7 +28,6 @@ source $GITVIMDIR/function-definitions.vim
 source $GITVIMDIR/vim-settings.vim
 source $GITVIMDIR/plugin-settings.vim
 source $GITVIMDIR/keymaps.vim
-
 if !get(s:, 'is_initialized', 0)
             \ && getcwd() == 'C:\Windows\System32'
     lcd $GARBAGEDIR
@@ -46,17 +42,9 @@ if filereadable($LOCALRC)
 endif
 
 " TODO
-" Find Kotlin LSP or see if I can get ctags to support kotlin
-" Automatically set register v to whatever was visually selected last on entering visual mode
-"   Make as a function
-"   Map it to c_<C-R><C-V>
-"   Probably involves an autocmd
-" Better implementation of indention like >(
-"   Autoalign multiple rows
-"   Get cursor position of character in line above
-"   run substitute for ^ to that line position.
+" Custom LSPs in coc in general (OmniSharp, mssql)
+" Add sqlint/ALE?
 " OmniSharp integration.
 "   Figure out how to build and run like Visual Studio, if it's possible
 "   msbuild => ?
-" Better linting
-" TODO: Arch Install/trizen + i3 Setup script : rice it up and backup
+" Arch Install/trizen + i3 Setup script : rice it up and backup

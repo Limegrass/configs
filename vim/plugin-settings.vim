@@ -40,7 +40,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
-Plug 'jupyter-vim/jupyter-vim'
+Plug 'jupyter-vim/jupyter-vim', {'for': ['python']}
 " Plug 'rickhowe/diffchar.vim'
 
 " Appearances
@@ -156,5 +156,5 @@ nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
 
 
-source $GITVIMDIR\cocrc.vim
-source $GITVIMDIR\omnisharp.vim
+source $GITVIMDIR/cocrc.vim
+source $GITVIMDIR/omnisharp.vim

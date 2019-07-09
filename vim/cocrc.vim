@@ -13,21 +13,22 @@ set shortmess+=c
 inoremap <silent> <expr> <c-space> pumvisible() ? "\<C-X>\<CR>" : coc#refresh()
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> [c <SID>CocActionOrDefault('[c', 'diagnosticPrevious')
+nmap <silent> ]c <SID>CocActionOrDefault(']c', 'diagnosticNext')
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd <SID>CocActionOrDefault('gd', 'jumpDefinition')
+nmap <silent> gy <SID>CocActionOrDefault('gy', 'jumpTypeDefinition')
+nmap <silent> gi <SID>CocActionOrDefault('gi', 'jumpImplementation')
+nmap <silent> gr <SID>CocActionOrDefault('gr', 'jumpReferences')
 
 " Use K for show documentation in preview window
 " Currently broken and breaks K in help, need to fix.
-nnoremap <expr> K <SID>show_documentation()
-function! s:show_documentation()
-    if index(['vim', 'help'], &filetype) >= 0 || !CocActionAsync('doHover')
-        return 'K'
+nnoremap <expr> K index(['vim', 'help'], &filetype) >= 0 ? 'K' : <SID>CocActionOrDefault('K', 'doHover')
+
+function! s:CocActionOrDefault(default_action, coc_action)
+    if !CocActionAsync(a:coc_action)
+        return a:default_action
     endif
     return ''
 endfunction
