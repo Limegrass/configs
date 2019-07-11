@@ -194,9 +194,20 @@ function! GetCharInput(...)
     return l:input
 endfunction
 
-function TFCheckout() abort
+function! TFCheckout() abort
     if &readonly && executable('tf')
         call system('tf checkout '.expand('%'))
         edit!
     endif
+endfunction
+
+" {app.config or web.config path} [, port [, debug_level]]
+function! IISExpress(app_path, ...) abort
+    let l:port = get(a:, '1', '8080')
+    let l:debug_level = get(a:, '2', 'i') " i[nfo], w[arning], e[rror]
+    execute 'vs | terminal iisexpress /path:'.a:app_path.' /port:'.l:port.' /trace:'.l:debug_level
+endfunction
+
+function! MSBuild(solution_path) abort
+    execute 'vs | terminal msbuild '.a:solution_path
 endfunction
