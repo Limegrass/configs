@@ -54,6 +54,8 @@ nnoremap <silent> ZD :BD<CR>
 
 nnoremap <silent> cx :call StripExtraneousWhiteSpace()<CR>
 
+nnoremap <M-/> gv<C-]>
+
 nnoremap <expr> yr CopyRegisterFromInto(GetCharInput(), GetCharInput())
 
 " Search for word currently under cursor
@@ -134,9 +136,6 @@ function! s:JoinSpaceless()
     endif
 endfunction
 
-
-nmap <M-/> <C-]>
-
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
 xnoremap > >gv
@@ -155,7 +154,7 @@ xnoremap <leader>x "xy:<C-R>x<CR>
 xnoremap // y/<C-R>"<CR>
 
 " Yank last visual selection to v
-xnoremap : "vy<CR>gv:
+xnoremap : "vygv:
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
@@ -225,6 +224,20 @@ command! -bang Q q
 
 command! TogglePrevimLive call ToggleBool('g:previm_enable_realtime')
 command! TFCheckout call TFCheckout()
+
+command! BrowseOld call <SID>BrowseOld()
+function! s:BrowseOld() abort
+    enew
+    setlocal buftype=nofile
+    0put =v:oldfiles
+    1
+    nnoremap <buffer> <silent> <CR> :silent call <SID>GoToFileAndClose()<CR>
+endfunction
+function! s:GoToFileAndClose() abort
+    let l:buffer_number = bufnr('%')
+    e <cfile>
+    execute 'bd '.l:buffer_number
+endfunction
 
 " Sudo write
 command! -nargs=1 Sudo call Sudo(<q-args>)

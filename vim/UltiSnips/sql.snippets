@@ -500,11 +500,19 @@ WHERE type = 'P'
 ORDER BY modify_date DESC;
 endsnippet
 
-snippet DBEXTSchemaFix "Fix DBExt SQLServer DBComplete* schema"
-SELECT DISTINCT '%s/'+REPLACE(u.name, '\\', '\\\\')+'/'+s.name+'/'
-FROM sys.schemas s
-JOIN sys.sysusers u
-	ON u.uid = s.schema_id
-JOIN sys.tables t
-	ON t.schema_id = s.schema_id
+snippet DBODictionary "Fix DBExt SQLServer DBComplete* schema"
+SET NOCOUNT ON;
+WITH DBOs AS (
+	SELECT SCHEMA_NAME(o.schema_id) [Schema],
+		OBJECT_NAME(o.object_id) [ObjectName],
+		o.type [Type]
+	FROM sys.objects o
+	WHERE o.type IN ('AF', 'FN', 'FS', 'FT', 'IF', 'P', 'PC',
+		'RF', 'S', 'SN', 'TF', 'TT', 'U', 'V', 'X'))
+SELECT d.[Schema] + '.' + d.ObjectName
+FROM DBOs d
+UNION
+SELECT d.ObjectName
+FROM DBOs d
+WHERE d.type <> 'S'
 endsnippet
