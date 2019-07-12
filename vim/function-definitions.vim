@@ -123,11 +123,15 @@ function! RepeatForList(commandPrefix, commandSuffix, argsList)
 endfunction
 
 function! DeleteEmptyBuffers()
-    let [l:i, l:n; empty] = [1, bufnr('$')]
-    while l:i <= l:n
-        if bufname(i) == '' && getbufvar(l:i, "&mod", 0)
-            execute 'bd '.l:i
+    let l:buffer_count = bufnr('$')
+    let l:buffer_number = 1
+    while l:buffer_number <= l:buffer_count
+        if bufloaded(l:buffer_number)
+                    \ && !len(bufname(l:buffer_number))
+                    \ && !getbufvar(l:buffer_number, "&mod", 0)
+            execute 'bd '.l:buffer_number
         endif
+        let l:buffer_number = l:buffer_number + 1
     endwhile
 endfunction
 
@@ -136,7 +140,7 @@ function! DeleteSavedBuffers()
     let l:buffer_number = 1
     while l:buffer_number <= l:buffer_count
         if bufloaded(l:buffer_number)
-                    \ && !(getbufvar(l:buffer_number, '&buftype') ==# 'terminal')
+                    \ && !(getbufvar(l:buffer_number, '&buftype') == 'terminal')
                     \ && !getbufvar(l:buffer_number, '&mod', 0)
             execute 'bd '.l:buffer_number
         endif
