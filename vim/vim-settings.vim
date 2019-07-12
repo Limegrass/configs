@@ -34,7 +34,6 @@ set history=100
 set cursorline
 set hidden
 set diffopt+=vertical,iwhite
-set fileformat=unix
 set fileformats=unix,dos
 set fileignorecase
 set virtualedit=all
