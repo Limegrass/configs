@@ -34,7 +34,6 @@ set history=100
 set cursorline
 set hidden
 set diffopt+=vertical,iwhite
-set fileformat=unix
 set fileformats=unix,dos
 set fileignorecase
 set virtualedit=all
@@ -123,6 +122,10 @@ if has('autocmd')
     augroup PrevimSettings
         autocmd!
         autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+    augroup END
+    augroup CSharp
+        autocmd!
+        autocmd BufReadPost *.{cs} silent call TFCheckout()
     augroup END
 endif
 

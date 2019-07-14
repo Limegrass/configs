@@ -123,24 +123,29 @@ function! RepeatForList(commandPrefix, commandSuffix, argsList)
 endfunction
 
 function! DeleteEmptyBuffers()
-    let [i, n; empty] = [1, bufnr('$')]
-    while i <= n
-        if bufexists(i) && bufname(i) == ''
-            call add(empty, i)
+    let l:buffer_count = bufnr('$')
+    let l:buffer_number = 1
+    while l:buffer_number <= l:buffer_count
+        if bufloaded(l:buffer_number)
+                    \ && !len(bufname(l:buffer_number))
+                    \ && !getbufvar(l:buffer_number, "&mod", 0)
+            execute 'bd '.l:buffer_number
         endif
-        let i += 1
+        let l:buffer_number = l:buffer_number + 1
     endwhile
-    if len(empty) > 0
-        exe 'bdelete' join(empty)
-    endif
 endfunction
 
-function! JoinSpaceless()
-    execute 'normal gJ'
-    " Check and remove char under cursor if it's whitespace.
-    if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
-        execute 'normal dw'
-    endif
+function! DeleteSavedBuffers()
+    let l:buffer_count = bufnr('$')
+    let l:buffer_number = 1
+    while l:buffer_number <= l:buffer_count
+        if bufloaded(l:buffer_number)
+                    \ && !(getbufvar(l:buffer_number, '&buftype') == 'terminal')
+                    \ && !getbufvar(l:buffer_number, '&mod', 0)
+            execute 'bd '.l:buffer_number
+        endif
+        let l:buffer_number = l:buffer_number + 1
+    endwhile
 endfunction
 
 function! GvimDiff()
@@ -200,4 +205,22 @@ function! GetCharInput(...)
         return '\<ESC>'
     endif
     return l:input
+endfunction
+
+function! TFCheckout() abort
+    if &readonly && executable('tf')
+        call system('tf checkout '.expand('%'))
+        edit!
+    endif
+endfunction
+
+" {app.config or web.config path} [, port [, debug_level]]
+function! IISExpress(app_path, ...) abort
+    let l:port = get(a:, '1', '8080')
+    let l:debug_level = get(a:, '2', 'i') " i[nfo], w[arning], e[rror]
+    execute 'vs | terminal iisexpress /path:'.a:app_path.' /port:'.l:port.' /trace:'.l:debug_level
+endfunction
+
+function! MSBuild(solution_path) abort
+    execute 'vs | terminal msbuild '.a:solution_path
 endfunction

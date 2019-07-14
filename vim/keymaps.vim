@@ -54,6 +54,8 @@ nnoremap <silent> ZD :BD<CR>
 
 nnoremap <silent> cx :call StripExtraneousWhiteSpace()<CR>
 
+nnoremap <M-/> gv<C-]>
+
 nnoremap <expr> yr CopyRegisterFromInto(GetCharInput(), GetCharInput())
 
 " Search for word currently under cursor
@@ -116,7 +118,7 @@ endif
 " :new
 nnoremap <C-W>S <C-W>n
 " New tab starting in the same location as default
-nnoremap <silent> <C-W><C-T> :tabedit \| lcd $GARBAGEDIR<CR>
+nnoremap <silent> <C-W><C-T> :tabedit<CR>
 " Delete all buffers of current tab
 nnoremap <silent> <C-W>C :windo bd<CR>
 " vsplit of <C-W>f
@@ -125,8 +127,14 @@ nnoremap <silent> <C-W><C-E> :enew<CR>
 nnoremap <silent> <C-W>V :vnew<CR>
 nnoremap <silent> <C-W><CR> :vs \| terminal<CR>
 
-nnoremap <silent> <leader>j :call JoinSpaceless()<CR>
-nnoremap <silent> <leader>J :call JoinSpaceless()<CR>
+nnoremap <silent> <leader>j :call <SID>JoinSpaceless()<CR>
+nnoremap <silent> <leader>J :call <SID>JoinSpaceless()<CR>
+function! s:JoinSpaceless()
+    execute 'normal gJ'
+    if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+        execute 'normal dw'
+    endif
+endfunction
 
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode
@@ -145,6 +153,8 @@ xnoremap <leader>x "xy:<C-R>x<CR>
 " Search for visual selected
 xnoremap // y/<C-R>"<CR>
 
+" Yank last visual selection to v
+xnoremap : "vygv:
 
 " =============================== INSERT_MODE ==================================
 " CTRL+BS/DEL like other editors
@@ -199,14 +209,13 @@ function! Jisho(...) range
 endfunction
 
 command! -nargs=0 DeleteEmptyBuffers silent call DeleteEmptyBuffers()
+command! -nargs=0 DeleteSavedBuffers silent call DeleteSavedBuffers()
 
 command! -nargs=1 SplitLines call SplitLines(<f-args>)
 function! SplitLines(delimiter)
     let l:cmd = 's/'.a:delimiter.'/\r/g'
     execute l:cmd
 endfunction
-
-command! -nargs=1 Sudo call Sudo(<q-args>)
 
 " Dealing with my typos
 command! W w
@@ -215,11 +224,29 @@ command! Q q
 command! -bang Q q
 
 command! TogglePrevimLive call ToggleBool('g:previm_enable_realtime')
+command! TFCheckout call TFCheckout()
 
-" Sudo write in UNIX
+command! BrowseOld call <SID>BrowseOld()
+function! s:BrowseOld() abort
+    enew
+    setlocal buftype=nofile
+    0put =v:oldfiles
+    1
+    nnoremap <buffer> <silent> <CR> :silent call <SID>GoToFileAndClose()<CR>
+endfunction
+function! s:GoToFileAndClose() abort
+    let l:buffer_number = bufnr('%')
+    e <cfile>
+    execute 'bd '.l:buffer_number
+endfunction
+
+" Sudo write
+command! -nargs=1 Sudo call Sudo(<q-args>)
 if !has('win32')
     command! -nargs=0 Sw w silent !sudo tee % > /dev/null
 endif
+
+command! -nargs=1 -complete=dir Mkdir call mkdir(<q-args>)
 
 " =============================== ABBREVIATIONS ================================
 " Force vertical splits for help files and expand gui window for help

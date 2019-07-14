@@ -40,7 +40,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
-Plug 'jupyter-vim/jupyter-vim'
+Plug 'jupyter-vim/jupyter-vim', {'for': ['python']}
 " Plug 'rickhowe/diffchar.vim'
 
 " Appearances
@@ -127,16 +127,13 @@ nnoremap <leader>ej :JupyterSendCell<CR>
 vnoremap <leader>ej :JupyterSendRange<CR>
 
 " Vim-commentary bind
-nnoremap <leader><Tab> :Commentary<CR>
-xnoremap <leader><Tab> :Commentary<CR>
+nnoremap <silent> <leader><Tab> :Commentary<CR>
+xnoremap <silent> <leader><Tab> :Commentary<CR>
 
 " FZF
-nnoremap <silent> <C-SPACE>          :Buffers<CR>
-nnoremap <silent> <C-SPACE><C-SPACE> :FZF<CR>
-nnoremap <silent> <C-SPACE>f :FZF <C-R><C-W><CR>
-nnoremap <silent> <C-SPACE>F :FZF <C-R><C-A><CR>
-nnoremap <silent> <C-SPACE>r :Rg <C-R><C-W><CR>
-nnoremap <silent> <C-SPACE>R :Rg <C-R><C-A><CR>
+nnoremap <silent> <C-SPACE>  :FZF<CR>
+nnoremap <silent> g<C-SPACE> :Tags<CR>
+nnoremap <silent> z<C-SPACE> :Rg<CR>
 
 " incsearch/fuzzy rebindings
 nmap n  <Plug>(incsearch-nohl-n)
@@ -154,7 +151,15 @@ nmap zg/ <Plug>(incsearch-fuzzy-stay)
 nmap <leader>/ <Plug>(incsearch-fuzzyspell-/)
 nmap <leader>? <Plug>(incsearch-fuzzyspell-?)
 nmap <leader>g/ <Plug>(incsearch-fuzzyspell-stay)
+augroup incsearch-keymap
+    autocmd!
+    autocmd VimEnter * call s:incsearch_keymap()
+augroup END
+function! s:incsearch_keymap()
+    IncSearchNoreMap <C-S-n> <Over>(buffer-complete)
+    IncSearchNoreMap <C-S-p> <Over>(buffer-complete-prev)
+    IncSearchNoreMap <M-/> <CR>gv<C-]>
+endfunction
 
-
-source $GITVIMDIR\cocrc.vim
-source $GITVIMDIR\omnisharp.vim
+source $GITVIMDIR/cocrc.vim
+source $GITVIMDIR/omnisharp.vim

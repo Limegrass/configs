@@ -93,7 +93,7 @@ endsnippet
 
 
 snippet DEI "DECLARE INT"
-DECLARE @${1:Int} INT`!p snip.rv = ' = 'if t[2] else ''`${2:0}
+DECLARE @${1:Int} INT`!p snip.rv = ' = 'if t[2] else ''`${2:${VISUAL}}
 endsnippet
 
 snippet DED "DECLARE DATETIME"
@@ -248,6 +248,14 @@ endsnippet
 #########################
 #         TSQL          #
 #########################
+
+snippet DROPEXISTING "Check for DBO and DROP"
+IF OBJECT_ID(N'${1}') IS NOT NULL
+BEGIN
+	DROP FUNCTION $1
+END
+GO
+endsnippet
 
 snippet UNIQUEINDEX "UNIQUE INDEX (TSQL)"
 CONSTRAINT ${1:UC_NAME} UNIQUE (${2:Columns})
@@ -490,4 +498,21 @@ SELECT name, create_date, modify_date
 FROM sys.objects
 WHERE type = 'P'
 ORDER BY modify_date DESC;
+endsnippet
+
+snippet DBODictionary "Fix DBExt SQLServer DBComplete* schema"
+SET NOCOUNT ON;
+WITH DBOs AS (
+	SELECT SCHEMA_NAME(o.schema_id) [Schema],
+		OBJECT_NAME(o.object_id) [ObjectName],
+		o.type [Type]
+	FROM sys.objects o
+	WHERE o.type IN ('AF', 'FN', 'FS', 'FT', 'IF', 'P', 'PC',
+		'RF', 'S', 'SN', 'TF', 'TT', 'U', 'V', 'X'))
+SELECT d.[Schema] + '.' + d.ObjectName
+FROM DBOs d
+UNION
+SELECT d.ObjectName
+FROM DBOs d
+WHERE d.type <> 'S'
 endsnippet
