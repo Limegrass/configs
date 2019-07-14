@@ -92,6 +92,8 @@ nnoremap <K ^k^jdw
 nnoremap <J ^j^kdw
 
 nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
 nnoremap <leader>d "+d
 nnoremap <leader>Y "+y$
 
