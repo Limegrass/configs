@@ -53,8 +53,6 @@ Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-" if !nvim !yarn global add vim-node-rpc
-Plug 'OmniSharp/omnisharp-vim'
 
 " Syntax
 Plug 'PProvost/vim-ps1'
@@ -162,4 +160,3 @@ function! s:incsearch_keymap()
 endfunction
 
 source $GITVIMDIR/cocrc.vim
-source $GITVIMDIR/omnisharp.vim

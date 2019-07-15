@@ -13,24 +13,28 @@ set shortmess+=c
 inoremap <silent> <expr> <c-space> pumvisible() ? "\<C-X>\<CR>" : coc#refresh()
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <SID>CocActionOrDefault('[c', 'diagnosticPrevious')
-nmap <silent> ]c <SID>CocActionOrDefault(']c', 'diagnosticNext')
+nmap <silent> [c :call <SID>CocActionAsyncOrDefault('diagnosticPrevious', '[c')
+nmap <silent> ]c :call <SID>CocActionAsyncOrDefault('diagnosticNext', ']c')
 
 " Remap keys for gotos
-nmap <silent> gd <SID>CocActionOrDefault('gd', 'jumpDefinition')
-nmap <silent> gy <SID>CocActionOrDefault('gy', 'jumpTypeDefinition')
-nmap <silent> gi <SID>CocActionOrDefault('gi', 'jumpImplementation')
-nmap <silent> gr <SID>CocActionOrDefault('gr', 'jumpReferences')
+nmap <silent> gd :call <SID>CocActionAsyncOrDefault('jumpDefinition', 'gd')
+nmap <silent> gy :call <SID>CocActionAsyncOrDefault('jumpTypeDefinition', 'gy' )
+nmap <silent> gi :call <SID>CocActionAsyncOrDefault('jumpImplementation', 'gi')
+nmap <silent> gr :call <SID>CocActionAsyncOrDefault('jumpReferences', 'gr')
 
-" Use K for show documentation in preview window
-" Currently broken and breaks K in help, need to fix.
-nnoremap <expr> K index(['vim', 'help'], &filetype) >= 0 ? 'K' : <SID>CocActionOrDefault('K', 'doHover')
+nmap <silent> gd :call <SID>CocActionAsyncOrDefault('jumpDefinition', 'gd')<CR>
+function! s:CocActionAsyncOrDefault(coc_action, default_action)
+    let Callback = { _, response -> 
+                \ execute(response != null && response ? '' : 'normal '.a:default_action) }
+    call CocActionAsync(a:coc_action, Callback)
+endfunction
 
-function! s:CocActionOrDefault(default_action, coc_action)
-    if !CocActionAsync(a:coc_action)
-        return a:default_action
-    endif
-    return ''
+nmap <silent> <expr> K :call <SID>CocActionAsyncOrDefault('doHover', 'K')<CR>
+nnoremap <silent> <expr> K index(['vim', 'help'], &filetype) >= 0 
+            \ ? 'K' : <SID>CallCocActionAsyncOrDefaultAndReturnNull('doHover', 'K')
+function! s:CallCocActionAsyncOrDefaultAndReturnNull(coc_action, default_action)
+    call <SID>CocActionAsyncOrDefault(a:coc_action, a:default_action)
+    return '\<NUL>'
 endfunction
 
 " Highlight symbol under cursor on CursorHold

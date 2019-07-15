@@ -1,4 +1,12 @@
 {
     "suggest.snippetIndicator": "+",
-    "suggest.enablePreview": true
+    "suggest.enablePreview": true,
+    "languageserver": {
+        "omnisharp": {
+            "command": "OmniSharp",
+            "args": ["-lsp"],
+            "rootPatterns": [".sln"],
+            "filetypes": [ "cs" ]
+        }
+    }
 }
