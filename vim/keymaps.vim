@@ -29,6 +29,8 @@ nnoremap <silent> <leader>V :execute 'vnew $VIMRC \| setlocal fileformat=unix'<C
 nnoremap <silent> <leader>S :source $MYVIMRC<CR>
 nnoremap <silent> <ESC> :nohlsearch<CR><ESC>
 
+nnoremap <CR> i<CR><ESC>
+
 nnoremap Q @q " Ex mode by gQ still
 
 nnoremap Y y$

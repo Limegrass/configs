@@ -81,17 +81,3 @@ snippet foldp "Insert a vim fold marker pair" b
 ${2:${VISUAL:Content}}
 `!p snip.rv = get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
 endsnippet
-
-snippet WRAP{} "{} Wrap"
-{
-	${VISUAL}
-}
-endsnippet
-
-snippet WRAP[] "[] Wrap"
-[${VISUAL}]
-endsnippet
-
-snippet WRAP() "() Wrap"
-(${VISUAL})
-endsnippet
