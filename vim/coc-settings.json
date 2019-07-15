@@ -1,12 +1,18 @@
 {
     "suggest.snippetIndicator": "+",
     "suggest.enablePreview": true,
+    "codeLens.enable": true,
+    "codeLens.separator": "|->",
     "languageserver": {
         "omnisharp": {
             "command": "OmniSharp",
             "args": ["-lsp"],
             "rootPatterns": [".sln"],
             "filetypes": [ "cs" ]
+        },
+        "mssql": {
+            "command": "MicrosoftSqlToolsServiceLayer.exe",
+            "filetypes": [ "sql" ]
         }
     }
 }

@@ -10,7 +10,7 @@ set updatetime=300
 set shortmess+=c
 
 " Use <c-space> for trigger completion.
-inoremap <silent> <expr> <c-space> pumvisible() ? "\<C-X>\<CR>" : coc#refresh()
+inoremap <silent> <expr> <c-space> coc#refresh()
 
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c :call <SID>CocActionAsyncOrDefault('diagnosticPrevious', '[c')
