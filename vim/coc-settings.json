@@ -13,6 +13,10 @@
         "mssql": {
             "command": "MicrosoftSqlToolsServiceLayer.exe",
             "filetypes": [ "sql" ]
+        },
+        "kotlin": {
+            "command": "server.bat",
+            "filetypes": [ "kotlin" ]
         }
     }
 }

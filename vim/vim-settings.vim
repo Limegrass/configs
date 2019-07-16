@@ -21,7 +21,7 @@ set incsearch
 set ignorecase
 set smartcase
 set number
-set wrap
+set nowrap
 set wildmenu
 set guioptions=c
 set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
