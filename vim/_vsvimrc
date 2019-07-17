@@ -60,8 +60,8 @@ nnoremap <C-W>L :vsc Window.MovetoNextTabGroup<CR>
 nnoremap <leader>k :vsc Window.KeepTabOpen<CR>
 
 " View
-nnoremap <C-H> :vsc View.NavigateBackward<CR>
-nnoremap <C-L> :vsc View.NavigateForward<CR>
+nnoremap <C-O> :vsc View.NavigateBackward<CR>
+nnoremap <C-I> :vsc View.NavigateForward<CR>
 nnoremap <leader>se :vsc View.SolutionExplorer<CR>
 nnoremap <leader>te :vsc View.TfsTeamExplorer<CR>
 nnoremap <leader>f1 :vsc View.FindResults1<CR>
