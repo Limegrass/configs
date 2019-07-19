@@ -40,11 +40,3 @@ endif
 if filereadable($LOCALRC)
     source $LOCALRC
 endif
-
-" TODO
-" Custom LSPs in coc in general (OmniSharp, mssql)
-" Add sqlint/ALE?
-" OmniSharp integration.
-"   Figure out how to build and run like Visual Studio, if it's possible
-"   msbuild => ?
-" Arch Install/trizen + i3 Setup script : rice it up and backup
