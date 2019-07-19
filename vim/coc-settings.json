@@ -1,7 +1,6 @@
 {
     "git.enableGutters": true,
     "git.addGlameToVirtualText": true,
-    "git.addedSign.text": "+",
     "git.virtualTextPrefix": "    |->",
     "suggest.snippetIndicator": "+",
     "suggest.enablePreview": true,
