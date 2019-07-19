@@ -25,45 +25,29 @@ Plug 'haya14busa/incsearch.vim'
     Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug 'SirVer/ultisnips'
-    " Plug 'honza/vim-snippets'
-" Editing/Core
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'tpope/vim-fugitive'
-" Seems DBExt actually works on nvim
-" Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-obsession'
-" Plug 'tpope/vim-scriptease'
-" Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'tyru/open-browser.vim'
-    Plug 'previm/previm', {'for': ['markdown'], 'on': ['PrevimOpen']}
-" Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
-Plug 'kshenoy/vim-signature'
-Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
-Plug 'jupyter-vim/jupyter-vim', {'for': ['python']}
-" Plug 'rickhowe/diffchar.vim'
-
+" Plug 'tpope/vim-scriptease'
+" Plug 'tpope/vim-dispatch'
 " Appearances
 Plug 'flazz/vim-colorschemes'
 Plug 'aonemd/kuroi.vim'
 Plug 'bling/vim-airline'
-Plug 'nathanaelkane/vim-indent-guides', {'on': ['IndentGuidesEnable', 'IndentGuidesToggle']}
 Plug 'vim-airline/vim-airline-themes'
+Plug 'nathanaelkane/vim-indent-guides', {'on': ['IndentGuidesEnable', 'IndentGuidesToggle']}
 Plug 'gcmt/taboo.vim'
 Plug 'godlygeek/tabular'
+" Rarely Used
+Plug 'kshenoy/vim-signature'
+Plug 'sjl/gundo.vim', {'on': ['GundoToggle', 'GundoShow']}
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-
-" Syntax
-Plug 'PProvost/vim-ps1'
-Plug 'OrangeT/vim-csharp', {'for': ['cs']}
+" Specialized
 Plug 'lervag/vimtex', {'for': ['tex']}
-Plug 'cakebaker/scss-syntax.vim', {'for': ['cs', 'html', 'cshtml', 'scss', 'css']}
-Plug 'mhartington/nvim-typescript', {'for': ['ts']}
-
-" Pair programming, check if they're usable when needed.
-" Plug 'Floobits/floobits-vim'
-" Plug 'FredKSchott/CoVim'
+Plug 'previm/previm', {'for': ['markdown'], 'on': ['PrevimOpen']}
+Plug 'jupyter-vim/jupyter-vim',
+            \ {'for': ['python']}
 call plug#end()
 
 " ==============================================================================
@@ -96,6 +80,7 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
 " Previm
 let g:previm_enable_realtime = 0
+let g:previm_open_cmd = GetOSProtocolHandler()
 
 " vim-bufkill
 let g:BufKillCreateMappings = 0

@@ -84,12 +84,10 @@ function! DBProfile(profile)
       DBCompleteTables
 endfunction
 
-function! StartBrowser(link)
-    if has('win32')
-        silent execute '!start '.a:link
-    else
-        silent execute '!xdg-open'.a:link
-    endif
+function! StartBrowser(...)
+    let l:link = ''.join(a:000)
+    let l:command = '!'.GetOSProtocolHandler().' '.l:link
+    silent execute l:command
 endfunction
 
 function! ClearRegisters(chars)
@@ -212,6 +210,13 @@ function! TFCheckout() abort
         call system('tf checkout '.expand('%'))
         edit!
     endif
+endfunction
+
+function! GetOSProtocolHandler()
+    if has('win32')
+        return 'explorer'
+    endif
+    return 'xdg-open'
 endfunction
 
 " {app.config or web.config path} [, port [, debug_level]]

@@ -23,6 +23,7 @@ set smartcase
 set number
 set nowrap
 set wildmenu
+set wildmode=list:full
 set guioptions=c
 set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
 set backspace=indent,eol,start
