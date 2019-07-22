@@ -229,3 +229,12 @@ endfunction
 function! MSBuild(solution_path) abort
     execute 'vs | terminal msbuild '.a:solution_path
 endfunction
+
+function! GetFloatingWindowNumber()
+    for l:windowNumber in range(1, winnr('$'))
+        if getwinvar(l:windowNumber, 'float')
+            return l:windowNumber
+        endif
+    endfor
+    return v:null
+endfunction

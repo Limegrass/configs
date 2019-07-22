@@ -137,6 +137,14 @@ function! s:JoinSpaceless()
         execute 'normal dw'
     endif
 endfunction
+nnoremap <silent> <leader><C-W> :call <SID>GoToFloatingWindow()<CR>
+function! s:GoToFloatingWindow()
+    let l:floatingWindowNumber = GetFloatingWindowNumber()
+    if (l:floatingWindowNumber == v:null)
+        let l:floatingWindowNumber = ''
+    endif
+    execute l:floatingWindowNumber.' wincmd w'
+endfunction
 
 " =============================== VISUAL_MODE ==================================
 " Retain selection when indenting in visual mode

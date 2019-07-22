@@ -13,25 +13,22 @@ set shortmess+=c
 inoremap <silent> <expr> <c-space> coc#refresh()
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c :call <SID>CocActionAsyncOrDefault('diagnosticPrevious', '[c')
-nmap <silent> ]c :call <SID>CocActionAsyncOrDefault('diagnosticNext', ']c')
+nnoremap <silent> [c :call <SID>CocActionAsyncOrDefault('diagnosticPrevious', '[c')<CR>
+nnoremap <silent> ]c :call <SID>CocActionAsyncOrDefault('diagnosticNext', ']c')<CR>
 
 " Remap keys for gotos
-nmap <silent> gd :call <SID>CocActionAsyncOrDefault('jumpDefinition', 'gd')
-nmap <silent> gy :call <SID>CocActionAsyncOrDefault('jumpTypeDefinition', 'gy' )
-nmap <silent> gi :call <SID>CocActionAsyncOrDefault('jumpImplementation', 'gi')
-nmap <silent> gr :call <SID>CocActionAsyncOrDefault('jumpReferences', 'gr')
+nnoremap <silent> gd :call <SID>CocActionAsyncOrDefault('jumpDefinition', 'gd')<CR>
+nnoremap <silent> gD :call <SID>CocActionAsyncOrDefault('jumpImplementation', 'gD')<CR>
+nnoremap <silent> <leader>gd :call CocActionAsync('jumpTypeDefinition')<CR>
+nnoremap <silent> <leader>fr :call CocActionAsync('jumpReferences')<CR>
 
-nmap <silent> gd :call <SID>CocActionAsyncOrDefault('jumpDefinition', 'gd')<CR>
 function! s:CocActionAsyncOrDefault(coc_action, default_action)
-    let Callback = { _, response -> 
-                \ execute(response != null && response ? '' : 'normal '.a:default_action) }
+    let Callback = { _, response ->
+                \ execute(response ? '' : 'normal! '.a:default_action) }
     call CocActionAsync(a:coc_action, Callback)
 endfunction
 
-nmap <silent> <expr> K :call <SID>CocActionAsyncOrDefault('doHover', 'K')<CR>
-nnoremap <silent> <expr> K index(['vim', 'help'], &filetype) >= 0 
-            \ ? 'K' : <SID>CallCocActionAsyncOrDefaultAndReturnNull('doHover', 'K')
+nnoremap <silent> K :call <SID>CallCocActionAsyncOrDefaultAndReturnNull('doHover', 'K')<CR>
 function! s:CallCocActionAsyncOrDefaultAndReturnNull(coc_action, default_action)
     call <SID>CocActionAsyncOrDefault(a:coc_action, a:default_action)
     return '\<NUL>'
