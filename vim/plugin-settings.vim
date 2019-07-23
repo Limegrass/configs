@@ -1,7 +1,7 @@
 "   Sections:
 "       VIM_PLUG
 "       PLUGIN_SETTINGS
-" ==============================================================================
+" =============================================================================
 " VIM_PLUG
 " ==============================================================================
 
@@ -62,9 +62,6 @@ let g:airline_theme='deus'
 
 let g:gundo_prefer_python3 = 1
 
-" fzf-vim
-let g:fzf_layout = { 'down' : '20%'}
-
 " vim-signature
 let g:SignatureEnabledAtStartup = 0
 
@@ -114,6 +111,7 @@ nnoremap <silent> <leader><Tab> :Commentary<CR>
 xnoremap <silent> <leader><Tab> :Commentary<CR>
 
 " FZF
+let g:fzf_layout = { 'down' : '20%'}
 nnoremap <silent> <C-SPACE>  :FZF<CR>
 nnoremap <silent> g<C-SPACE> :Tags<CR>
 nnoremap <silent> z<C-SPACE> :Rg<CR>
