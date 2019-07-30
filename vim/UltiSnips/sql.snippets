@@ -271,7 +271,7 @@ USE ${1: Database};
 GO
 endsnippet
 
-snippet CHECKTYPES "EXAMINE TABLE COLUMN TYPES"
+snippet DESCRIBETable "EXAMINE TABLE COLUMN TYPES"
 SELECT
 	TABLE_NAME
 	, ORDINAL_POSITION
@@ -309,7 +309,7 @@ $0
 endsnippet
 
 snippet HELP "Gets OBJECT_DEFINITION"
-EXEC sp_helptext [${1:DboName}]
+EXEC sp_helptext [${1:${VISUAL}]
 endsnippet
 
 snippet FINDCOLS "FIND COLS LIKE"
@@ -515,4 +515,8 @@ UNION
 SELECT d.ObjectName
 FROM DBOs d
 WHERE d.type <> 'S'
+endsnippet
+
+snippet NOLOCK "WITH (NOLOCK)"
+WITH (NOLOCK)
 endsnippet
