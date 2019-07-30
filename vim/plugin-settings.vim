@@ -1,7 +1,7 @@
 "   Sections:
 "       VIM_PLUG
 "       PLUGIN_SETTINGS
-" =============================================================================
+" ==============================================================================
 " VIM_PLUG
 " ==============================================================================
 
@@ -78,6 +78,10 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " Previm
 let g:previm_enable_realtime = 0
 let g:previm_open_cmd = GetOSProtocolHandler()
+let g:previm_disable_vimproc = 1
+" TODO: Figure out a proper cross platform solution and contribute to previm
+command! PrevimOpenTemp call system(GetOSProtocolHandler().
+            \ ' '.previm#make_preview_file_path('index.html'))
 
 " vim-bufkill
 let g:BufKillCreateMappings = 0
