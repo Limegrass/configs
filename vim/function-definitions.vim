@@ -214,7 +214,7 @@ endfunction
 
 function! GetOSProtocolHandler()
     if has('win32')
-        return 'explorer'
+        return 'start'
     endif
     return 'xdg-open'
 endfunction

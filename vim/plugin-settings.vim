@@ -62,9 +62,6 @@ let g:airline_theme='deus'
 
 let g:gundo_prefer_python3 = 1
 
-" fzf-vim
-let g:fzf_layout = { 'down' : '20%'}
-
 " vim-signature
 let g:SignatureEnabledAtStartup = 0
 
@@ -81,6 +78,10 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " Previm
 let g:previm_enable_realtime = 0
 let g:previm_open_cmd = GetOSProtocolHandler()
+let g:previm_disable_vimproc = 1
+" TODO: Figure out a proper cross platform solution and contribute to previm
+command! PrevimOpenTemp call system(GetOSProtocolHandler().
+            \ ' '.previm#make_preview_file_path('index.html'))
 
 " vim-bufkill
 let g:BufKillCreateMappings = 0
@@ -114,6 +115,7 @@ nnoremap <silent> <leader><Tab> :Commentary<CR>
 xnoremap <silent> <leader><Tab> :Commentary<CR>
 
 " FZF
+let g:fzf_layout = { 'down' : '20%'}
 nnoremap <silent> <C-SPACE>  :FZF<CR>
 nnoremap <silent> g<C-SPACE> :Tags<CR>
 nnoremap <silent> z<C-SPACE> :Rg<CR>
