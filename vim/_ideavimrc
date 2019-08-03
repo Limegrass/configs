@@ -23,6 +23,7 @@ set list
 set selection=inclusive
 set undofile
 set hidden
+set ideajoin
 set history=100
 setlocal spelllang=en_us
 set backspace=indent,eol,start
@@ -114,6 +115,8 @@ nnoremap <C-W>J :action MoveTabDown<CR>
 nnoremap <leader>z :s/TODO/DONE/<CR>
 nnoremap <leader>T :vimgrep /TODO/ %<CR>
 
+nnoremap <leader>fr :action FindUsages<CR>
+
 nnoremap <leader><TAB> :action CommentByLineComment<CR>
 nnoremap <leader><S-TAB> :action CommentByBlockComment<CR>
 nnoremap <C-SPACE> :action GotoFile<CR>
@@ -121,14 +124,19 @@ nnoremap <leader><C-SPACE> :action GotoChangedFile<CR>
 nnoremap <C-S-SPACE> :action FindInPath<CR>
 nnoremap <leader>cf :action Compare.SameVersion<CR>
 nnoremap <leader>rn :action RenameElement<CR>
-nnoremap zz :action StepOver<CR>
-nnoremap z<SPACE> :action StepInto<CR>
-nnoremap z<CR> :action StepOut<CR>
+nnoremap z[ :action StepOver<CR>
+nnoremap z] :action StepInto<CR>
+nnoremap <leader><BS> :action StepOut<CR>
+nnoremap <leader><CR> :action Debug<CR>
 nnoremap zQ :action Resume<CR>
 nnoremap zZ :action ToggleLineBreakpoint<CR>
+nnoremap za :action CollapseRegion<CR>
+nnoremap zA :action ExpandRegion<CR>
+nnoremap <leader>w :w<CR>
+
 
 " :( no abbrevs in Ideavim
-nnoremap <leader>f i//<editor-fold desc=""><CR>//</editor-fold><ESC>
+nnoremap <leader>f O//<editor-fold desc=""><CR>//</editor-fold><ESC>kci"
 
 
 " =============================== VISUAL MODE ================================
