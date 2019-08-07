@@ -25,7 +25,7 @@ Plug 'haya14busa/incsearch.vim'
     Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug 'SirVer/ultisnips'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'sheerun/vim-polyglot'
@@ -145,5 +145,7 @@ function! s:incsearch_keymap()
     IncSearchNoreMap <C-S-p> <Over>(buffer-complete-prev)
     IncSearchNoreMap <M-/> <CR>gv<C-]>
 endfunction
+
+" Call DBExt DescribeTable and append the full object name + Columns to the dictionary
 
 source $GITVIMDIR/cocrc.vim

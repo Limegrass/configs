@@ -58,9 +58,6 @@ nnoremap <M-/> gv<C-]>
 
 nnoremap <expr> yr CopyRegisterFromInto(GetCharInput(), GetCharInput())
 
-" Search for word currently under cursor
-nnoremap // yiw/<C-R>"
-
 "TODO: Create a better mapping (and function itself) for splitting (cm) and aligning
 nnoremap <silent> cm :silent call SplitCommas()<CR>
 function! SplitCommas()
