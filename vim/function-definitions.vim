@@ -238,3 +238,12 @@ function! GetFloatingWindowNumber()
     endfor
     return v:null
 endfunction
+
+function! CSharpCompile(file_path, target_type)
+    let l:csc_executable = get(g:, 'csc_executable_path', 'csc')
+    if(executable(l:csc_executable))
+        execute 'vs | terminal "'.g:csc_executable_path.'" /target:'.a:target_type.' '.a:file_path
+    else
+        echoerr 'Assign g:csc_file_path or add csc to your $PATH'
+    endif
+endfunction

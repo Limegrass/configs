@@ -101,6 +101,7 @@ colorscheme kuroi " alt: corporation, hybrid, zenburn
 augroup commentary
     autocmd!
     autocmd FileType sql setlocal commentstring=--\ %s
+    autocmd FileType cs setlocal commentstring=//\ %s
 augroup END
 
 " jupyter-vim
@@ -145,7 +146,5 @@ function! s:incsearch_keymap()
     IncSearchNoreMap <C-S-p> <Over>(buffer-complete-prev)
     IncSearchNoreMap <M-/> <CR>gv<C-]>
 endfunction
-
-" Call DBExt DescribeTable and append the full object name + Columns to the dictionary
 
 source $GITVIMDIR/cocrc.vim

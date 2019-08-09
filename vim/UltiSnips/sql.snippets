@@ -52,10 +52,10 @@ WHERE ${4:Condition}
 endsnippet
 
 snippet CREATE "CREATE"
-CREATE ${1:Table}
+CREATE
 endsnippet
 
-snippet CRT "CREATE TABLE"
+snippet CREATETABLE "CREATE TABLE"
 CREATE TABLE ${1:Table}
 (
 	${2:ColumnName} ${3:DataType}
@@ -309,7 +309,7 @@ $0
 endsnippet
 
 snippet HELP "Gets OBJECT_DEFINITION"
-EXEC sp_helptext [${1:${VISUAL}]
+EXEC sp_helptext [${1:${VISUAL}}]
 endsnippet
 
 snippet FINDCOLS "FIND COLS LIKE"
@@ -479,6 +479,10 @@ FROM fn_trace_gettable(@DefaultTraceFileLocation, DEFAULT)
 WHERE TextData LIKE '%${1:Term}%'
 endsnippet
 
+snippet IDENTITY "SQL Server ID Column"
+${1}ID INT IDENTITY(1, 1) NOT NULL
+endsnippet
+
 snippet DBOHISTORY "Check modified date for DB objects"
 SELECT name, create_date, modify_date
 FROM sys.objects
@@ -517,6 +521,24 @@ FROM DBOs d
 WHERE d.type <> 'S'
 endsnippet
 
+snippet HASHDDL ""
+SELECT HASHBYTES('SHA2_512',
+(
+	SELECT BulkColumn
+	FROM OPENROWSET(BULK N'${1:DDLPath}', SINGLE_BLOB) AS Blob)
+)
+endsnippet
+
 snippet NOLOCK "WITH (NOLOCK)"
 WITH (NOLOCK)
+endsnippet
+
+snippet CREATEASSEMBLY "Trust and create a new SQL DLL"
+DECLARE @Hash VARBINARY(64) = (
+	SELECT HASHBYTES('SHA2_512', (
+		SELECT BulkColumn
+		FROM OPENROWSET(BULK N'${1:DLLFilePath}',
+			SINGLE_BLOB) AS Blob)))
+EXEC sp_add_trusted_assembly @Hash;
+CREATE ASSEMBLY ${2:AssemblyName} FROM '$1';
 endsnippet
