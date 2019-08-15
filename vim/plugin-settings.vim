@@ -25,7 +25,7 @@ Plug 'haya14busa/incsearch.vim'
     Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug 'SirVer/ultisnips'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'tag': '*' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'sheerun/vim-polyglot'
@@ -44,6 +44,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'sjl/gundo.vim', {'on': ['GundoToggle', 'GundoShow']}
 
 " Specialized
+Plug 'OrangeT/vim-csharp' " Needed for cshtml
 Plug 'lervag/vimtex', {'for': ['tex']}
 Plug 'previm/previm', {'for': ['markdown'], 'on': ['PrevimOpen']}
 Plug 'jupyter-vim/jupyter-vim',

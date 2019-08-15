@@ -220,14 +220,19 @@ function! GetOSProtocolHandler()
 endfunction
 
 " {app.config or web.config path} [, port [, debug_level]]
-function! IISExpress(app_path, ...) abort
+function! IISExpressRun(app_path, ...) abort
     let l:port = get(a:, '1', '8080')
     let l:debug_level = get(a:, '2', 'i') " i[nfo], w[arning], e[rror]
     execute 'vs | terminal iisexpress /path:'.a:app_path.' /port:'.l:port.' /trace:'.l:debug_level
 endfunction
 
 function! MSBuild(solution_path) abort
-    execute 'vs | terminal msbuild '.a:solution_path
+    let l:ms_build_path = get(g:, 'ms_build_path', 'msbuild')
+    if(executable(l:ms_build_path))
+        execute 'vs | terminal '.l:ms_build_path.' '.a:solution_path
+    else
+        echoerr 'Assign g:ms_build_path or add csc to your $PATH'
+    endif
 endfunction
 
 function! GetFloatingWindowNumber()
