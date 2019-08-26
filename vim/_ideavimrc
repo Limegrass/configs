@@ -10,7 +10,7 @@ set surround
 set showmode
 set ruler
 set incsearch
-set hlsearch
+set nohlsearch
 set ignorecase
 set smartcase
 set number
@@ -124,8 +124,8 @@ nnoremap <leader><C-SPACE> :action GotoChangedFile<CR>
 nnoremap <C-S-SPACE> :action FindInPath<CR>
 nnoremap <leader>cf :action Compare.SameVersion<CR>
 nnoremap <leader>rn :action RenameElement<CR>
-nnoremap z[ :action StepOver<CR>
-nnoremap z] :action StepInto<CR>
+nnoremap z[ :action StepInto<CR>
+nnoremap z] :action StepOver<CR>
 nnoremap <leader><BS> :action StepOut<CR>
 nnoremap <leader><CR> :action Debug<CR>
 nnoremap zQ :action Resume<CR>
@@ -133,10 +133,12 @@ nnoremap zZ :action ToggleLineBreakpoint<CR>
 nnoremap za :action CollapseRegion<CR>
 nnoremap zA :action ExpandRegion<CR>
 nnoremap <leader>w :w<CR>
+" StripExtraneousWhiteSpace()
+nnoremap cx :%s/\s\+$//e<CR>:%s/\($\n\s*\)\+\%$//e<CR>:%s/\%^\($\n\s*\)\+//e<CR>
 
 
 " :( no abbrevs in Ideavim
-nnoremap <leader>f O//<editor-fold desc=""><CR>//</editor-fold><ESC>kci"
+nnoremap <leader>m O//<editor-fold desc=""><CR>//</editor-fold><ESC>kci"
 
 
 " =============================== VISUAL MODE ================================
@@ -152,3 +154,9 @@ vnoremap <S-Tab> <gv
 "Search for visual selected
 vnoremap // y/<C-R>"<CR>
 vnoremap <leader>z :s/TODO/DONE/<CR>
+
+" vim-unimpaired that actually works in ideavim
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+nnoremap [l :action GotoPreviousError<CR>
+nnoremap ]l :action GotoNextError<CR>

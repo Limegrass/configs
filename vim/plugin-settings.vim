@@ -16,6 +16,7 @@ call plug#begin($VIMDIR.'/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'andymass/vim-matchup'
 Plug 'michaeljsmith/vim-indent-object'
