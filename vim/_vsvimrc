@@ -49,6 +49,7 @@ nnoremap <leader>rf :vsc Edit.GoToNextLocation<CR>
 nnoremap <leader>rb :vsc Edit.GoToPrevLocation<CR>
 nnoremap <leader>ch :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<CR>
 nnoremap y+ :%y +<CR>
+nnoremap yp :1,$d|0 put +<CR>
 
 " Window
 " Movement of splits
@@ -141,6 +142,11 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y
 nnoremap yc "+y
+
+nnoremap ]l :vsc Diff.NextDifference<CR>
+nnoremap [l :vsc Diff.PreviousDifference<CR>
+nnoremap ]c :vsc Diff.NextDifference<CR>
+nnoremap [c :vsc Diff.PreviousDifference<CR>
 
 " ================================VISUAL MODE=================================
 xnoremap j  gj

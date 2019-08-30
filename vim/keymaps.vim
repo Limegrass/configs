@@ -38,6 +38,7 @@ nnoremap <leader>P "+P
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <silent> y+ :silent %y +<CR>
+nnoremap yp :1,$d|0 put +<CR>
 nnoremap "" "+
 nnoremap """ "_
 nnoremap <silent> <leader>w :w<CR>
