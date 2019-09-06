@@ -106,13 +106,6 @@ if has('autocmd')
         autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     augroup END
 
-    " Set spellchecking on for text buffers
-    augroup Spell
-        autocmd!
-        autocmd Filetype text setlocal spell
-        autocmd Filetype help setlocal nospell
-    augroup END
-
     " Autocompletion for HTML tags
     augroup Html
         autocmd!
@@ -123,6 +116,7 @@ if has('autocmd')
         autocmd!
         autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
     augroup END
+
     augroup CSharp
         autocmd!
         autocmd BufReadPost *.{cs} silent call TFCheckout()
