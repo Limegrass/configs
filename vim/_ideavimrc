@@ -126,7 +126,7 @@ nnoremap <leader>cf :action Compare.SameVersion<CR>
 nnoremap <leader>rn :action RenameElement<CR>
 nnoremap z[ :action StepInto<CR>
 nnoremap z] :action StepOver<CR>
-nnoremap <leader><BS> :action StepOut<CR>
+nnoremap z<BS> :action StepOut<CR>
 nnoremap <leader><CR> :action Debug<CR>
 nnoremap zQ :action Resume<CR>
 nnoremap zZ :action ToggleLineBreakpoint<CR>

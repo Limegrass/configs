@@ -18,7 +18,7 @@
             "filetypes": [ "sql" ]
         },
         "kotlin": {
-            "command": "server.bat",
+            "command": "kotlin-language-server.bat",
             "filetypes": [ "kotlin" ]
         }
     }

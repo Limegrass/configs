@@ -80,10 +80,10 @@ nnoremap <leader>w3 :vsc Debug.Watch3<CR>
 nnoremap <leader>w4 :vsc Debug.Watch4<CR>
 nnoremap <leader>br :vsc Debug.Breakpoints<CR>
 nnoremap z[ :vsc Debug.StepInto<CR>
-nnoremap <BS> :vsc Debug.StepOut<CR>
+nnoremap z<BS> :vsc Debug.StepOut<CR>
 nnoremap z] :vsc Debug.StepOver<CR>
+nnoremap zZ :vsc Debug.ToggleBreakpoint<CR>
 nnoremap <leader>pp :vsc Debug.BreakAll<CR>
-nnoremap <leader>bb :vsc Debug.ToggleBreakpoint<CR>
 nnoremap <leader><CR> :vsc Debug.Start<CR>
 nnoremap <leader>Q :vsc Debug.StopDebugging<CR>
 nnoremap <leader>i :vsc Debug.Immediate<CR>
