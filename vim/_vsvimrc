@@ -145,8 +145,8 @@ nnoremap yc "+y
 
 nnoremap ]l :vsc Diff.NextDifference<CR>
 nnoremap [l :vsc Diff.PreviousDifference<CR>
-nnoremap ]c :vsc Diff.NextDifference<CR>
-nnoremap [c :vsc Diff.PreviousDifference<CR>
+nnoremap ]c :vsc View.NextError<CR>
+nnoremap [c :vsc View.PreviousError<CR>
 
 " ================================VISUAL MODE=================================
 xnoremap j  gj
