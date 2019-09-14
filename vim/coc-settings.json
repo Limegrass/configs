@@ -20,6 +20,11 @@
         "kotlin": {
             "command": "kotlin-language-server.bat",
             "filetypes": [ "kotlin" ]
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": ["go.mod"],
+            "filetypes": ["go"]
         }
     }
 }
