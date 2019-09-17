@@ -223,12 +223,6 @@ function! SplitLines(delimiter)
     execute l:cmd
 endfunction
 
-" Dealing with my typos
-command! W w
-command! -bang W w
-command! Q q
-command! -bang Q q
-
 command! TogglePrevimLive call ToggleBool('g:previm_enable_realtime')
 command! TFCheckout call TFCheckout()
 
