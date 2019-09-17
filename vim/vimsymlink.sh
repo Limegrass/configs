@@ -1,17 +1,35 @@
-ln -s ~/git/configs/vim/_vimrc     ~/.vimrc
-ln -s ~/git/configs/vim/_ideavimrc ~/.ideavimrc
-ln -s ~/git/configs/vim/_vsvimrc   ~/.ideavimrc
+if [ ! ~/.vimrc ]; then
+    ln -s ~/git/configs/vim/_vimrc     ~/.vimrc
+fi
 
-if [ ! -d "~/.vim"] then
+if [ ! ~/.ideavimrc ]; then
+    ln -s ~/git/configs/vim/_ideavimrc ~/.ideavimrc
+fi
+
+if [ ! ~/.vsvimrc ]; then
+ln -s ~/git/configs/vim/_vsvimrc   ~/.vsvimrc
+fi
+
+if [ ! -d ~/.vim ]; then
     mkdir ~/.vim
 fi
 
-ln -s ~/git/configs/vim/pythonx  ~/.vim/pythonx
-ln -s ~/git/configs/vim/UltiSnips  ~/.vim/UltiSnips
-ln -s ~/git/configs/vim/coc-settings.json  ~/.vim/coc-settings.json
+if [ ! -d ~/.vim/pythonx ]; then
+    ln -s ~/git/configs/vim/pythonx  ~/.vim/pythonx
+fi
 
-if [ ! -d "~/.configs/nvim"] then
+if [ ! -d ~/.vim/UltiSnips ]; then
+    ln -s ~/git/configs/vim/UltiSnips  ~/.vim/UltiSnips
+fi
+
+if [ ! ~/.vim/coc-settings.json ]; then
+    ln -s ~/git/configs/vim/coc-settings.json  ~/.vim/coc-settings.json
+fi
+
+if [ ! -d ~/.configs/nvim ]; then
     mkdir -p ~/.configs/nvim
 fi
 
-echo "source ~/.vimrc" >> ~/.configs/nvim/init.vim
+if [ ! ~/.configs/nvim/init.vim ]; then
+    echo "source ~/.vimrc" >> ~/.configs/nvim/init.vim
+fi
