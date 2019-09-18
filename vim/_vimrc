@@ -15,7 +15,8 @@ let $GITVIMDIR = $GITDIR.'/configs/vim'
 let $VIMRC     = $GITVIMDIR.'/_vimrc'
 let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
 let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
-let $LOCALRC = $LOCALVIMDIR.'/local.vim'
+let $LOCALRC   = $LOCALVIMDIR.'/local.vim'
+let $I3CONFIG  = $GITDIR.'/configs/i3/config'
 
 let $GARBAGEDIR = $GITDIR.'/garbage'
 if !isdirectory($GARBAGEDIR)
