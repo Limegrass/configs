@@ -23,4 +23,6 @@ mkdir %USERPROFILE%\AppData\Local\nvim
 
 IF NOT EXIST %USERPROFILE%\AppData\Local\nvim\coc-settings.json ^
 mklink %USERPROFILE%\AppData\Local\nvim\coc-settings.json %USERPROFILE%\git\configs\vim\coc-settings.json
-echo source $HOME/_vimrc >> init.vim
+
+IF NOT EXIST %USERPROFILE%\AppData\Local\nvim\init.vim
+echo source $HOME/_vimrc >> %USERPROFILE%\AppData\Local\nvim\init.vim
