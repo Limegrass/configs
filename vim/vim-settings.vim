@@ -22,7 +22,6 @@ set ignorecase
 set smartcase
 set number
 set nowrap
-set wildmenu
 set guioptions=c
 set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
 set backspace=indent,eol,start
@@ -94,6 +93,16 @@ if has('gui_running')
     let &lines=999
     let &columns=999
 endif
+
+set wildmenu
+set wildignorecase                              " Ignore case
+set wildignore+=*.zip,*.tar,*.tar*,*.rar        " Ignore archive files
+set wildignore+=*.png,*.jpg,*.jpeg,*.gif        " Ignore images
+set wildignore+=*.pdf
+set wildignore+=*.DS_Store
+set wildignore+=*yarn.lock*
+set wildignore+=*.gem,*.obj,*.out,*.swp
+set wildignore+=.git,.hg,*/.git/*,**/.git/**
 
 " ==============================================================================
 " AUTOCOMMANDS
