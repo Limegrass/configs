@@ -21,7 +21,7 @@ inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<C-O>gk"
 inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 
 " =============================== NORMAL_MODE ==================================
-if has("win32") || has ("win32unix")
+if IsWindows()
     noremap <C-Z> <NOP>
 endif
 nnoremap <silent> <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
@@ -105,7 +105,7 @@ nnoremap <silent> <leader>gt :<C-U>execute 'normal '.repeat("gt", v:count1)<CR>
 " Change working directory to current file
 nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 " Open file explorer on current file location
-if has('win32')
+if IsWindows()
     nnoremap <leader>ee :silent !explorer.exe %:p:h<CR>
 endif
 " Navigate out of terminal mode
@@ -242,8 +242,8 @@ endfunction
 
 " Sudo write
 command! -nargs=1 Sudo call Sudo(<q-args>)
-if !has('win32')
-    command! -nargs=0 Sw w silent !sudo tee % > /dev/null
+if !IsWindows()
+    command! -nargs=0 Sw w !sudo tee % > /dev/null
 endif
 
 command! -nargs=1 -complete=dir Mkdir call mkdir(<q-args>)

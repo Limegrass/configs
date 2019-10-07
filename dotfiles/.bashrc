@@ -1,6 +1,7 @@
 # ~/.bashrc
 
 set -o vi
+export PATH=$PATH:~/.local/share/bin
 
 # Defaults from Manjaro which works for now.
 [[ $- != *i* ]] && return

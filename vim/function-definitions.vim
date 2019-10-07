@@ -212,6 +212,10 @@ function! TFCheckout() abort
     endif
 endfunction
 
+function! IsWindows()
+    return has("win32") || has ("win32unix")
+endfunction
+
 function! GetOSProtocolHandler()
     if has('win32')
         return 'start'

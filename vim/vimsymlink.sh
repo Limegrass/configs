@@ -26,10 +26,14 @@ if [ ! ~/.vim/coc-settings.json ]; then
     ln -s ~/git/configs/vim/coc-settings.json  ~/.vim/coc-settings.json
 fi
 
+if [ ! ~/.config/nvim/coc-settings.json ]; then
+    ln -s ~/git/configs/vim/coc-settings.json  ~/.config/nvim/coc-settings.json
+fi
+
 if [ ! -d ~/.configs/nvim ]; then
     mkdir -p ~/.configs/nvim
 fi
 
-if [ ! ~/.configs/nvim/init.vim ]; then
-    echo "source ~/.vimrc" >> ~/.configs/nvim/init.vim
+if [ ! ~/.config/nvim/init.vim ]; then
+    echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
 fi

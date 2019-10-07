@@ -30,6 +30,9 @@ Plug 'neoclide/coc.nvim', { 'tag': '*' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'sheerun/vim-polyglot'
+if !IsWindows()
+    Plug 'lambdalisue/suda.vim'
+endif
 " Plug 'tpope/vim-scriptease'
 " Plug 'tpope/vim-dispatch'
 " Appearances
