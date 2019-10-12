@@ -29,11 +29,6 @@ source $GITVIMDIR/function-definitions.vim
 source $GITVIMDIR/vim-settings.vim
 source $GITVIMDIR/plugin-settings.vim
 source $GITVIMDIR/keymaps.vim
-if !get(s:, 'is_initialized', 0)
-            \ && getcwd() == 'C:\Windows\System32'
-    lcd $GARBAGEDIR
-    let s:is_initialized = 1
-endif
 
 if !isdirectory($LOCALVIMDIR)
     silent call mkdir($LOCALVIMDIR)
@@ -41,3 +36,9 @@ endif
 if filereadable($LOCALRC)
     source $LOCALRC
 endif
+
+if !get(s:, 'is_initialized', 0)
+            \ && index(get(g:, 'unwanted_startup_directories', []), getcwd()) != -1
+    lcd $GARBAGEDIR
+endif
+let s:is_initialized = 1
