@@ -51,6 +51,7 @@ Plug 'sjl/gundo.vim', {'on': ['GundoToggle', 'GundoShow']}
 Plug 'OrangeT/vim-csharp' " Needed for cshtml
 Plug 'lervag/vimtex', {'for': ['tex']}
 Plug 'previm/previm', {'for': ['markdown'], 'on': ['PrevimOpen']}
+    Plug 'tyru/open-browser.vim'
 Plug 'jupyter-vim/jupyter-vim',
             \ {'for': ['python']}
 call plug#end()
@@ -82,11 +83,7 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
 " Previm
 let g:previm_enable_realtime = 0
-let g:previm_open_cmd = GetOSProtocolHandler()
 let g:previm_disable_vimproc = 1
-" TODO: Figure out a proper cross platform solution and contribute to previm
-command! PrevimOpenTemp call system(GetOSProtocolHandler().
-            \ ' '.previm#make_preview_file_path('index.html'))
 
 " vim-bufkill
 let g:BufKillCreateMappings = 0
