@@ -1,5 +1,5 @@
 command! CocInstallExtensions CocInstall
-            \ coc-dictionary coc-tag coc-omni coc-syntax coc-ultisnips
+            \ coc-dictionary coc-tag coc-omni coc-syntax coc-snippets
             \ coc-json coc-vimtex coc-pyls coc-java coc-highlight coc-html coc-yank
             \ coc-vimlsp coc-lists coc-git
 

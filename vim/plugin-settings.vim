@@ -25,7 +25,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'haya14busa/incsearch.vim'
     Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'qpkorr/vim-bufkill'
-Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', { 'tag': '*' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
