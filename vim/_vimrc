@@ -8,20 +8,15 @@ scriptencoding utf-8
 let $HOME = substitute($HOME, '\', '/', 'g')
 let $GITDIR = $HOME.'/git'
 let $VIMDIR = $HOME.'/.vim'
-let $LOCALVIMDIR = $VIMDIR.'/local'
-set runtimepath+=$VIMDIR,$LOCALVIMDIR
+set runtimepath^=$VIMDIR,$VIMDIR/after
 
 let $GITVIMDIR = $GITDIR.'/configs/vim'
-let $VIMRC     = $GITVIMDIR.'/_vimrc'
-let $VSVIMRC   = $GITVIMDIR.'/_vsvimrc'
-let $IDEAVIMRC = $GITVIMDIR.'/_ideavimrc'
-let $LOCALRC   = $LOCALVIMDIR.'/local.vim'
-let $I3CONFIG  = $GITDIR.'/configs/i3/config'
 
-let $GARBAGEDIR = $GITDIR.'/garbage'
+let $GARBAGEDIR = $HOME.'/garbage'
 if !isdirectory($GARBAGEDIR)
     silent call mkdir($GARBAGEDIR)
 endif
+
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
@@ -29,16 +24,3 @@ source $GITVIMDIR/function-definitions.vim
 source $GITVIMDIR/vim-settings.vim
 source $GITVIMDIR/plugin-settings.vim
 source $GITVIMDIR/keymaps.vim
-
-if !isdirectory($LOCALVIMDIR)
-    silent call mkdir($LOCALVIMDIR)
-endif
-if filereadable($LOCALRC)
-    source $LOCALRC
-endif
-
-if !get(s:, 'is_initialized', 0)
-            \ && index(get(g:, 'unwanted_startup_directories', []), getcwd()) != -1
-    lcd $GARBAGEDIR
-endif
-let s:is_initialized = 1
