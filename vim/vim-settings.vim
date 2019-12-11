@@ -22,7 +22,6 @@ set ignorecase
 set smartcase
 set number
 set nowrap
-set guioptions=c
 set listchars=tab:▸\ ,trail:·,precedes:←,extends:→,nbsp:·
 set backspace=indent,eol,start
 set scrolljump=3
@@ -43,7 +42,6 @@ set splitright
 set splitbelow
 set foldmethod=indent
 set foldlevel=99
-" set sessionoptions+=tabpages,globals
 set completeopt=noinsert,menuone,noselect
 runtime macros/matchit.vim
 let g:omni_sql_no_default_maps = 1
@@ -59,13 +57,6 @@ call matchadd('ColorColumn', '\%81v.', 100)
 " Prevent starting in Hiragana
 set iminsert=0
 set imsearch=-1
-if has('pythonx')
-    if has('python3')
-        set pyx=3
-    elseif has('python')
-        set pyx=2
-    endif
-endif
 
 " Put undo/swap/temp files user's vim subfolder
 let $UNDODIR=$VIMDIR.'/undo'
@@ -88,11 +79,6 @@ set directory=$SWAPDIR
 
 set termguicolors
 set background=dark
-set guifont=Consolas:h9
-if has('gui_running')
-    let &lines=999
-    let &columns=999
-endif
 
 set wildmenu
 set wildignorecase                              " Ignore case

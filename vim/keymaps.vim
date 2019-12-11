@@ -24,8 +24,8 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 if IsWindows()
     noremap <C-Z> <NOP>
 endif
-nnoremap <silent> <leader>v :execute 'edit $VIMRC \| setlocal fileformat=unix'<CR>
-nnoremap <silent> <leader>V :execute 'vnew $VIMRC \| setlocal fileformat=unix'<CR>
+nnoremap <silent> <leader>v :execute 'edit $GITVIMDIR/_vimrc \| setlocal fileformat=unix'<CR>
+nnoremap <silent> <leader>V :execute 'vnew $GITVIMDIR/_vimrc \| setlocal fileformat=unix'<CR>
 nnoremap <silent> <leader>S :source $MYVIMRC<CR>
 nnoremap <silent> <ESC> :nohlsearch<CR><ESC>
 
@@ -200,9 +200,6 @@ command! -nargs=0 Reindent call Preserve('normal gg=G')
 command! -nargs=1 ClearRegister call ClearRegister(<q-args>)
 command! -nargs=+ CopyRegisterFromInto call CopyRegisterFromInto(<f-args>)
 command! -nargs=* Google call StartBrowser('https://google.com/search?q='.<q-args>)
-if has('gui')
-    command! -complete=file -nargs=* LoadBuffer silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
-endif
 
 command! -nargs=* -range Jisho call Jisho(<f-args>)
 function! Jisho(...) range
