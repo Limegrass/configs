@@ -87,13 +87,6 @@ let g:previm_disable_vimproc = 1
 " vim-bufkill
 let g:BufKillCreateMappings = 0
 
-" Ultisnips
-let g:UltiSnipsExpandTrigger  = "<NUL>"
-let g:UltiSnipsJumpForwardTrigger  = "<C-J>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-K>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
-xnoremap <TAB> :call UltiSnips#SaveLastVisualSelection()<CR>gvs
-
 " incsearch/fuzzy
 let g:incsearch#auto_nohlsearch = 1
 
