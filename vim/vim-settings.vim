@@ -2,20 +2,16 @@
 "       BASIC_SETTINGS
 "       AUTOCOMMANDS
 "       VARIABLE_DEFINITIONS
-let mapleader="\<SPACE>"
-nnoremap <SPACE> <NOP>
 
 " ==============================================================================
 " BASIC_SETTINGS
 " ==============================================================================
-if !has('nvim')
-    set diffexpr=GvimDiff()
-else
-    set lazyredraw
+if has('nvim')
     set inccommand=split
 endif
 
 filetype plugin on
+set lazyredraw
 set ruler
 set incsearch
 set ignorecase
@@ -59,23 +55,23 @@ set iminsert=0
 set imsearch=-1
 
 " Put undo/swap/temp files user's vim subfolder
-let $UNDODIR=$VIMDIR.'/undo'
-if !isdirectory($UNDODIR)
-    silent call mkdir($UNDODIR)
+let s:undo_dir=$VIMDIR.'/undo'
+if !isdirectory(s:undo_dir)
+    silent call mkdir(s:undo_dir)
 endif
-set undodir=$UNDODIR
+let &undodir = s:undo_dir
 
-let $BACKUPDIR=$VIMDIR.'/backup'
-if !isdirectory($BACKUPDIR)
-    silent call mkdir($BACKUPDIR)
+let s:backup_dir=$VIMDIR.'/backup'
+if !isdirectory(expand(s:backup_dir))
+    silent call mkdir(expand(s:backup_dir))
 endif
-set backupdir=$BACKUPDIR
+let &backupdir = s:backup_dir
 
-let $SWAPDIR=$VIMDIR.'/swap'
-if !isdirectory($SWAPDIR)
-    silent call mkdir($SWAPDIR)
+let s:swap_dir=$VIMDIR.'/swap'
+if !isdirectory(s:swap_dir)
+    silent call mkdir(s:swap_dir)
 endif
-set directory=$SWAPDIR
+let &directory = s:swap_dir
 
 set termguicolors
 set background=dark

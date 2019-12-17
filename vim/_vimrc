@@ -6,11 +6,11 @@ set encoding=utf-8
 scriptencoding utf-8
 
 let $HOME = substitute($HOME, '\', '/', 'g')
-let $GITDIR = $HOME.'/git'
 let $VIMDIR = $HOME.'/.vim'
-set runtimepath^=$VIMDIR,$VIMDIR/after
+let $GITVIMDIR = expand('<sfile>:p:h')
+let $MYVIMRC = expand('<sfile>:p')
 
-let $GITVIMDIR = $GITDIR.'/configs/vim'
+set runtimepath^=$VIMDIR,$GITVIMDIR,$GITVIMDIR/after
 
 let $GARBAGEDIR = $HOME.'/garbage'
 if !isdirectory($GARBAGEDIR)
@@ -22,5 +22,5 @@ endif
 " ==============================================================================
 source $GITVIMDIR/function-definitions.vim
 source $GITVIMDIR/vim-settings.vim
-source $GITVIMDIR/plugin-settings.vim
 source $GITVIMDIR/keymaps.vim
+source $GITVIMDIR/plugin-settings.vim

@@ -1,13 +1,13 @@
 "   Sections:
-"       PLUGINS
 "       ALL_MODES
 "       NORMAL_MODE
 "       VISUAL_MODE
 "       INSERT_MODE
 "       COMMANDS
 "       ABBREVIATIONS
-" ================================ PLUGINS ===================================
 " ================================ ALL_MODES ===================================
+let mapleader="\<SPACE>"
+nnoremap <SPACE> <NOP>
 " Remap J, K some to navigate visible lines
 nnoremap j gj
 nnoremap gj j
@@ -24,8 +24,8 @@ inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<C-O>gj"
 if IsWindows()
     noremap <C-Z> <NOP>
 endif
-nnoremap <silent> <leader>v :execute 'edit $GITVIMDIR/_vimrc \| setlocal fileformat=unix'<CR>
-nnoremap <silent> <leader>V :execute 'vnew $GITVIMDIR/_vimrc \| setlocal fileformat=unix'<CR>
+nnoremap <silent> <leader>v :edit $MYVIMRC<CR>
+nnoremap <silent> <leader>V :vnew $MYVIMRC<CR>
 nnoremap <silent> <leader>S :source $MYVIMRC<CR>
 nnoremap <silent> <ESC> :nohlsearch<CR><ESC>
 
