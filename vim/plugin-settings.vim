@@ -141,4 +141,4 @@ function! s:incsearch_keymap()
     IncSearchNoreMap <M-/> <CR>gv<C-]>
 endfunction
 
-source $GITVIMDIR/cocrc.vim
+source $VIMCONFIG/cocrc.vim

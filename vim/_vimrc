@@ -7,10 +7,13 @@ scriptencoding utf-8
 
 let $HOME = substitute($HOME, '\', '/', 'g')
 let $VIMDIR = $HOME.'/.vim'
-let $GITVIMDIR = expand('<sfile>:p:h')
+if !isdirectory($VIMDIR)
+    silent call mkdir($VIMDIR)
+endif
+let $VIMCONFIG = expand('<sfile>:p:h') " Name important coc.nvim's CocConfig
 let $MYVIMRC = expand('<sfile>:p')
 
-set runtimepath^=$VIMDIR,$GITVIMDIR,$GITVIMDIR/after
+set runtimepath^=$VIMDIR,$VIMCONFIG,$VIMCONFIG/after
 
 let $GARBAGEDIR = $HOME.'/garbage'
 if !isdirectory($GARBAGEDIR)
@@ -20,7 +23,7 @@ endif
 " ==============================================================================
 " SUBCONFIGS
 " ==============================================================================
-source $GITVIMDIR/function-definitions.vim
-source $GITVIMDIR/vim-settings.vim
-source $GITVIMDIR/keymaps.vim
-source $GITVIMDIR/plugin-settings.vim
+source $VIMCONFIG/function-definitions.vim
+source $VIMCONFIG/vim-settings.vim
+source $VIMCONFIG/keymaps.vim
+source $VIMCONFIG/plugin-settings.vim
