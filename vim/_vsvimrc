@@ -102,6 +102,18 @@ nnoremap <leader>wi :vsc TeamFoundationContextMenus.Commands.GoToWorkItems<CR>
 nnoremap <leader>mw :vsc TeamFoundationContextMenus.Commands.GoToMyWork<CR>
 nnoremap <leader>ts :vsc TestExplorer.ShowTestExplorer<CR>
 
+" TSQL Editor
+nnoremap <leader>sqe :vsc SQL.TSqlEditorExecuteQuery<CR>
+nnoremap <leader>sat :vsc SQL.TSqlEditorResultsAsText<CR>
+nnoremap <leader>sag :vsc SQL.TSqlEditorResultsAsGrid<CR>
+nnoremap <leader>saf :vsc SQL.TSqlEditorResultsAsFile<CR>
+nnoremap <leader>sqq :vsc SQL.TSqlEditorCancelQuery<CR>
+nnoremap <leader>sqc :vsc SQL.TSqlEditorConnect<CR>
+nnoremap <leader>sqs :vsc SQL.TSqlEditorChangeConnection<CR>
+nnoremap <leader>sql :vsc Tools.TSqlEditorNewQueryConnection<CR>
+nnoremap <leader>sqin :vsc SQL.TSqlEditorToggleIntellisense<CR>
+nnoremap <leader>db :vsc View.ServerExplorer<CR>
+
 " Pair of commands to split up a long commas list
 " CoMmas
 nnoremap cm :s/,\s*/,\r/g<CR>
@@ -176,6 +188,5 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 vnoremap <leader>y "+y
 
-
 " ================================INSERT MODE=================================
-inoremap <C-SPACE> :vsc Edit.ListMembers<CR>
+inoremap <C-SPACE> <C-O>:vsc Edit.ListMembers<CR>
