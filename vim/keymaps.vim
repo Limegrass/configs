@@ -32,7 +32,7 @@ nnoremap <silent> <ESC> :nohlsearch<CR><ESC>
 nnoremap Q @q " Ex mode by gQ still
 
 nnoremap Y y$
-nnoremap <leader>= "+
+nnoremap <leader>" "+
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y

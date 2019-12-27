@@ -1,7 +1,7 @@
 command! CocInstallExtensions CocInstall
             \ coc-dictionary coc-tag coc-omni coc-syntax coc-ultisnips
             \ coc-json coc-vimtex coc-pyls coc-java coc-highlight coc-html coc-yank
-            \ coc-vimlsp coc-lists coc-git
+            \ coc-vimlsp coc-lists coc-git coc-rls
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -19,8 +19,8 @@ nnoremap <silent> ]c :call <SID>CocActionAsyncOrDefault('diagnosticNext', ']c')<
 " Remap keys for gotos
 nnoremap <silent> gd :call <SID>CocActionAsyncOrDefault('jumpDefinition', 'gd')<CR>
 nnoremap <silent> gD :call <SID>CocActionAsyncOrDefault('jumpImplementation', 'gD')<CR>
-nnoremap <silent> <leader>gd :call CocActionAsync('jumpTypeDefinition')<CR>
-nnoremap <silent> <leader>fr :call CocActionAsync('jumpReferences')<CR>
+nmap <silent> <leader>gd <Plug>(coc-type-definition)
+nmap <silent> <leader>fr <Plug>(coc-references)
 
 function! s:CocActionAsyncOrDefault(coc_action, default_action)
     let Callback = { _, response ->
@@ -41,8 +41,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-" vmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>=  <Plug>(coc-format-selected)
+nmap <leader>=  <Plug>(coc-format-selected)
 
 augroup coc
   autocmd!
@@ -52,20 +52,27 @@ augroup coc
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" Remap for do codeAction of selected region,
 vmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ac <Plug>(coc-codeaction)
+nmap <leader>cl <Plug>(coc-codelens-action)
+
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>qf <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call   CocAction('fold', <f-args>)
+
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 
 " Using CocList
 " Show all diagnostics
