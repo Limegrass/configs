@@ -38,11 +38,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-vmap <leader>=  <Plug>(coc-format-selected)
-nmap <leader>=  <Plug>(coc-format-selected)
+vmap <silent> <leader>=  <Plug>(coc-format-selected)
+nmap <silent> <leader>=  <Plug>(coc-format-selected)
 
 augroup coc
   autocmd!
@@ -53,15 +53,15 @@ augroup coc
 augroup end
 
 " Remap for do codeAction of selected region,
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+vmap <silent> <leader>a  <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>ac <Plug>(coc-codeaction)
-nmap <leader>cl <Plug>(coc-codelens-action)
+nmap <silent> <leader>ac <Plug>(coc-codeaction)
+nmap <silent> <leader>cl <Plug>(coc-codelens-action)
 
 " Fix autofix problem of current line
-nmap <leader>qf <Plug>(coc-fix-current)
+nmap <silent> <leader>qf <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
