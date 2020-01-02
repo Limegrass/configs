@@ -164,7 +164,7 @@ xnoremap : "vygv:
 
 " =============================== INSERT_MODE ==================================
 " Reduces my reliance on having a split spacebar keyboard
-inoremap kj <ESC>
+inoremap jj <ESC>
 " CTRL+BS/DEL like other editors
 inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
