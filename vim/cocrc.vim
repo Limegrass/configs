@@ -1,6 +1,6 @@
 command! CocInstallExtensions CocInstall
             \ coc-dictionary coc-tag coc-omni coc-syntax coc-ultisnips
-            \ coc-json coc-vimtex coc-pyls coc-java coc-highlight coc-html coc-yank
+            \ coc-json coc-vimtex coc-python coc-java coc-highlight coc-html coc-yank
             \ coc-vimlsp coc-lists coc-git coc-rls
 
 " Smaller updatetime for CursorHold & CursorHoldI

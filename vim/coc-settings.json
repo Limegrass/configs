@@ -1,8 +1,5 @@
 {
     "suggest.enablePreselect": false,
-    "git.enableGutters": true,
-    "git.addGBlameToVirtualText": true,
-    "git.virtualTextPrefix": "    |->",
     "suggest.snippetIndicator": "+",
     "suggest.enablePreview": true,
     "codeLens.enable": true,
@@ -27,5 +24,9 @@
             "rootPatterns": ["go.mod"],
             "filetypes": ["go"]
         }
-    }
+    },
+    "python.jediEnabled": false,
+    "git.enableGutters": true,
+    "git.addGBlameToVirtualText": true,
+    "git.virtualTextPrefix": "    |->"
 }
