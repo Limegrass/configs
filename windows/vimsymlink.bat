@@ -1,3 +1,4 @@
+REM Outdated with the move to a dedicatred dotfiles repo. ScriptDirectory needs to be changed before running.
 SET ScriptDirectory=%~dp0
 IF "%VIMINIT%" == "" ^
 setx VIMINIT "source %ScriptDirectory%_vimrc"
