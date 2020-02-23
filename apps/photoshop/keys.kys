@@ -1,5 +1,5 @@
 ﻿<?xml version ="1.0" encoding="UTF-8"?>
-<photoshop-keyboard-shortcuts version="4" filename="$$$/FileName/Presets/KeyboardCustomization/PhotoshopHotkeys=Photoshop Hotkeys" modified="1">
+<photoshop-keyboard-shortcuts version="4" filename="$$$/FileName/Presets/KeyboardCustomization/keys=keys" modified="0">
 	<command kind="dynamic" name="Vanishing Point">
 		<shortcut>Alt+Ctrl+V</shortcut>
 	</command>
@@ -114,7 +114,7 @@
 	<command kind="static" id="1107" name="Copy Merged">
 		<shortcut>Shift+Ctrl+C</shortcut>
 	</command>
-	<command kind="static" id="1115" name="Refine Edge...">
+	<command kind="static" id="1115" name="Refine Mask...">
 		<shortcut>Alt+Ctrl+R</shortcut>
 	</command>
 	<command kind="static" id="1137" name="File Info...">
@@ -125,6 +125,9 @@
 	</command>
 	<command kind="static" id="1166" name="Merge Layers">
 		<shortcut>Shift+Ctrl+L</shortcut>
+	</command>
+	<command kind="static" id="1168" name="Hide Selection">
+		<shortcut>Alt+F1</shortcut>
 	</command>
 	<command kind="static" id="1170" name="Actions">
 		<shortcut>F12</shortcut>
@@ -182,10 +185,10 @@
 		<shortcut>Shift+Ctrl+D</shortcut>
 	</command>
 	<command kind="static" id="1961" name="Step Backward">
-		<shortcut>Shift+Ctrl+Z</shortcut>
+		<shortcut>Ctrl+Z</shortcut>
 	</command>
 	<command kind="static" id="1962" name="Step Forward">
-		<shortcut>Ctrl+Z</shortcut>
+		<shortcut>Shift+Ctrl+Z</shortcut>
 	</command>
 	<command kind="static" id="2101" name="Print...">
 		<shortcut>Ctrl+P</shortcut>
@@ -195,6 +198,9 @@
 	</command>
 	<command kind="static" id="2217" name="Again">
 		<shortcut>Shift+Ctrl+T</shortcut>
+	</command>
+	<command kind="static" id="2218" name="Warp Text...">
+		<shortcut>Alt+F2</shortcut>
 	</command>
 	<command kind="static" id="2220" name="Content-Aware Scale">
 		<shortcut>Alt+Shift+Ctrl+C</shortcut>
@@ -226,10 +232,10 @@
 	<command kind="static" id="2962" name="All Layers">
 		<shortcut>Alt+Ctrl+A</shortcut>
 	</command>
-	<command kind="static" id="2970" name="Layer via Copy">
+	<command kind="static" id="2970" name="Layer Via Copy">
 		<shortcut>Ctrl+J</shortcut>
 	</command>
-	<command kind="static" id="2971" name="Layer via Cut">
+	<command kind="static" id="2971" name="Layer Via Cut">
 		<shortcut>Shift+Ctrl+J</shortcut>
 	</command>
 	<command kind="static" id="2972" name="Create Clipping Mask">
